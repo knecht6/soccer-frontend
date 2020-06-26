@@ -67,7 +67,7 @@ const CustomCard = ({ classes, image, title }) => {
   return (
     <CardActionArea className={classes.actionArea}>
       <Card className={classes.card}>
-        <img src={image} alt={title} width="100rem" height="100rem"/>
+        <img src={image} alt={title} style={{maxHeight: 100, width: "auto"}}/>
         <CardContent className={classes.content}>
           <Typography className={classes.title} variant={"h2"}>
             {title}
@@ -87,7 +87,7 @@ export const CardLeagues = React.memo(function SolidGameCard() {
   const SerieAStyles = useStyles({ color: "#008C45" });
   return (
     <>
-      <Grid classes={gridStyles} container spacing={4} wrap={"nowrap"}>
+      <Grid classes={gridStyles} container spacing={4} wrap={"nowrap"} align="center">
         <Grid item>
           <CustomCard classes={PremierStyles} title={"Premier League"} image={Premiere} />
         </Grid>

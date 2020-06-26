@@ -1,55 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core";
-import SelectYear from "./SelectYear";
+import Select from "./Select";
+import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Slide from "@material-ui/core/Slide";
 import CardLeagues from "./CardLeagues";
-import SelectTeam from "./SelectTeam";
 import TeamImage from "./TeamImage";
-import Liverpool from "../assets/images/teams/icons/Liverpool.png";
-import Atletico from "../assets/images/teams/icons/atletico_madrid.png";
-import Bayern from "../assets/images/teams/icons/Bayern_Munchen.png";
-import Paris from "../assets/images/teams/icons/psg.png";
-import Juventus from "../assets/images/teams/icons/juventus.png";
 import Versus from "../assets/images/vs.png";
-import LiverpoolLogo from "../assets/images/teams/Liverpool.svg";
-import AtleticoLogo from "../assets/images/teams/atletico_madrid.png";
-import BayernLogo from "../assets/images/teams/Bayern_Munchen.svg";
-import ParisLogo from "../assets/images/teams/psg.png";
-import JuventusLogo from "../assets/images/teams/juventus.png";
-const ArrayExample = [
-  {
-    id: "liverpool",
-    label: "Liverpool",
-    src: Liverpool,
-    srcLogo: LiverpoolLogo,
-  },
-  {
-    id: "atletico_de_madrid",
-    label: "Atletico de Madrid",
-    src: Atletico,
-    srcLogo: AtleticoLogo,
-  },
-  {
-    id: "bayern_munich",
-    label: "Bayern Munich",
-    src: Bayern,
-    srcLogo: BayernLogo,
-  },
-  {
-    id: "paris_saint_germain",
-    label: "París Saint-Germain",
-    src: Paris,
-    srcLogo: ParisLogo,
-  },
-  { id: "juventus", label: "Juventus", src: Juventus, srcLogo: JuventusLogo },
-];
 
 const useStyles = makeStyles({
   main: {
     textAlign: "center",
-    marginBottom: 90,
+    height: "327px",
   },
   button: {
     background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
@@ -66,88 +35,242 @@ const useStyles = makeStyles({
   },
 });
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 export default function Main() {
   const classes = useStyles();
+  const [leagues, setLeagues] = useState(null);
+  const [seasons, setSeasons] = useState(null);
+  const [localTeams, setLocalTeams] = useState(null);
+  const [visitTeams, setVisitTeams] = useState(null);
+  const [leagueIdLocal, setLeagueIdLocal] = useState(null);
+  const [seasonsIdLocal, setSeasonsIdLocal] = useState(null);
+  const [leagueIdVisit, setLeagueIdVisit] = useState(null);
+  const [seasonsIdVisit, setSeasonsIdVisit] = useState(null);
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState();
   const [state, setState] = useState({
     localTeam: {
       id: null,
       name: null,
-      year: null,
       src: null,
     },
     visitTeam: {
       id: null,
       name: null,
-      year: null,
       src: null,
     },
   });
-  const handleNameLocal = (name, id, src) => {
-    state.localTeam.name = name;
-    state.localTeam.id = id;
-    state.localTeam.src = src;
+  const [open, setOpen] = useState(false);
+  const [modalError, setModalError] = useState("");
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleTeamLocal = (team) => {
+    state.localTeam = team;
     setState({ ...state });
   };
-  const handleNameVisit = (name, id, src) => {
-    state.visitTeam.name = name;
-    state.visitTeam.id = id;
-    state.visitTeam.src = src;
+  const handleTeamVisit = (team) => {
+    state.visitTeam = team;
     setState({ ...state });
   };
-  const handleYearLocal = (year) => {
-    state.localTeam.year = year;
-    setState({ ...state });
+  const handleLeagueIdLocal = (id) => {
+    setLeagueIdLocal(id);
   };
-  const handleYearVisit = (year) => {
-    state.visitTeam.year = year;
-    setState({ ...state });
+  const handleSeasonIdLocal = (id) => {
+    if (id) {
+      setSeasonsIdLocal(id);
+    } else {
+      state.localTeam.id = null;
+      state.localTeam.name = null;
+      state.localTeam.src = null;
+      setState({ ...state });
+      setLocalTeams(null);
+      setSeasonsIdLocal(id);
+    }
   };
-  return (
-    <Grid container className={classes.main}>
-      <CardLeagues />
-      <Grid item xs={5} align="center">
-        <SelectTeam
-          name="Local"
-          label="Select the local team"
-          handleName={handleNameLocal}
-          array={ArrayExample}
-        />
-        <SelectYear
-          name="localYear"
-          label="Select the local year"
-          nameTeam={state.localTeam.name}
-          handleYear={handleYearLocal}
-        />
-        <TeamImage src={state.localTeam.src} name={state.localTeam.name} />
-      </Grid>
-      <Grid item xs={2} className={classes.versus}>
-        <img src={Versus} alt="versus" width="65rem" height="50rem" />
-      </Grid>
-      <Grid item xs={5} align="center">
-        <SelectTeam
-          name="Visit"
-          label="Select the visiting team"
-          handleName={handleNameVisit}
-          array={ArrayExample}
-        />
-        <SelectYear
-          name="visitYear"
-          label="Select the visit year"
-          nameTeam={state.visitTeam.name}
-          handleYear={handleYearVisit}
-          color="secondary"
-        />
-        <TeamImage src={state.visitTeam.src} name={state.visitTeam.name} />
-      </Grid>
-      <Grid item xs={12} align="center">
-        <Button
-          className={classes.button}
-          variant="contained"
-          startIcon={<PlayArrowIcon />}
+  const handleLeagueIdVisit = (id) => {
+    if (id) {
+      setLeagueIdVisit(id);
+    } else {
+      state.visitTeam.id = null;
+      state.visitTeam.name = null;
+      state.visitTeam.src = null;
+      setState({ ...state });
+      setVisitTeams(null);
+      setLeagueIdVisit(id);
+    }
+  };
+  const handleSeasonIdVisit = (id) => {
+    setSeasonsIdVisit(id);
+  };
+  const validate = (e) => {
+    if (!state.localTeam.id || !state.visitTeam.id) {
+      e.preventDefault();
+      if (
+        !state.localTeam.id &&
+        !state.visitTeam.id &&
+        !seasonsIdLocal &&
+        !seasonsIdVisit
+      ) {
+        setModalError("Please select a match");
+      } else {
+        if (!state.localTeam.id) {
+          setModalError("Please select a local team");
+        } else {
+          setModalError("Please select a visiting team");
+        }
+      }
+      handleClickOpen();
+    }
+  };
+  useEffect(() => {
+    fetch("http://localhost:3001/api/list/leagues_seasons")
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setLeagues(result.leagues);
+          setSeasons(result.seasons);
+          setIsLoaded(true);
+        },
+        (error) => {
+          console.log(error);
+          setIsLoaded(true);
+          setError(error);
+        }
+      );
+  }, []);
+  useEffect(() => {
+    if (leagueIdLocal && seasonsIdLocal) {
+      fetch(
+        `http://localhost:3001/api/list/statistic/${encodeURIComponent(
+          seasonsIdLocal
+        )}/${encodeURIComponent(leagueIdLocal)}`
+      )
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            setLocalTeams(result);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    }
+  }, [leagueIdLocal, seasonsIdLocal]);
+  useEffect(() => {
+    if (leagueIdVisit && seasonsIdVisit) {
+      fetch(
+        `http://localhost:3001/api/list/statistic/${encodeURIComponent(
+          seasonsIdVisit
+        )}/${encodeURIComponent(leagueIdVisit)}`
+      )
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            setVisitTeams(result);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    }
+  }, [leagueIdVisit, seasonsIdVisit]);
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  } else if (!isLoaded) {
+    return null;
+  } else {
+    return (
+      <>
+        <CardLeagues />
+        <Grid container className={classes.main}>
+          <Grid item xs={5} align="center">
+            <Select
+              leagues={leagues}
+              seasons={seasons}
+              teams={localTeams}
+              name="Local"
+              handleLeagueId={handleLeagueIdLocal}
+              handleSeasonId={handleSeasonIdLocal}
+              handleTeam={handleTeamLocal}
+              color="primary"
+            />
+            <TeamImage
+              src={state.localTeam.src}
+              name={state.localTeam.name}
+              color="primary"
+            />
+          </Grid>
+          <Grid item xs={2} className={classes.versus}>
+            <img src={Versus} alt="versus" width="70rem" height="50rem" />
+            <Link
+              to={`/${encodeURIComponent(
+                state.localTeam.name
+              )}-${encodeURIComponent(seasonsIdLocal)}-vs-${encodeURIComponent(
+                state.visitTeam.name
+              )}-${encodeURIComponent(seasonsIdVisit)}`}
+              style={{ textDecoration: "none" }}
+              onClick={validate}
+            >
+              <Button
+                className={classes.button}
+                variant="contained"
+                startIcon={<PlayArrowIcon />}
+              >
+                Let's Play
+              </Button>
+            </Link>
+          </Grid>
+          <Grid item xs={5} align="center">
+            <Select
+              leagues={leagues}
+              seasons={seasons}
+              teams={visitTeams}
+              name="Visiting"
+              handleLeagueId={handleLeagueIdVisit}
+              handleSeasonId={handleSeasonIdVisit}
+              handleTeam={handleTeamVisit}
+              color="secondary"
+            />
+            <TeamImage
+              src={state.visitTeam.src}
+              name={state.visitTeam.name}
+              color="secondary"
+            />
+          </Grid>
+        </Grid>
+        <Dialog
+          open={open}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
         >
-          Let's Play
-        </Button>
-      </Grid>
-    </Grid>
-  );
+          <DialogTitle id="alert-dialog-slide-title">
+            {"Soccer databot.io"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              {modalError}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </>
+    );
+  }
 }

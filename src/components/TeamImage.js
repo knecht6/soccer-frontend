@@ -1,11 +1,18 @@
-import React from 'react';
+import React from "react";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-export default function TeamImage({name, src}){
-    if(src){
-        return (
-            <img src={src} alt={name} width="200rem" height="200rem" style={{ marginTop : 15 }}/>
-        );
-    }else{
-        return null;
-    }
+export default function TeamImage({ name, src, color }) {
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt={name}
+        style={{ marginTop: 15, maxHeight: 200, width: "auto" }}
+      />
+    );
+  } else {
+    return (
+      <CircularProgress color={color} size={80} style={{ marginTop: 50 }} />
+    );
+  }
 }
