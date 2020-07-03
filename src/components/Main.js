@@ -19,6 +19,8 @@ const useStyles = makeStyles({
   main: {
     textAlign: "center",
     height: "327px",
+    width: "90%",
+    margin: "auto"
   },
   button: {
     background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
@@ -190,7 +192,7 @@ export default function Main() {
     return null;
   } else {
     return (
-      <>
+      <div style={{ marginTop: 70 }}>
         <CardLeagues />
         <Grid container className={classes.main}>
           <Grid item xs={5} align="center">
@@ -270,7 +272,7 @@ export default function Main() {
             </Button>
           </DialogActions>
         </Dialog>
-      </>
+      </div>
     );
   }
 }

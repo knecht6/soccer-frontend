@@ -1,5 +1,5 @@
 body {
-    background-image: url('./assets/images/main-images/500_F_90971772_IjJp9VHSkat5Dzkyj9fTugVAtexHSxYa.jpg');
+    background-image: url('./assets/images/main-images/stadium.jpeg');
     background-size: 100% 80%;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -18,12 +18,15 @@ league, team and season container
 */
 .wrapper {
     position: relative;
+    margin-top:100px;
 }
-.wraper .leagues-container {
+.wrapper .leagues-container {
+    left:0;
+    right:0;
     position: absolute;
-    overflow: scroll;
-    max-height: 0;
+    overflow-y: scroll;
+    transition: .5s;
 }
-.wraper:hover .leagues-container {
+.wrapper:hover .leagues-container {
     max-height: 300px;
 }

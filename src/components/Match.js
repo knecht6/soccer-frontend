@@ -7,10 +7,43 @@ import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import NotFound from "./NotFound";
 import DoughnutChart from "./DoughnutChart";
+import Left from "../assets/images/img-left.png";
+import Right from "../assets/images/img-right.png";
+
+const fullHeight = window.screen.height - 70;
 
 const useStyles = makeStyles({
   root: {
     textAlign: "center",
+    marginTop: 70,
+  },
+  principal: {
+    height: fullHeight - 145,
+  },
+  container: {
+    padding: 0,
+    margin: 0,
+    maxWidth: "100%",
+  },
+  ourData: {
+    backgroundColor: "#c0392b",
+    color: "#bdc3c7",
+    height: fullHeight,
+    paddingTop: 50,
+    paddingRight: 10,
+  },
+  donations: {
+    backgroundColor: "#bdc3c7",
+    color: "#c0392b",
+    height: fullHeight,
+    paddingTop: 50,
+    paddingLeft: 10,
+  },
+  disqus: {
+    backgroundColor: "#e67e22",
+    height: fullHeight,
+    paddingTop: 50,
+    paddingRight: 10,
   },
 });
 //clash of
@@ -58,7 +91,9 @@ export default function Match() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [matchFor, setMatchFor] = useState(null);
   useEffect(() => {
-    fetch(process.env.REACT_APP_API + `/api/getData/${nameLocal}/${seasonLocal}/${nameVisit}/${seasonVisit}`)
+    fetch(
+      `http://localhost:3001/api/getData/${nameLocal}/${seasonLocal}/${nameVisit}/${seasonVisit}`
+    )
       .then((res) => res.json())
       .then(
         (result) => {
@@ -85,60 +120,178 @@ export default function Match() {
     } else {
       return (
         <div className={classes.root}>
-          <Typography variant="h3" style={{ color: 'white' }} gutterBottom>
+          <Typography variant="h3" style={{ color: "white" }} gutterBottom>
             {matchFor.winner ? `${matchFor.winner.team_name} Winner` : "Tie"}
           </Typography>
-          <div style={{ textAlign: "center", width: 500, height: 350, margin: "auto" }} >
-            <DoughnutChart winner={matchFor.winner} losser={matchFor.losser} />
-
-          </div>
-          backgroundColor: 'rgba(2,24,84,1)'
-          <div id='info' style={{  }}>
-            <Container>
-              <Grid container>
-                <Grid item md={6}></Grid>
-                <Grid item md={6}>
-                <h1>Heading</h1>
-                  <p>
-                    What is Lorem Ipsum?
-
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    Why do we use it?
-
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-
-                    Where does it come from?
-
-                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-                    The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-
-          </p>
-                </Grid>
-                
-                <Grid item md={6} spacer={3}>
-                  <h1>Heading</h1>
-                  <p>
-                    What is Lorem Ipsum?
-
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    Why do we use it?
-
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-
-                    Where does it come from?
-
-                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-                    The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-
-          </p>
-                </Grid>
-                <Grid item md={6}></Grid>
-                
+          <Grid container className={classes.principal}>
+            <Grid item md={4} style={{ margin: "auto" }}>
+              <img
+                src={Left}
+                alt="player-left"
+                style={{ filter: "#FF6384" }}
+                width="100%"
+                height="auto"
+              />
+            </Grid>
+            <Grid item md={4} style={{ margin: "auto" }}>
+              <DoughnutChart
+                winner={matchFor.winner}
+                losser={matchFor.losser}
+              />
+            </Grid>
+            <Grid item md={4} style={{ margin: "auto" }}>
+              <img
+                src={Right}
+                alt="player-right"
+                style={{ filter: "#36A2EB" }}
+                width="100%"
+                height="auto"
+              />
+            </Grid>
+          </Grid>
+          <Container className={classes.container}>
+            <Grid container className={classes.ourData}>
+              <Grid item md={6} />
+              <Grid item md={6}>
+                <h1>Our Data</h1>
+                <p>
+                  What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
+                  printing and typesetting industry. Lorem Ipsum has been the
+                  industry's standard dummy text ever since the 1500s, when an
+                  unknown printer took a galley of type and scrambled it to make
+                  a type specimen book. It has survived not only five centuries,
+                  but also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum. Why do
+                  we use it? It is a long established fact that a reader will be
+                  distracted by the readable content of a page when looking at
+                  its layout. The point of using Lorem Ipsum is that it has a
+                  more-or-less normal distribution of letters, as opposed to
+                  using 'Content here, content here', making it look like
+                  readable English. Many desktop publishing packages and web
+                  page editors now use Lorem Ipsum as their default model text,
+                  and a search for 'lorem ipsum' will uncover many web sites
+                  still in their infancy. Various versions have evolved over the
+                  years, sometimes by accident, sometimes on purpose (injected
+                  humour and the like). Where does it come from? Contrary to
+                  popular belief, Lorem Ipsum is not simply random text. It has
+                  roots in a piece of classical Latin literature from 45 BC,
+                  making it over 2000 years old. Richard McClintock, a Latin
+                  professor at Hampden-Sydney College in Virginia, looked up one
+                  of the more obscure Latin words, consectetur, from a Lorem
+                  Ipsum passage, and going through the cites of the word in
+                  classical literature, discovered the undoubtable source. Lorem
+                  Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus
+                  Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,
+                  written in 45 BC. This book is a treatise on the theory of
+                  ethics, very popular during the Renaissance. The first line of
+                  Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line
+                  in section 1.10.32. The standard chunk of Lorem Ipsum used
+                  since the 1500s is reproduced below for those interested.
+                  Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et
+                  Malorum" by Cicero are also reproduced in their exact original
+                  form, accompanied by English versions from the 1914
+                  translation by H. Rackham.
+                </p>
               </Grid>
-            </Container>
-          </div>
+            </Grid>
+            <Grid container className={classes.donations}>
+              <Grid item md={6}>
+                <h1>Donations</h1>
+                <p>
+                  What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
+                  printing and typesetting industry. Lorem Ipsum has been the
+                  industry's standard dummy text ever since the 1500s, when an
+                  unknown printer took a galley of type and scrambled it to make
+                  a type specimen book. It has survived not only five centuries,
+                  but also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum. Why do
+                  we use it? It is a long established fact that a reader will be
+                  distracted by the readable content of a page when looking at
+                  its layout. The point of using Lorem Ipsum is that it has a
+                  more-or-less normal distribution of letters, as opposed to
+                  using 'Content here, content here', making it look like
+                  readable English. Many desktop publishing packages and web
+                  page editors now use Lorem Ipsum as their default model text,
+                  and a search for 'lorem ipsum' will uncover many web sites
+                  still in their infancy. Various versions have evolved over the
+                  years, sometimes by accident, sometimes on purpose (injected
+                  humour and the like). Where does it come from? Contrary to
+                  popular belief, Lorem Ipsum is not simply random text. It has
+                  roots in a piece of classical Latin literature from 45 BC,
+                  making it over 2000 years old. Richard McClintock, a Latin
+                  professor at Hampden-Sydney College in Virginia, looked up one
+                  of the more obscure Latin words, consectetur, from a Lorem
+                  Ipsum passage, and going through the cites of the word in
+                  classical literature, discovered the undoubtable source. Lorem
+                  Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus
+                  Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,
+                  written in 45 BC. This book is a treatise on the theory of
+                  ethics, very popular during the Renaissance. The first line of
+                  Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line
+                  in section 1.10.32. The standard chunk of Lorem Ipsum used
+                  since the 1500s is reproduced below for those interested.
+                  Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et
+                  Malorum" by Cicero are also reproduced in their exact original
+                  form, accompanied by English versions from the 1914
+                  translation by H. Rackham.
+                </p>
+              </Grid>
+              <Grid item md={6} />
+            </Grid>
+            <Grid container className={classes.disqus}>
+              <Grid item md={6} />
+              <Grid item md={6}>
+                <h1>Discussion</h1>
+                <p>
+                  What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
+                  printing and typesetting industry. Lorem Ipsum has been the
+                  industry's standard dummy text ever since the 1500s, when an
+                  unknown printer took a galley of type and scrambled it to make
+                  a type specimen book. It has survived not only five centuries,
+                  but also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum. Why do
+                  we use it? It is a long established fact that a reader will be
+                  distracted by the readable content of a page when looking at
+                  its layout. The point of using Lorem Ipsum is that it has a
+                  more-or-less normal distribution of letters, as opposed to
+                  using 'Content here, content here', making it look like
+                  readable English. Many desktop publishing packages and web
+                  page editors now use Lorem Ipsum as their default model text,
+                  and a search for 'lorem ipsum' will uncover many web sites
+                  still in their infancy. Various versions have evolved over the
+                  years, sometimes by accident, sometimes on purpose (injected
+                  humour and the like). Where does it come from? Contrary to
+                  popular belief, Lorem Ipsum is not simply random text. It has
+                  roots in a piece of classical Latin literature from 45 BC,
+                  making it over 2000 years old. Richard McClintock, a Latin
+                  professor at Hampden-Sydney College in Virginia, looked up one
+                  of the more obscure Latin words, consectetur, from a Lorem
+                  Ipsum passage, and going through the cites of the word in
+                  classical literature, discovered the undoubtable source. Lorem
+                  Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus
+                  Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,
+                  written in 45 BC. This book is a treatise on the theory of
+                  ethics, very popular during the Renaissance. The first line of
+                  Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line
+                  in section 1.10.32. The standard chunk of Lorem Ipsum used
+                  since the 1500s is reproduced below for those interested.
+                  Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et
+                  Malorum" by Cicero are also reproduced in their exact original
+                  form, accompanied by English versions from the 1914
+                  translation by H. Rackham.
+                </p>
+              </Grid>
+            </Grid>
+          </Container>
         </div>
       );
     }

@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
-import DatabotLogo from "../assets/images/main-images/databot_logo.png";
+import DatabotLogo from "../assets/images/databot_logo.png";
 
 const useStyles = makeStyles((theme) => ({
   footer: {

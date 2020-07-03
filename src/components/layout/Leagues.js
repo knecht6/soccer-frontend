@@ -15,6 +15,13 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ImageIcon from '@material-ui/icons/Image';
+import WorkIcon from '@material-ui/icons/Work';
+import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -55,6 +62,12 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
+  // colored: {
+  //   backgroundColor: "#090890"
+  // }, 
+  // colored2: {
+  //   backgroundColor: "#fa00af"
+  // }
 }));
 
 export default function Leagues() {
@@ -69,7 +82,7 @@ export default function Leagues() {
     'team 5', 'team 6', 'team 7', 'team 8',
   ];
   return (
-    <div className={classes.root+" leagues-container"}>
+    <div className={classes.root + " leagues-container"}>
       <AppBar position="static" color="default">
         <Tabs
           value={value}
@@ -90,32 +103,32 @@ export default function Leagues() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <Grid justify="start" container>
-          {teams.map(item => {
-            return <Grid item lg={4}>
-              <Avatar>{item[0]}</Avatar>
-              <Typography>{item}</Typography>
-            </Grid>
-          })}
+        <Grid container>
+          {teams.map(item => (
+          <Grid item container md={2}>
+            <Grid item className={classes.colored} md={3}><Avatar>{item[0]}</Avatar></Grid>
+            <Grid item align='left' className={classes.colored2} md={9}>{item}</Grid>
+          </Grid>
+          ))}
         </Grid>
       </TabPanel>
       <TabPanel value={value} index={1}>
         League one
       </TabPanel>
       <TabPanel value={value} index={2}>
-      League two
+        League two
       </TabPanel>
       <TabPanel value={value} index={3}>
-      League three
+        League three
       </TabPanel>
       <TabPanel value={value} index={4}>
-      League four
+        League four
       </TabPanel>
       <TabPanel value={value} index={5}>
-      League five
+        League five
       </TabPanel>
       <TabPanel value={value} index={6}>
-      League six
+        League six
       </TabPanel>
     </div>
   );

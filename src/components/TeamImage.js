@@ -7,7 +7,7 @@ export default function TeamImage({ name, src, color }) {
       <img
         src={src}
         alt={name}
-        style={{ marginTop: 15, maxHeight: 200, width: "auto" }}
+        style={{ marginTop: 15, height: "25%", width: "auto" }}
       />
     );
   } else {

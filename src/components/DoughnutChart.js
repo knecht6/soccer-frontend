@@ -3,6 +3,7 @@ import { Doughnut } from "react-chartjs-2";
 
 export default function DoughnutChart(props) {
   const data = {
+    display: false,
     labels: [props.winner.team_name, props.losser.team_name],
     datasets: [
       {
@@ -15,5 +16,5 @@ export default function DoughnutChart(props) {
       },
     ],
   };
-  return <Doughnut data={data} />;
+  return <Doughnut data={data} legend={{ display: false }}/>;
 }

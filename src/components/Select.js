@@ -26,7 +26,7 @@ export default function Select(props) {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label={`select the league of ${props.name}`}
+                label={`Select the league of ${props.name}`}
                 inputProps={{
                   ...params.inputProps,
                 }}
@@ -57,7 +57,7 @@ export default function Select(props) {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label={`select the league of ${props.name}`}
+                  label={`Select the league of ${props.name}`}
                   inputProps={{
                     ...params.inputProps,
                   }}
@@ -80,7 +80,7 @@ export default function Select(props) {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label={`select the season of ${props.name}`}
+                  label={`Select the season of ${props.name}`}
                 />
               )}
             />
@@ -109,7 +109,7 @@ export default function Select(props) {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label={`select the league of ${props.name}`}
+                  label={`Select the league of ${props.name}`}
                   inputProps={{
                     ...params.inputProps,
                   }}
@@ -132,7 +132,7 @@ export default function Select(props) {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label={`select the season of ${props.name}`}
+                  label={`Select the season of ${props.name}`}
                 />
               )}
             />
@@ -171,7 +171,7 @@ export default function Select(props) {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label={`select the ${props.name} team`}
+                  label={`Select the ${props.name} team`}
                 />
               )}
             />

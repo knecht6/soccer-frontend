@@ -17,8 +17,11 @@ const useGridStyles = makeStyles(({ breakpoints }) => ({
     [breakpoints.up("md")]: {
       justifyContent: "center",
     },
-    marginTop : 15,
-    marginBottom : 25
+    marginTop: 15,
+    marginBottom: 25,
+    marginLeft: 0,
+    marginRight: 0, 
+    width: "100%"
   },
 }));
 

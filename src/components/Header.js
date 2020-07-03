@@ -1,5 +1,7 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
+import Brightness7Icon from '@material-ui/icons/Brightness7';
+// import Brightness4Icon from "@material-ui/icons/Brightness4";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import {
@@ -15,11 +17,16 @@ const useStyles = makeStyles((theme) => ({
   header: {
     margin: "auto",
     display: "flex",
-    width : "100%"
+    width: "100%",
+    backgroundColor: "#34495e",
+    overflow: "hidden",
+    position: "fixed",
+    top: 0,
   },
   title: {
     fontSize: 30,
-    color: "#EE2A39",
+    color: "#FFFF",
+    marginLeft: 10,
   },
   socialNetwork: {
     marginTop: "auto",
@@ -42,6 +49,7 @@ export default function Header() {
         </Link>
       </Typography>
       <div className={classes.socialNetwork}>
+        <Brightness7Icon style={{ marginBottom: 5 , marginRight: 20 }}/>
         <FacebookShareButton url="#">
           <FacebookIcon size={32} round />
         </FacebookShareButton>
