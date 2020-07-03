@@ -7,8 +7,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import NotFound from "./NotFound";
 import DoughnutChart from "./DoughnutChart";
-import Left from "../assets/images/img-left.png";
-import Right from "../assets/images/img-right.png";
+import Left from "../assets/images/main-images/img-left.png";
+import Right from "../assets/images/main-images/img-right.png";
 
 const fullHeight = window.screen.height - 70;
 
@@ -20,30 +20,14 @@ const useStyles = makeStyles({
   principal: {
     height: fullHeight - 145,
   },
-  container: {
-    padding: 0,
-    margin: 0,
-    maxWidth: "100%",
-  },
   ourData: {
-    backgroundColor: "#c0392b",
-    color: "#bdc3c7",
-    height: fullHeight,
-    paddingTop: 50,
-    paddingRight: 10,
+
   },
   donations: {
-    backgroundColor: "#bdc3c7",
-    color: "#c0392b",
-    height: fullHeight,
-    paddingTop: 50,
-    paddingLeft: 10,
+
   },
   disqus: {
-    backgroundColor: "#e67e22",
-    height: fullHeight,
-    paddingTop: 50,
-    paddingRight: 10,
+
   },
 });
 //clash of
@@ -149,10 +133,10 @@ export default function Match() {
               />
             </Grid>
           </Grid>
-          <Container className={classes.container}>
-            <Grid container className={classes.ourData}>
-              <Grid item md={6} />
-              <Grid item md={6}>
+          <Container className="our-data">
+            <Grid container >
+              <Grid item md={6}/>
+              <Grid item md={6} spacing={3}>
                 <h1>Our Data</h1>
                 <p>
                   What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
@@ -171,7 +155,9 @@ export default function Match() {
                   more-or-less normal distribution of letters, as opposed to
                   using 'Content here, content here', making it look like
                   readable English. Many desktop publishing packages and web
-                  page editors now use Lorem Ipsum as their default model text,
+                </p>
+                <p>
+                page editors now use Lorem Ipsum as their default model text,
                   and a search for 'lorem ipsum' will uncover many web sites
                   still in their infancy. Various versions have evolved over the
                   years, sometimes by accident, sometimes on purpose (injected
@@ -181,7 +167,9 @@ export default function Match() {
                   making it over 2000 years old. Richard McClintock, a Latin
                   professor at Hampden-Sydney College in Virginia, looked up one
                   of the more obscure Latin words, consectetur, from a Lorem
-                  Ipsum passage, and going through the cites of the word in
+                </p>
+                <p>
+                Ipsum passage, and going through the cites of the word in
                   classical literature, discovered the undoubtable source. Lorem
                   Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus
                   Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,
@@ -197,9 +185,12 @@ export default function Match() {
                 </p>
               </Grid>
             </Grid>
-            <Grid container className={classes.donations}>
+          </Container>
+          <Container className="donation">
+          <Grid container>
               <Grid item md={6}>
                 <h1>Donations</h1>
+                
                 <p>
                   What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
                   printing and typesetting industry. Lorem Ipsum has been the
@@ -217,7 +208,9 @@ export default function Match() {
                   more-or-less normal distribution of letters, as opposed to
                   using 'Content here, content here', making it look like
                   readable English. Many desktop publishing packages and web
-                  page editors now use Lorem Ipsum as their default model text,
+                </p>
+                <p>
+                page editors now use Lorem Ipsum as their default model text,
                   and a search for 'lorem ipsum' will uncover many web sites
                   still in their infancy. Various versions have evolved over the
                   years, sometimes by accident, sometimes on purpose (injected
@@ -227,7 +220,9 @@ export default function Match() {
                   making it over 2000 years old. Richard McClintock, a Latin
                   professor at Hampden-Sydney College in Virginia, looked up one
                   of the more obscure Latin words, consectetur, from a Lorem
-                  Ipsum passage, and going through the cites of the word in
+                </p>
+                <p>
+                Ipsum passage, and going through the cites of the word in
                   classical literature, discovered the undoubtable source. Lorem
                   Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus
                   Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,
@@ -244,7 +239,9 @@ export default function Match() {
               </Grid>
               <Grid item md={6} />
             </Grid>
-            <Grid container className={classes.disqus}>
+          </Container>
+          <Container  className="disqus">
+          <Grid container>
               <Grid item md={6} />
               <Grid item md={6}>
                 <h1>Discussion</h1>
@@ -265,7 +262,9 @@ export default function Match() {
                   more-or-less normal distribution of letters, as opposed to
                   using 'Content here, content here', making it look like
                   readable English. Many desktop publishing packages and web
-                  page editors now use Lorem Ipsum as their default model text,
+                </p>
+                <p>
+                page editors now use Lorem Ipsum as their default model text,
                   and a search for 'lorem ipsum' will uncover many web sites
                   still in their infancy. Various versions have evolved over the
                   years, sometimes by accident, sometimes on purpose (injected
@@ -275,7 +274,9 @@ export default function Match() {
                   making it over 2000 years old. Richard McClintock, a Latin
                   professor at Hampden-Sydney College in Virginia, looked up one
                   of the more obscure Latin words, consectetur, from a Lorem
-                  Ipsum passage, and going through the cites of the word in
+                </p>
+                <p>
+                Ipsum passage, and going through the cites of the word in
                   classical literature, discovered the undoubtable source. Lorem
                   Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus
                   Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,
@@ -291,6 +292,7 @@ export default function Match() {
                 </p>
               </Grid>
             </Grid>
+
           </Container>
         </div>
       );

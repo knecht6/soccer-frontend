@@ -68,19 +68,19 @@ const useStyles = makeStyles((theme) => ({
   // colored2: {
   //   backgroundColor: "#fa00af"
   // }
+  centrado: {
+    justifyContent: 'center'
+  }
 }));
 
 export default function Leagues() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-
+  const [teams, setTeams] = React.useState([]);
+  fetch('http://localhost:3001/api/list/statistic')
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const teams = [
-    'team 1', 'team 2', 'team 3', 'team 4',
-    'team 5', 'team 6', 'team 7', 'team 8',
-  ];
   return (
     <div className={classes.root + " leagues-container"}>
       <AppBar position="static" color="default">
@@ -105,9 +105,9 @@ export default function Leagues() {
       <TabPanel value={value} index={0}>
         <Grid container>
           {teams.map(item => (
-          <Grid item container md={2}>
-            <Grid item className={classes.colored} md={3}><Avatar>{item[0]}</Avatar></Grid>
-            <Grid item align='left' className={classes.colored2} md={9}>{item}</Grid>
+          <Grid item container  alignItems='center' className={classes.centrado} md={3}>
+            <Grid item className={classes.colored}  md={4}><Avatar>{item[0]}</Avatar></Grid>
+            <Grid item align='left'  className={classes.colored2} md={8}>{item}</Grid>
           </Grid>
           ))}
         </Grid>

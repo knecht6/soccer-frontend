@@ -1,5 +1,5 @@
-body {
-    background-image: url('./assets/images/main-images/stadium.jpeg');
+#root {
+    background-image: url('./assets/images/main-images/stadium.png');
     background-size: 100% 80%;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -18,7 +18,8 @@ league, team and season container
 */
 .wrapper {
     position: relative;
-    margin-top:100px;
+    max-width: 950px;
+    margin: 150px auto 0;
 }
 .wrapper .leagues-container {
     left:0;
@@ -29,4 +30,22 @@ league, team and season container
 }
 .wrapper:hover .leagues-container {
     max-height: 300px;
+}
+.donation, .our-data {
+    font-size:15px;
+    height: fullHeight;
+    padding-top: 50px;
+    padding-right: 10px;
+}
+.donation {
+    background-color: #18a3596c;
+    color: #ffffff;
+}
+.our-data {
+    background-color: #1f4b8d54;
+    color: white;
+}
+.disqus {
+    background-color: #e67d224b;
+    color: white;
 }
