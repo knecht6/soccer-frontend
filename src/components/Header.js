@@ -1,7 +1,5 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
-import Brightness7Icon from '@material-ui/icons/Brightness7';
-// import Brightness4Icon from "@material-ui/icons/Brightness4";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import {
@@ -49,7 +47,6 @@ export default function Header() {
         </Link>
       </Typography>
       <div className={classes.socialNetwork}>
-        <Brightness7Icon style={{ marginBottom: 5 , marginRight: 20 }}/>
         <FacebookShareButton url="#">
           <FacebookIcon size={32} round />
         </FacebookShareButton>
