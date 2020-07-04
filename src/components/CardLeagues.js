@@ -20,8 +20,8 @@ const useGridStyles = makeStyles(({ breakpoints }) => ({
     marginTop: 15,
     marginBottom: 25,
     marginLeft: 0,
-    marginRight: 0, 
-    width: "100%"
+    marginRight: 0,
+    width: "100%",
   },
 }));
 
@@ -33,6 +33,7 @@ const useStyles = makeStyles(() => ({
     "&:hover": {
       transform: "scale(1.1)",
     },
+    cursor: "default",
   },
   card: ({ color }) => ({
     borderRadius: 16,
@@ -47,14 +48,8 @@ const useStyles = makeStyles(() => ({
   content: ({ color }) => {
     return {
       backgroundColor: color,
-      padding: "1rem 1.5rem 1.5rem",
+      padding: 0,
     };
-  },
-  title: {
-    fontFamily: "Keania One",
-    fontSize: "1rem",
-    color: "#fff",
-    textTransform: "uppercase",
   },
   subtitle: {
     fontFamily: "Montserrat",
@@ -69,10 +64,10 @@ const useStyles = makeStyles(() => ({
 const CustomCard = ({ classes, image, title }) => {
   return (
     <CardActionArea className={classes.actionArea}>
-      <Card className={classes.card}>
-        <img src={image} alt={title} style={{maxHeight: 100, width: "auto"}}/>
+      <Card className={classes.card} style={{ backgroundColor: "#ffffff" }}>
+        <img src={image} alt={title} style={{ maxHeight: 75, width: "auto" }} />
         <CardContent className={classes.content}>
-          <Typography className={classes.title} variant={"h2"}>
+          <Typography variant="button" style={{ color: "white" }}>
             {title}
           </Typography>
         </CardContent>
@@ -90,18 +85,36 @@ export const CardLeagues = React.memo(function SolidGameCard() {
   const SerieAStyles = useStyles({ color: "#008C45" });
   return (
     <>
-      <Grid classes={gridStyles} container spacing={4} wrap={"nowrap"} align="center">
+      <Grid
+        classes={gridStyles}
+        container
+        spacing={4}
+        wrap={"nowrap"}
+        align="center"
+      >
         <Grid item>
-          <CustomCard classes={PremierStyles} title={"Premier League"} image={Premiere} />
+          <CustomCard
+            classes={PremierStyles}
+            title={"Premier League"}
+            image={Premiere}
+          />
         </Grid>
         <Grid item>
           <CustomCard classes={LaLigaStyles} title={"LaLiga"} image={LaLiga} />
         </Grid>
         <Grid item>
-          <CustomCard classes={BundesligaStyles} title={"Bundesliga"} image={Bundesliga} />
+          <CustomCard
+            classes={BundesligaStyles}
+            title={"Bundesliga"}
+            image={Bundesliga}
+          />
         </Grid>
         <Grid item>
-          <CustomCard classes={LigueOneStyles} title={"Ligue 1"} image={Ligue1} />
+          <CustomCard
+            classes={LigueOneStyles}
+            title={"Ligue 1"}
+            image={Ligue1}
+          />
         </Grid>
         <Grid item>
           <CustomCard classes={SerieAStyles} title={"Serie A"} image={SerieA} />

@@ -5,11 +5,14 @@ import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import * as Vibrant from "node-vibrant";
+import Converter from "../utils/converter";
+import Confetti from "react-confetti";
 import NotFound from "./NotFound";
 import DoughnutChart from "./DoughnutChart";
 import Left from "../assets/images/main-images/img-left.png";
 import Right from "../assets/images/main-images/img-right.png";
-
+import HelmetNeon from "../assets/images/main-images/HelmetNeon.png";
 const fullHeight = window.screen.height - 70;
 
 const useStyles = makeStyles({
@@ -20,15 +23,9 @@ const useStyles = makeStyles({
   principal: {
     height: fullHeight - 145,
   },
-  ourData: {
-
-  },
-  donations: {
-
-  },
-  disqus: {
-
-  },
+  ourData: {},
+  donations: {},
+  disqus: {},
 });
 //clash of
 class MatchTeams {
@@ -47,8 +44,9 @@ class MatchTeams {
       posLocal = this.teamLeft.position_team,
       posVisit = this.teamRight.position_team;
     let ratingSum = ratingLocal + ratingVisit;
-    this.teamLeft.percentage = (ratingLocal * 95) / ratingSum;
-    this.teamRight.percentage = (ratingVisit * 95) / ratingSum;
+    this.teamLeft.percentage = (ratingLocal * 90) / ratingSum;
+    this.teamLeft.percentage += 5;
+    this.teamRight.percentage = (ratingVisit * 90) / ratingSum;
     if (posLocal < posVisit) {
       this.teamLeft.percentage += 5;
     } else if (posVisit < posLocal) {
@@ -61,9 +59,11 @@ class MatchTeams {
     //look for winner and losser
     if (this.teamLeft.percentage > this.teamRight.percentage) {
       this.winner = this.teamLeft;
+      this.winner.side = "local";
       this.losser = this.teamRight;
     } else if (this.teamRight.percentage > this.teamLeft.percentage) {
       this.winner = this.teamRight;
+      this.winner.side = "visit";
       this.losser = this.teamLeft;
     }
   }
@@ -74,6 +74,8 @@ export default function Match() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [matchFor, setMatchFor] = useState(null);
+  const width = window.innerWidth;
+  const height = window.innerHeight;
   useEffect(() => {
     fetch(
       `http://localhost:3001/api/getData/${nameLocal}/${seasonLocal}/${nameVisit}/${seasonVisit}`
@@ -104,38 +106,34 @@ export default function Match() {
     } else {
       return (
         <div className={classes.root}>
-          <Typography variant="h3" style={{ color: "white" }} gutterBottom>
+          <Typography variant="h4" gutterBottom>
+            {`${matchFor.teamLeft.team_name} ${matchFor.teamLeft.season_name} vs ${matchFor.teamRight.team_name} ${matchFor.teamRight.season_name}`}
+          </Typography>
+          <Typography variant="h5" gutterBottom>
             {matchFor.winner ? `${matchFor.winner.team_name} Winner` : "Tie"}
           </Typography>
           <Grid container className={classes.principal}>
             <Grid item md={4} style={{ margin: "auto" }}>
-              <img
-                src={Left}
-                alt="player-left"
-                style={{ filter: "#FF6384" }}
-                width="100%"
-                height="auto"
-              />
+              <img src={matchFor.teamLeft.img_team} alt="logo-local" />
+              <img src={Left} alt="player-left" width="100%" height="auto" />
+              <Typography variant="h3" gutterBottom>
+                {Math.round(matchFor.teamLeft.percentage)} %
+              </Typography>
             </Grid>
             <Grid item md={4} style={{ margin: "auto" }}>
-              <DoughnutChart
-                winner={matchFor.winner}
-                losser={matchFor.losser}
-              />
+              <DoughnutChart matchFor={matchFor} />
             </Grid>
             <Grid item md={4} style={{ margin: "auto" }}>
-              <img
-                src={Right}
-                alt="player-right"
-                style={{ filter: "#36A2EB" }}
-                width="100%"
-                height="auto"
-              />
+              <img src={matchFor.teamRight.img_team} alt="logo-visit" />
+              <img src={Right} alt="player-right" width="100%" height="auto" />
+              <Typography variant="h3" gutterBottom>
+                {Math.round(matchFor.teamRight.percentage)} %
+              </Typography>
             </Grid>
           </Grid>
           <Container className="our-data">
-            <Grid container >
-              <Grid item md={6}/>
+            <Grid container>
+              <Grid item md={6} />
               <Grid item md={6} spacing={3}>
                 <h1>Our Data</h1>
                 <p>
@@ -157,7 +155,7 @@ export default function Match() {
                   readable English. Many desktop publishing packages and web
                 </p>
                 <p>
-                page editors now use Lorem Ipsum as their default model text,
+                  page editors now use Lorem Ipsum as their default model text,
                   and a search for 'lorem ipsum' will uncover many web sites
                   still in their infancy. Various versions have evolved over the
                   years, sometimes by accident, sometimes on purpose (injected
@@ -169,7 +167,7 @@ export default function Match() {
                   of the more obscure Latin words, consectetur, from a Lorem
                 </p>
                 <p>
-                Ipsum passage, and going through the cites of the word in
+                  Ipsum passage, and going through the cites of the word in
                   classical literature, discovered the undoubtable source. Lorem
                   Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus
                   Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,
@@ -187,10 +185,10 @@ export default function Match() {
             </Grid>
           </Container>
           <Container className="donation">
-          <Grid container>
+            <Grid container>
               <Grid item md={6}>
                 <h1>Donations</h1>
-                
+
                 <p>
                   What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
                   printing and typesetting industry. Lorem Ipsum has been the
@@ -210,7 +208,7 @@ export default function Match() {
                   readable English. Many desktop publishing packages and web
                 </p>
                 <p>
-                page editors now use Lorem Ipsum as their default model text,
+                  page editors now use Lorem Ipsum as their default model text,
                   and a search for 'lorem ipsum' will uncover many web sites
                   still in their infancy. Various versions have evolved over the
                   years, sometimes by accident, sometimes on purpose (injected
@@ -222,7 +220,7 @@ export default function Match() {
                   of the more obscure Latin words, consectetur, from a Lorem
                 </p>
                 <p>
-                Ipsum passage, and going through the cites of the word in
+                  Ipsum passage, and going through the cites of the word in
                   classical literature, discovered the undoubtable source. Lorem
                   Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus
                   Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,
@@ -240,8 +238,8 @@ export default function Match() {
               <Grid item md={6} />
             </Grid>
           </Container>
-          <Container  className="disqus">
-          <Grid container>
+          <Container className="disqus">
+            <Grid container>
               <Grid item md={6} />
               <Grid item md={6}>
                 <h1>Discussion</h1>
@@ -264,7 +262,7 @@ export default function Match() {
                   readable English. Many desktop publishing packages and web
                 </p>
                 <p>
-                page editors now use Lorem Ipsum as their default model text,
+                  page editors now use Lorem Ipsum as their default model text,
                   and a search for 'lorem ipsum' will uncover many web sites
                   still in their infancy. Various versions have evolved over the
                   years, sometimes by accident, sometimes on purpose (injected
@@ -276,7 +274,7 @@ export default function Match() {
                   of the more obscure Latin words, consectetur, from a Lorem
                 </p>
                 <p>
-                Ipsum passage, and going through the cites of the word in
+                  Ipsum passage, and going through the cites of the word in
                   classical literature, discovered the undoubtable source. Lorem
                   Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus
                   Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,
@@ -292,8 +290,8 @@ export default function Match() {
                 </p>
               </Grid>
             </Grid>
-
           </Container>
+          <Confetti width={width} height={height} />
         </div>
       );
     }
