@@ -37,8 +37,18 @@ league, team and season container
     padding-top: 50px;
     padding-right: 10px;
 }
+.donation h1, .our-data h1, .disqus h1 {
+    /*
+    display:inline-block;
+    border-bottom:5px solid rgb(241, 241, 241);
+    padding:5px;
+    */
+} 
+.donation p, .our-data p, .disqus p {
+    text-align: justify;
+} 
 .donation {
-    background-color: #18a3596c;
+    background-color: #18a3594f;
     color: #ffffff;
 }
 .our-data {
@@ -46,6 +56,45 @@ league, team and season container
     color: white;
 }
 .disqus {
-    background-color: #e67d224b;
+    background-color: #e67d223a;
     color: white;
 }
+
+h1 {
+    display: inline-block;
+    position: relative;
+    padding: 0.5em;
+    line-height: 30px;
+    color: white;
+    background-color: #6caf63c7;
+ }
+ 
+ h1:not(:first-child) { /* todos los items menos el primero */
+    padding-left: 1em; /* compensación de la flecha a la izquierda para que no pise el texto*/
+    margin-left: 8px; /* separación de los ítems*/
+ }
+ 
+ h1::after { /* flecha a la derecha */
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: -18px;
+    z-index: 2;
+    border-top: 27px solid transparent;
+    border-left: 18px solid #6caf63c7;
+    border-bottom: 27px solid transparent;
+
+ }
+ 
+ h1:not(:first-child)::before { /* todos los items menos el primero. Flecha a la izquierda */
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    border-top: 27px solid transparent;
+    border-left: 18px solid white;
+    border-bottom: 27px solid transparent;
+ }

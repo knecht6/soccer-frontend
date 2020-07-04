@@ -22,6 +22,11 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ImageIcon from '@material-ui/icons/Image';
 import WorkIcon from '@material-ui/icons/Work';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+import LaLiga from "../../assets/images/leagues/LaLiga.png";
+import Premiere from "../../assets/images/leagues/Premier_League.png";
+import Ligue1 from "../../assets/images/leagues/Ligue1.png";
+import Bundesliga from "../../assets/images/leagues/Bundesliga.png";
+import SerieA from "../../assets/images/leagues/Serie_A.png";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -62,9 +67,9 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
-  // colored: {
-  //   backgroundColor: "#090890"
-  // }, 
+  colored: {
+     backgroundColor: "#666"
+  }, 
   // colored2: {
   //   backgroundColor: "#fa00af"
   // }
@@ -77,13 +82,28 @@ export default function Leagues() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [teams, setTeams] = React.useState([]);
-  fetch('http://localhost:3001/api/list/statistic')
+  const listLeagues = [
+    { name: 'Premier League', img: Premiere },
+    { name: 'Serie A', img: SerieA },
+    { name: 'LaLiga', img: LaLiga },
+    { name: 'Bundesliga', img: Bundesliga },
+    { name: 'Ligue 1', img: Ligue1 }
+  ];
   const handleChange = (event, newValue) => {
+    console.log(newValue);
     setValue(newValue);
+    var league = listLeagues[newValue];
+    fetch(`http://localhost:3001/api/list/statistic/${encodeURIComponent(league.name)}`)
+      .then(res => res.json())
+      .then(res => {
+        setTeams(res);
+      })
+      ;
   };
+
   return (
     <div className={classes.root + " leagues-container"}>
-      <AppBar position="static" color="default">
+      <AppBar position="static" color="default" className={classes.colored}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -93,43 +113,68 @@ export default function Leagues() {
           textColor="primary"
           aria-label="scrollable force tabs example"
         >
-          <Tab label="League 1" icon={<ShoppingBasket />} {...a11yProps(4)} />
-          <Tab label="League 2" icon={<FavoriteIcon />} {...a11yProps(1)} />
-          <Tab label="League 3" icon={<PersonPinIcon />} {...a11yProps(2)} />
-          <Tab label="League 4" icon={<HelpIcon />} {...a11yProps(3)} />
-          <Tab label="League 5" icon={<ShoppingBasket />} {...a11yProps(4)} />
-          <Tab label="League 6" icon={<ThumbDown />} {...a11yProps(5)} />
-          <Tab label="League 7" icon={<ThumbUp />} {...a11yProps(6)} />
+          {listLeagues.map(item => (
+            <Tab  label={item.name} key={item.name} icon={<img width={40} height='auto' alt={item.name} src={item.img} />} {...a11yProps(4)} />
+          ))}
         </Tabs>
       </AppBar>
+
       <TabPanel value={value} index={0}>
         <Grid container>
-          {teams.map(item => (
-          <Grid item container  alignItems='center' className={classes.centrado} md={3}>
-            <Grid item className={classes.colored}  md={4}><Avatar>{item[0]}</Avatar></Grid>
-            <Grid item align='left'  className={classes.colored2} md={8}>{item}</Grid>
-          </Grid>
-          ))}
+          <TeamContainer teams={teams} />
         </Grid>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        League one
+        <Grid container>
+          <TeamContainer teams={teams} />
+        </Grid>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        League two
+        <Grid container>
+          <TeamContainer teams={teams} />
+        </Grid>
       </TabPanel>
       <TabPanel value={value} index={3}>
-        League three
+        <Grid container>
+          <TeamContainer teams={teams} />
+        </Grid>
       </TabPanel>
       <TabPanel value={value} index={4}>
-        League four
+        <Grid container>
+          <TeamContainer teams={teams} />
+        </Grid>
       </TabPanel>
       <TabPanel value={value} index={5}>
-        League five
+        <Grid container>
+          <TeamContainer teams={teams} />
+        </Grid>
       </TabPanel>
       <TabPanel value={value} index={6}>
-        League six
+        <Grid container>
+          <TeamContainer teams={teams} />
+        </Grid>
       </TabPanel>
     </div>
+  );
+}
+function TeamContainer(props) {
+  const teams = props.teams;
+  return (
+    teams.map(item => (
+      <Team team={item} />
+    ))
+  );
+}
+function Team(props) {
+  const team = props.team;
+  return (
+          <Grid item container alignItems='center' md={3}>
+      <Grid item md={4}>
+        <Avatar>
+          <img width={40} height='auto' alt={team.team_namee} src={team.img_team} />
+        </Avatar>
+      </Grid>
+      <Grid item align='left' md={8}>{team.team_name}</Grid>
+    </Grid>
   );
 }
