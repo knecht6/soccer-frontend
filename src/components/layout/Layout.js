@@ -20,17 +20,21 @@ const useStyles = makeStyles((theme) => ({
 
 function Wrapper() {
     const classes = useStyles();
+    const [team, setTeam] = React.useState('Select your team');
+    const hasSelectedTeam = (teamSelected) => {
+        
+    }
     return (
         <div  className={classes.root + ' wrapper'}>
             <Grid justify="center" container>
-                <Grid item xs={3}>
+                <Grid item xs={6}>
                     <Paper className={classes.paper}>
-                        Select your team left
+                        {team}
                     </Paper>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={6} md={3}>
                     <Paper className={classes.paper}>
-                        Select your team left
+                        {team}
                     </Paper>
                 </Grid>
                 <Grid item xs={8}>
@@ -41,7 +45,9 @@ function Wrapper() {
                             fullWidth
                             
                         />
-                        <Leagues></Leagues>
+                        <Leagues 
+
+                        />
                     </Paper>
                 </Grid>
 

@@ -4,24 +4,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import PhoneIcon from '@material-ui/icons/Phone';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import PersonPinIcon from '@material-ui/icons/PersonPin';
-import HelpIcon from '@material-ui/icons/Help';
-import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
-import ThumbDown from '@material-ui/icons/ThumbDown';
-import ThumbUp from '@material-ui/icons/ThumbUp';
+
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ImageIcon from '@material-ui/icons/Image';
-import WorkIcon from '@material-ui/icons/Work';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import LaLiga from "../../assets/images/leagues/LaLiga.png";
 import Premiere from "../../assets/images/leagues/Premier_League.png";
 import Ligue1 from "../../assets/images/leagues/Ligue1.png";
@@ -67,9 +54,17 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
+  team: {
+    '&:hover':{
+      backgroundColor: '#2196F3',
+      cursor: 'pointer', 
+      borderRadius: '20px 20px 20px 20px',
+      transition:'.02s'
+    }
+  },
   colored: {
-     backgroundColor: "#666"
-  }, 
+    backgroundColor: "#666"
+  },
   // colored2: {
   //   backgroundColor: "#fa00af"
   // }
@@ -89,6 +84,14 @@ export default function Leagues() {
     { name: 'Bundesliga', img: Bundesliga },
     { name: 'Ligue 1', img: Ligue1 }
   ];
+  React.useEffect(()=> {
+    console.log('fetching first time');
+    fetch(`http://localhost:3001/api/list/statistic/${encodeURIComponent(listLeagues[0].name)}`)
+      .then(res => res.json())
+      .then(res => {
+        setTeams(res);
+      });
+  }, []);
   const handleChange = (event, newValue) => {
     console.log(newValue);
     setValue(newValue);
@@ -100,7 +103,9 @@ export default function Leagues() {
       })
       ;
   };
-
+  const hasSelectedTeam = (teamSelected) => {
+    
+  }
   return (
     <div className={classes.root + " leagues-container"}>
       <AppBar position="static" color="default" className={classes.colored}>
@@ -114,46 +119,17 @@ export default function Leagues() {
           aria-label="scrollable force tabs example"
         >
           {listLeagues.map(item => (
-            <Tab  label={item.name} key={item.name} icon={<img width={40} height='auto' alt={item.name} src={item.img} />} {...a11yProps(4)} />
+            <Tab label={item.name} key={item.name} icon={<img width={40} height='auto' alt={item.name} src={item.img} />} {...a11yProps(4)} />
           ))}
         </Tabs>
       </AppBar>
-
-      <TabPanel value={value} index={0}>
-        <Grid container>
-          <TeamContainer teams={teams} />
-        </Grid>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <Grid container>
-          <TeamContainer teams={teams} />
-        </Grid>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <Grid container>
-          <TeamContainer teams={teams} />
-        </Grid>
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        <Grid container>
-          <TeamContainer teams={teams} />
-        </Grid>
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        <Grid container>
-          <TeamContainer teams={teams} />
-        </Grid>
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        <Grid container>
-          <TeamContainer teams={teams} />
-        </Grid>
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        <Grid container>
-          <TeamContainer teams={teams} />
-        </Grid>
-      </TabPanel>
+      {listLeagues.map((league, index)=> (
+      <TabPanel value={value} index={index}>
+      <Grid container>
+        <TeamContainer hasSelectedTeam={hasSelectedTeam} teams={teams} />
+      </Grid>
+    </TabPanel>
+      ))}
     </div>
   );
 }
@@ -161,14 +137,15 @@ function TeamContainer(props) {
   const teams = props.teams;
   return (
     teams.map(item => (
-      <Team team={item} />
+      <Team team={item} hasSelectedTeam={props.hasSelectedTeam}/>
     ))
   );
 }
 function Team(props) {
+  const classes = useStyles();
   const team = props.team;
   return (
-          <Grid item container alignItems='center' md={3}>
+    <Grid item container onClick={e=> {props.hasSelectedTeam(team);}} className={classes.team} alignItems='center' md={3}>
       <Grid item md={4}>
         <Avatar>
           <img width={40} height='auto' alt={team.team_namee} src={team.img_team} />

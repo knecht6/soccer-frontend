@@ -1,18 +1,21 @@
 #root {
     background-image: url('./assets/images/main-images/stadium.png');
-    background-size: 100% 80%;
+    background-size: 100% 100%;
     background-attachment: fixed;
     background-repeat: no-repeat;
 }
+body {
+    background-color: rgb(0, 0, 0)!important;
+}
 #info {
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(187, 116, 116);
     color: black;
     margin: 0;
     padding: 50px 40px 50px 40px;
 }
-.league-container {
 
-}
+.league-container {}
+
 /*
 league, team and season container
 */
@@ -20,41 +23,58 @@ league, team and season container
     position: relative;
     max-width: 950px;
     margin: 150px auto 0;
+    background-color: #424242;
 }
+
 .wrapper .leagues-container {
-    left:0;
-    right:0;
+    left: 0;
+    right: 0;
     position: absolute;
     overflow-y: scroll;
-    transition: .5s;
+    transition: .3s;
+    max-height: 0;
+    opacity: 0;
 }
+
 .wrapper:hover .leagues-container {
     max-height: 300px;
+    opacity: 1;
 }
-.donation, .our-data {
-    font-size:15px;
+
+.donation,
+.our-data {
+    font-size: 15px;
     height: fullHeight;
     padding-top: 50px;
     padding-right: 10px;
 }
-.donation h1, .our-data h1, .disqus h1 {
+
+.donation h1,
+.our-data h1,
+.disqus h1 {
     /*
     display:inline-block;
     border-bottom:5px solid rgb(241, 241, 241);
     padding:5px;
     */
-} 
-.donation p, .our-data p, .disqus p {
+}
+
+.donation p,
+.our-data p,
+.disqus p {
     text-align: justify;
-} 
+}
+
 .donation {
     background-color: #18a3594f;
     color: #ffffff;
 }
+
 .our-data {
     background-color: #1f4b8d54;
     color: white;
 }
+
 .disqus {
     background-color: #e67d223a;
     color: white;
@@ -62,39 +82,11 @@ league, team and season container
 
 h1 {
     display: inline-block;
+    font-weight: bold;;
     position: relative;
-    padding: 0.5em;
+    padding: 0.5em 3rem;
     line-height: 30px;
     color: white;
-    background-color: #6caf63c7;
- }
- 
- h1:not(:first-child) { /* todos los items menos el primero */
-    padding-left: 1em; /* compensación de la flecha a la izquierda para que no pise el texto*/
-    margin-left: 8px; /* separación de los ítems*/
- }
- 
- h1::after { /* flecha a la derecha */
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    right: -18px;
-    z-index: 2;
-    border-top: 27px solid transparent;
-    border-left: 18px solid #6caf63c7;
-    border-bottom: 27px solid transparent;
-
- }
- 
- h1:not(:first-child)::before { /* todos los items menos el primero. Flecha a la izquierda */
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    border-top: 27px solid transparent;
-    border-left: 18px solid white;
-    border-bottom: 27px solid transparent;
- }
+    background-color: #6caf6393;
+    border-radius: 30px 30px 30px 30px;
+}

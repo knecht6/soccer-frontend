@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
     position: "fixed",
     top: 0,
+    zIndex: 3
   },
   title: {
     fontSize: 30,

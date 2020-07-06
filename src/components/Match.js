@@ -12,7 +12,7 @@ import NotFound from "./NotFound";
 import DoughnutChart from "./DoughnutChart";
 import Left from "../assets/images/main-images/img-left.png";
 import Right from "../assets/images/main-images/img-right.png";
-import HelmetNeon from "../assets/images/main-images/HelmetNeon.png";
+//import HelmetNeon from "../assets/images/main-images/HelmetNeon.png";
 const fullHeight = window.screen.height - 70;
 
 const useStyles = makeStyles({
@@ -23,6 +23,10 @@ const useStyles = makeStyles({
   principal: {
     height: fullHeight - 145,
   },
+  percentage:{
+    position: 'relative',
+    top:-125,
+  }, 
   ourData: {},
   donations: {},
   disqus: {},
@@ -74,7 +78,6 @@ export default function Match() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [matchFor, setMatchFor] = useState(null);
-  const width = window.innerWidth;
   const height = window.innerHeight;
   useEffect(() => {
     fetch(
@@ -113,10 +116,10 @@ export default function Match() {
             {matchFor.winner ? `${matchFor.winner.team_name} Winner` : "Tie"}
           </Typography>
           <Grid container className={classes.principal}>
-            <Grid item md={4} style={{ margin: "auto" }}>
+            <Grid item md={4} alignContent='right' style={{ margin: "auto" }}>
               <img src={matchFor.teamLeft.img_team} alt="logo-local" />
               <img src={Left} alt="player-left" width="100%" height="auto" />
-              <Typography variant="h3" gutterBottom>
+              <Typography className={classes.percentage} align='right' variant="h3" gutterBottom>
                 {Math.round(matchFor.teamLeft.percentage)} %
               </Typography>
             </Grid>
@@ -126,7 +129,7 @@ export default function Match() {
             <Grid item md={4} style={{ margin: "auto" }}>
               <img src={matchFor.teamRight.img_team} alt="logo-visit" />
               <img src={Right} alt="player-right" width="100%" height="auto" />
-              <Typography variant="h3" gutterBottom>
+              <Typography className={classes.percentage} align='left' variant="h3" gutterBottom>
                 {Math.round(matchFor.teamRight.percentage)} %
               </Typography>
             </Grid>
@@ -291,7 +294,7 @@ export default function Match() {
               </Grid>
             </Grid>
           </Container>
-          <Confetti width={width} height={height} />
+          <Confetti style={{width:'100%', height:'100%'}} />
         </div>
       );
     }
