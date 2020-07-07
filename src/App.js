@@ -12,7 +12,7 @@ import { Wrapper } from "./components/layout/Layout";
 function App() {
   const darkTheme = createMuiTheme({
     palette: {
-      type: 'dark',
+      type: "dark",
     },
   });
   return (

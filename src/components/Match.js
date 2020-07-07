@@ -5,10 +5,9 @@ import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import * as Vibrant from "node-vibrant";
-import Converter from "../utils/converter";
+// import * as Vibrant from "node-vibrant";
+// import Converter from "../utils/converter";
 import Confetti from "react-confetti";
-import NotFound from "./NotFound";
 import DoughnutChart from "./DoughnutChart";
 import Left from "../assets/images/main-images/img-left.png";
 import Right from "../assets/images/main-images/img-right.png";
@@ -23,10 +22,10 @@ const useStyles = makeStyles({
   principal: {
     height: fullHeight - 145,
   },
-  percentage:{
-    position: 'relative',
-    top:-125,
-  }, 
+  percentage: {
+    position: "relative",
+    top: -125,
+  },
   ourData: {},
   donations: {},
   disqus: {},
@@ -59,16 +58,15 @@ class MatchTeams {
       this.teamLeft.percentage += 2.5;
       this.teamRight.percentage += 2.5;
     }
-
+    this.teamLeft.percentage = Math.round(this.teamLeft.percentage);
+    this.teamRight.percentage = Math.round(this.teamRight.percentage);
     //look for winner and losser
     if (this.teamLeft.percentage > this.teamRight.percentage) {
       this.winner = this.teamLeft;
-      this.winner.side = "local";
-      this.losser = this.teamRight;
     } else if (this.teamRight.percentage > this.teamLeft.percentage) {
       this.winner = this.teamRight;
-      this.winner.side = "visit";
-      this.losser = this.teamLeft;
+    } else {
+      this.winner = null;
     }
   }
 }
@@ -78,7 +76,6 @@ export default function Match() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [matchFor, setMatchFor] = useState(null);
-  const height = window.innerHeight;
   useEffect(() => {
     fetch(
       `http://localhost:3001/api/getData/${nameLocal}/${seasonLocal}/${nameVisit}/${seasonVisit}`
@@ -89,7 +86,7 @@ export default function Match() {
           if (result.left && result.right) {
             setMatchFor(new MatchTeams(result.left, result.right));
           } else {
-            setError("Not Found");
+            setError(result);
           }
           setIsLoaded(true);
         },
@@ -105,7 +102,7 @@ export default function Match() {
   }, [nameLocal, nameVisit, seasonLocal, seasonVisit]);
   if (isLoaded) {
     if (error) {
-      return <NotFound />;
+      return <Error {...error} />;
     } else {
       return (
         <div className={classes.root}>
@@ -116,10 +113,15 @@ export default function Match() {
             {matchFor.winner ? `${matchFor.winner.team_name} Winner` : "Tie"}
           </Typography>
           <Grid container className={classes.principal}>
-            <Grid item md={4} alignContent='right' style={{ margin: "auto" }}>
+            <Grid item md={4} style={{ margin: "auto" }}>
               <img src={matchFor.teamLeft.img_team} alt="logo-local" />
               <img src={Left} alt="player-left" width="100%" height="auto" />
-              <Typography className={classes.percentage} align='right' variant="h3" gutterBottom>
+              <Typography
+                className={classes.percentage}
+                align="right"
+                variant="h3"
+                gutterBottom
+              >
                 {Math.round(matchFor.teamLeft.percentage)} %
               </Typography>
             </Grid>
@@ -129,7 +131,12 @@ export default function Match() {
             <Grid item md={4} style={{ margin: "auto" }}>
               <img src={matchFor.teamRight.img_team} alt="logo-visit" />
               <img src={Right} alt="player-right" width="100%" height="auto" />
-              <Typography className={classes.percentage} align='left' variant="h3" gutterBottom>
+              <Typography
+                className={classes.percentage}
+                align="left"
+                variant="h3"
+                gutterBottom
+              >
                 {Math.round(matchFor.teamRight.percentage)} %
               </Typography>
             </Grid>
@@ -137,7 +144,7 @@ export default function Match() {
           <Container className="our-data">
             <Grid container>
               <Grid item md={6} />
-              <Grid item md={6} spacing={3}>
+              <Grid item md={6}>
                 <h1>Our Data</h1>
                 <p>
                   What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
@@ -191,7 +198,6 @@ export default function Match() {
             <Grid container>
               <Grid item md={6}>
                 <h1>Donations</h1>
-
                 <p>
                   What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
                   printing and typesetting industry. Lorem Ipsum has been the
@@ -294,7 +300,7 @@ export default function Match() {
               </Grid>
             </Grid>
           </Container>
-          <Confetti style={{width:'100%', height:'100%'}} />
+          <Confetti style={{ width: "100%", height: "100%" }} />
         </div>
       );
     }
@@ -305,4 +311,15 @@ export default function Match() {
       </div>
     );
   }
+}
+
+function Error({ status, error }) {
+  const classes = useStyles();
+  return (
+    <div className={classes.error}>
+      <Typography variant="h1" component="h2" gutterBottom>
+        {`${status} ${error}`}
+      </Typography>
+    </div>
+  );
 }
