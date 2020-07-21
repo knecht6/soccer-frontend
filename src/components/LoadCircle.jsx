@@ -1,4 +1,5 @@
 import React from "react";
+import "../assets/css/load.css";
 
 export default function LoadCircle() {
   return (

@@ -1,4 +1,7 @@
 import React from "react";
+import "../assets/css/font-awesome.min.css";
+import "../assets/css/style.css";
+import "../assets/css/dark.css";
 import Layout from "./Layout";
 import { Link } from "react-router-dom";
 
@@ -15,7 +18,11 @@ export default function Home() {
                 </h1>
               </div>
               <div>
-                <Link to="/select" className="btn-play">
+                <Link
+                  to="/select"
+                  className="btn-play"
+                  style={{ textDecoration: "none" }}
+                >
                   Play
                 </Link>
               </div>

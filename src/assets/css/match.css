@@ -1,0 +1,133 @@
+.btn-play-again {
+  font-family: "Bebas neue";
+  font-size: 1.8em;
+  color: white;
+  border: 0;
+  width: 70%;
+  padding: 0.5em 0em;
+  cursor: pointer;
+  margin: auto;
+  text-decoration: none;
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+}
+
+.btn-play-again::after {
+  content: "";
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+  transition: 1s;
+  border: 5px solid transparent;
+}
+
+.btn-play-again::before {
+  content: "";
+  left: 0;
+  top: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+  transition: 1s;
+  border: 5px solid transparent;
+}
+
+.btn-play-again span {
+  text-shadow: 0 0 15px #00dc9d, 0 0 15px #00dc9d, 0 0 25px #00dc9d,
+    0 0 25px #00dc9d, 0 40px 50px #00dc9d;
+}
+
+.btn-play:hover {
+  border: 3px solid #00dc9e57;
+}
+
+.btn-play-again:hover::before {
+  content: "";
+  left: 0;
+  top: 0;
+  position: absolute;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-top-width: 5px;
+  border-left-width: 5px;
+  border-style: solid;
+  border-image-source: linear-gradient(#3154fb, #4bda9b);
+  border-image-slice: 1 1 0 1;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.btn-play-again:hover::after {
+  content: "";
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-right-width: 5px;
+  border-bottom-width: 5px;
+  border-left-width: 0;
+  border-top-width: 0;
+  border-style: solid;
+  border-image-source: linear-gradient(#4bda9b, #5aec64);
+  border-image-slice: 0 1 1 0;
+  box-sizing: border-box;
+}
+
+/*
+.btn-play-again:hover::after {
+    content: '';
+    left: 30%;
+    position: absolute;
+    height: 5px;
+    background-image: linear-gradient(to right, #00dc9e80, #00dc9eaa, #00dc9ec0, #00dc9ecc, #00dc9ec0, #00dc9eaa, #00dc9e80);
+}
+*/
+
+.donut-container {
+  font-family: "Bebas Neue";
+  position: relative;
+  display: flex;
+  max-width: 400px;
+  height: auto;
+  margin: auto;
+  padding-top: 100px;
+  margin-bottom: 30px;
+  color: white;
+  font-size: 60px;
+}
+.percentage-left {
+  display: flex;
+  position: absolute;
+  left: -40%;
+}
+.percentage-left img {
+  max-width: 75px;
+  margin-right: 10px;
+}
+.percentage-right {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  right: -40%;
+}
+.percentage-right img {
+  max-width: 75px;
+  margin-left: 10px;
+}
+.percentage {
+  font-size: 40px;
+  margin: auto;
+}
+
+@media (min-width: 450px) {
+  .btn-play-again {
+    font-size: 3em;
+    width: 40%;
+    padding: 0.2em 0;
+  }
+}

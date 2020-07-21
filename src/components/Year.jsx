@@ -1,5 +1,9 @@
 import React from "react";
 
-export default function Year({ name }) {
-  return <li className="item-year">{name}</li>;
+export default function Year({ name, team, handleTeam }) {
+  return (
+    <li className="item-year" onClick={(e) => handleTeam(team, name)}>
+      {name}
+    </li>
+  );
 }

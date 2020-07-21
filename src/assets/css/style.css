@@ -1,0 +1,183 @@
+body {
+	margin: 0;
+  	padding: 0;
+	min-height: 100vh;
+	font-family: sans-serif;
+	background-image: url(/assets/images/background_img2.png);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}	
+
+/* League - Team Selection Screen */
+
+.league-selection {
+	justify-content: center;
+  	display: flex;
+}
+
+.league.item {
+	justify-content: center;
+}
+
+.league-logo {
+	width: 200px;
+  	height: auto;
+  	margin: 5px;
+}
+
+.team-list {
+	font-family: "Bebas Neue";
+	position: relative;
+	color: #373737;
+	background-color: #e5e5e5;
+	border-radius: 5px;
+	box-shadow: 5px 10px #c4c1c19f;
+	height: 0;
+	overflow: hidden;
+	transition: height 1s;
+}
+
+.team-list ul {
+	color: #373737;
+  	background-color: #e5e5e5;
+  	box-shadow: 5px 10px #c4c1c19f;
+  	border-radius: 5px;
+}
+
+.team-item {
+	padding: 25px;
+	font-size: 25px;
+	cursor: default;
+	margin: 1px;
+	height: 0;
+}
+
+.year-list {
+	display: block;
+	position: absolute;
+	padding-left: 20px;
+	visibility: hidden;
+	left: 100%;
+	top: 20px;
+}
+
+.year-list > ul {
+	padding: 3px;
+}
+
+.year-item {
+	text-align: center;
+	background-color: #30ddb4;
+	border-radius: 5px;
+	margin: 5px;
+	font-size: 25px;
+	cursor: pointer;
+	color: white;
+	font-weight: bold;
+	padding-left: 20px;
+	padding-right: 20px;
+	height: 0;
+}
+
+.link {
+	transition: 0.3s ease;
+	color: #373737;
+}
+
+/* Hover League Menu Effects */
+
+.league-item:hover .team-list {
+	height: 60%;
+	overflow: visible;
+}
+
+.league-item:hover .team-item {
+	visibility: visible;
+}
+
+.team-item:hover .year-list {
+	visibility: visible;
+	height: 250px;
+}
+
+.year-list:hover {
+	visibility: visible;
+  	height: auto;
+}
+
+.team-item:hover .year-list ul {
+	height: auto;
+}
+
+.team-item:hover .year-list li {
+	height: auto;
+}
+  
+
+
+/* Footer */
+
+footer {
+  	width: 100%;
+	bottom: 0;
+	position: fixed;
+}
+
+.footer-space {
+  	display: block;
+  	width: 50%;
+	background: #333;
+}
+
+.footer-space h3 {
+	padding-top: 15px;
+	padding-right: 10px;
+	font-weight: bold;
+	text-align: end;
+}
+
+.footer-space img {
+	width: 136px;
+	height: 35px;
+}
+
+.footer-container {
+  	display: flex;
+  	justify-content: center;
+  	font-size: 16px;
+  	color: #999;
+}
+
+/* Tittle & Social Icons */
+
+.nav-holder {
+	display: flex;
+	justify-content: space-between;
+	padding-top: 30px;
+	margin-bottom: 50px;
+	width: 100%;
+}
+
+.menu-tittle {
+	display: flex;
+	justify-content: flex-start;
+	padding-left: 30px;
+}
+.menu-tittle a {
+	text-decoration: none;
+}
+
+@font-face {
+    font-family: "Bebas Neue";
+	src: url("../fonts/BebasNeue.otf")
+}
+
+h1 {
+    font-family: "Bebas Neue";
+	font-size: 1.5em;
+    background-clip: text;
+	-webkit-background-clip: text;
+	color: transparent;
+    background-image: linear-gradient(to right, #0b1a40, #3154fb, #4bda9b, #00dc9d);
+}
