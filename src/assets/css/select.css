@@ -1,0 +1,359 @@
+.body-light {
+  background-image: url("../images/background_img2.png");
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100vh;
+}
+
+@font-face {
+  font-family: "Bebas Neue";
+  src: url("../fonts/BebasNeue.otf");
+}
+
+.title {
+  font-family: "Bebas Neue";
+  font-size: 25px;
+  font-weight: bold;
+  background: linear-gradient(90deg, #001e4b, #00c78a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.social-icons-light {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 30px;
+}
+.social-icons-light ul {
+  list-style: none;
+}
+.social-icons-light li {
+  display: inline-block;
+  color: #0b1a40;
+  font-size: 18px;
+  margin: 0 7px;
+}
+.social-icons-light::after {
+  clear: both;
+}
+.social-icons-light li {
+  margin: 0;
+  float: left;
+}
+.social-icons-light a {
+  color: white;
+  padding: 10px 20px;
+  background-color: #00dc9ebd;
+  transition: background-color 0.2s;
+}
+.social-icons-light a:hover {
+  background-color: #00dc9d33;
+}
+
+.cards {
+  justify-content: center;
+  display: flex;
+  position: relative;
+  z-index: 2;
+}
+
+.card-item {
+  width: 80px;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  margin: auto;
+}
+
+.card-item.active {
+  background-color: transparent;
+}
+
+.card-item.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 35%;
+  height: 4px;
+  width: 20%;
+  background-color: #00c78a;
+}
+
+.list-teams {
+  font-family: "Bebas Neue";
+  position: absolute;
+  color: #373737;
+  height: 0;
+  width: 100%;
+  overflow: hidden;
+  transition: height 0.5s;
+  left: 0;
+  background-color: #e5e5e5;
+}
+
+.list-teams ul {
+  max-height: 300px;
+  overflow-y: scroll;
+  color: #373737;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  border-radius: 5px;
+  background-color: #e5e5e5;
+  background-image: linear-gradient(#e5e5e5, #fff, #e5e5e5);
+  border-radius: 5px;
+  box-shadow: 5px 10px #c4c1c19f;
+}
+
+.list-teams > ul {
+  width: 60%;
+}
+
+.card-item:hover .list-teams {
+  height: 300px;
+}
+
+.list-teams ul::-webkit-scrollbar {
+  display: none;
+}
+
+.item-team {
+  padding: 0 0.5em;
+  font-size: 1.2em;
+  cursor: default;
+  margin-bottom: 1px;
+  z-index: 2;
+}
+
+.item-team:first-child {
+  margin-top: 1em;
+}
+
+.item-team:last-child {
+  margin-bottom: 1em;
+}
+
+.link {
+  z-index: 5;
+  transition: 0.3s ease;
+  color: #373737;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.link:hover {
+  background-color: #00c78a;
+}
+
+.active {
+  background-color: #00c78aa0;
+}
+
+/*clear fix */
+.link::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.team-image {
+  width: 20%;
+  height: auto;
+  display: block;
+  content: "";
+  float: left;
+}
+
+.team-name {
+  box-sizing: border-box;
+  width: 80%;
+  padding: 0.6em;
+  position: relative;
+  float: left;
+}
+
+/*arrow right or triangulo xd*/
+.team-name::after {
+  width: 0;
+  height: 0;
+  right: -7%;
+  top: 40%;
+  content: "";
+  border-left: 10px solid #201d18;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  position: absolute;
+}
+
+.item-team ul {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 7px 5px #c4c1c19f;
+}
+
+.list-years {
+  position: absolute;
+  padding-left: 1%;
+  /*
+  background-color: cadetblue;
+*/
+  left: 60%;
+  top: 0;
+  width: 40%;
+  display: none;
+  height: 0;
+}
+
+.list-years ul {
+  margin-top: 1em;
+  width: 90%;
+  box-sizing: border-box;
+}
+
+.item-team:hover .list-years {
+  display: block;
+  height: 100%;
+  overflow: visible;
+}
+
+.item-year {
+  text-align: center;
+  background-color: #30ddb4;
+  border-radius: 5px;
+  margin: 3px;
+  display: block;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  padding: 0 0.1em;
+}
+
+.item-year:hover {
+  background-color: #00c78a;
+}
+
+.btn-lets-play {
+  font-family: "Bebas neue";
+  font-size: 1.3em;
+  color: white;
+  background-color: transparent;
+  background-image: linear-gradient(#00da99, #0b7778 100%);
+  border: 0;
+  padding: 0.5em 1em;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 10px;
+  margin: 2.3em auto;
+  display: block;
+}
+
+#selected-teams {
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+}
+
+.image-lr {
+  width: 150px;
+  height: 150px;
+  content: "";
+  display: block;
+  margin: auto;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.image-lr[src] {
+  opacity: 1;
+}
+.selected-team {
+  position: relative;
+  width: 90%;
+}
+.selected-team-name {
+  font-family: "Bebas Neue";
+  font-size: 1.3em;
+  color: #0b7778;
+  letter-spacing: 2px;
+}
+.btn-close {
+  background-color: transparent;
+  width: 0;
+  height: 0;
+  border: 0;
+  top: 30%;
+  right: 10%;
+  position: absolute;
+  cursor: pointer;
+}
+.btn-close::before {
+  font-size: 1.5em;
+  background-color: white;
+  color: tomato;
+  content: "x";
+  padding: 2px 7px;
+  border: 1px solid tomato;
+  border-radius: 50%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+@media (min-width: 450px) {
+  .card-item {
+    width: 150px;
+    position: relative;
+  }
+
+  .list-teams {
+    width: 450px;
+    background-color: transparent;
+  }
+
+  .list-teams ul {
+    width: 70%;
+    max-height: 300px;
+  }
+
+  .item-team {
+    padding: 0 1em;
+    font-size: 1.5em;
+    margin-bottom: 1px;
+  }
+
+  .team-image {
+    width: 15%;
+  }
+
+  .team-name {
+    width: 85%;
+  }
+
+  .list-years {
+    padding-left: 1%;
+    left: 70%;
+    top: 0;
+    width: 30%;
+    display: none;
+    height: 0;
+  }
+
+  .item-year {
+    margin: 2px;
+    font-size: 0.8em;
+    padding: 0.1em 0.2em;
+  }
+
+  .image-lr {
+    width: 150px;
+    height: 150px;
+  }
+  .btn-lets-play {
+    font-size: 1.5em;
+  }
+  .selected-team-name {
+    font-size: 1.8em;
+  }
+}

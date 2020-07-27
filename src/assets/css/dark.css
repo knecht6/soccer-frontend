@@ -1,0 +1,130 @@
+.body-dark {
+  background-image: url("../images/background_img1.png");
+  background-size: cover;
+  height: 100vh;
+}
+
+h1.gradient {
+  font-family: "Bebas Neue";
+  font-size: 2em;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(
+    to right,
+    #00dc9e6e,
+    #00dc9e93,
+    #00dc9eb2,
+    #00dc9d,
+    #00dc9d
+  );
+  letter-spacing: 0.09em;
+  margin-bottom: 0.7em;
+}
+
+h1 span {
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: 0.17em;
+}
+
+.btn-play {
+  font-family: "Bebas neue";
+  font-size: 1.5em;
+  color: white;
+  background-color: transparent;
+  background-image: linear-gradient(
+    to right,
+    #00dc9e80,
+    #00dc9eaa,
+    #00dc9ec0,
+    #00dc9ecc,
+    #00dc9ec0,
+    #00dc9eaa,
+    #00dc9e80
+  );
+  box-shadow: 0 0 70px #00dc9d;
+  text-shadow: 0 0 50px #00dc9d, 0 0 50px #00dc9d, 0 0 50px #00dc9d,
+    0 0 50px #00dc9d, 0 0 70px #00dc9d, 0 0 100px #00dc9d, 0 0 70px #00dc9d,
+    0 0 80px #00dc9d;
+  border: 0;
+  padding: 0.2em 2em;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 3px solid transparent;
+}
+.btn-play:hover {
+  border: 3px solid #00dc9e57;
+}
+.header-home {
+  display: flex;
+  justify-content: space-between;
+}
+.outer {
+  display: table;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.middle {
+  display: table-cell;
+  vertical-align: middle;
+}
+.inner {
+  width: 100%;
+  text-align: center;
+}
+.white,
+header h1 {
+  color: white;
+}
+header h1 {
+  font-family: "Bebas Neue";
+  font-size: 1.7em;
+}
+header {
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+}
+.social-icons {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 30px;
+}
+.social-icons::after {
+  clear: both;
+}
+.social-icons ul {
+    list-style: none;
+  }
+.social-icons li {
+  margin: 0;
+  float: left;
+}
+.social-icons a {
+  color: white;
+  padding: 10px 20px;
+  background-color: #00dc9d33;
+  transition: background-color 0.2s;
+}
+.social-icons a:hover {
+  background-color: #00dc9ebd;
+}
+
+@media (min-width: 450px) {
+  h1.gradient {
+    font-size: 4em;
+    margin-bottom: 0.4em;
+  }
+  .btn-play {
+    font-size: 2em;
+    padding: 0.2em 2em;
+  }
+  .inner {
+    width: 50%;
+    text-align: center;
+  }
+}
