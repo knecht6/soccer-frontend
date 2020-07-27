@@ -22,7 +22,7 @@ league, team and season container
 .wrapper {
     position: relative;
     max-width: 950px;
-    margin: 150px auto 0;
+    margin: 100px auto 0;
     background-color: #424242;
 }
 
@@ -33,12 +33,32 @@ league, team and season container
     overflow-y: scroll;
     transition: .3s;
     max-height: 0;
-    opacity: 0;
+    opacity: 1;
+    max-height: 400px;
 }
 
 .wrapper:hover .leagues-container {
-    max-height: 300px;
+    max-height: 400px;
     opacity: 1;
+}
+.seasons {
+    background-color: #353535f8;
+    color:black;
+    position: absolute;
+    top:40px;
+    z-index:3;
+    right:0;
+    width:100%;
+
+}
+.seasons div {
+    padding:8px 5px;
+    background-color:#262727f8;
+    color:white;
+    margin:2px;
+}
+.seasons div:hover {
+    background-color:#18b976b2;
 }
 
 .donation,

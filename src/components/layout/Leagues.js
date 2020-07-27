@@ -55,19 +55,17 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   team: {
-    '&:hover':{
+    position:'relative',
+    '&:hover': {
       backgroundColor: '#2196F3',
-      cursor: 'pointer', 
+      cursor: 'pointer',
       borderRadius: '20px 20px 20px 20px',
-      transition:'.02s'
+      transition: '.02s',
     }
   },
   colored: {
     backgroundColor: "#666"
   },
-  // colored2: {
-  //   backgroundColor: "#fa00af"
-  // }
   centrado: {
     justifyContent: 'center'
   }
@@ -84,11 +82,12 @@ export default function Leagues() {
     { name: 'Bundesliga', img: Bundesliga },
     { name: 'Ligue 1', img: Ligue1 }
   ];
-  React.useEffect(()=> {
+  React.useEffect(() => {
     console.log('fetching first time');
     fetch(`http://localhost:3001/api/list/statistic/${encodeURIComponent(listLeagues[0].name)}`)
       .then(res => res.json())
       .then(res => {
+        res[0].seasons = ['2012/2014', '2014/2016', '2016/2018', '2018/2020'];
         setTeams(res);
       });
   }, []);
@@ -104,7 +103,7 @@ export default function Leagues() {
       ;
   };
   const hasSelectedTeam = (teamSelected) => {
-    
+
   }
   return (
     <div className={classes.root + " leagues-container"}>
@@ -123,12 +122,12 @@ export default function Leagues() {
           ))}
         </Tabs>
       </AppBar>
-      {listLeagues.map((league, index)=> (
-      <TabPanel value={value} index={index}>
-      <Grid container>
-        <TeamContainer hasSelectedTeam={hasSelectedTeam} teams={teams} />
-      </Grid>
-    </TabPanel>
+      {listLeagues.map((league, index) => (
+        <TabPanel value={value} index={index}>
+          <Grid container>
+            <TeamContainer hasSelectedTeam={hasSelectedTeam} teams={teams} />
+          </Grid>
+        </TabPanel>
       ))}
     </div>
   );
@@ -137,7 +136,7 @@ function TeamContainer(props) {
   const teams = props.teams;
   return (
     teams.map(item => (
-      <Team team={item} hasSelectedTeam={props.hasSelectedTeam}/>
+      <Team team={item} hasSelectedTeam={props.hasSelectedTeam} />
     ))
   );
 }
@@ -145,13 +144,16 @@ function Team(props) {
   const classes = useStyles();
   const team = props.team;
   return (
-    <Grid item container onClick={e=> {props.hasSelectedTeam(team);}} className={classes.team} alignItems='center' md={3}>
+    <Grid item container onClick={e => { props.hasSelectedTeam(team); }} className={classes.team} alignItems='center' md={3}>
       <Grid item md={4}>
         <Avatar>
           <img width={40} height='auto' alt={team.team_namee} src={team.img_team} />
         </Avatar>
       </Grid>
       <Grid item align='left' md={8}>{team.team_name}</Grid>
+      {team.seasons && <div className='seasons'>
+      {team.seasons.map(season => (<div>{season}</div>))}        
+      </div>}
     </Grid>
   );
 }
