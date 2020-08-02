@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/dark.css";
 import "../assets/css/match.css";
-import Layout from "./Layout";
 import { Link, useParams } from "react-router-dom";
 import DoughnutChart from "./DoughnutChart";
 import Odometer from "./Odometer";
@@ -9,22 +8,14 @@ import MatchTeams from "../utils/MatchTeams";
 import LoadCircle from "./LoadCircle";
 import Confetti from "react-confetti";
 
-export default function Match({
-  url,
-  localTeam,
-  visitTeam,
-  handleUrl,
-  words,
-  title,
-  powered,
-  Lenguaje,
-  handleLenguaje,
-}) {
+export default function Match({ handleUrl, words, Lenguaje, changeMode }) {
   const { localName, localSeason, visitName, visitSeason } = useParams();
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [matchFor, setMatchFor] = useState(null);
-  
+  useEffect(() => {
+    changeMode("dark");
+  }, [changeMode]);
   useEffect(() => {
     fetch(
       `${process.env.REACT_APP_API_URL}/api/getData/${localName}/${localSeason}/${visitName}/${visitSeason}`
@@ -55,35 +46,13 @@ export default function Match({
   if (isLoaded) {
     if (error) {
       return (
-        <Layout
-          classBody="body-dark"
-          classTitle="title-dark"
-          classIcons="social-icons-dark"
-          title={title}
-          powered={powered}
-          Lenguaje={Lenguaje}
-          handleLenguaje={handleLenguaje}
-        >
-          <div style={{ textAlign: "center", paddingTop: 200 }}>
-            <Error {...error} />
-          </div>
-        </Layout>
+        <div style={{ textAlign: "center", paddingTop: 200 }}>
+          <Error {...error} />
+        </div>
       );
     } else {
       return (
-        <Layout
-          classBody="body-dark"
-          classTitle="title-dark"
-          classIcons="social-icons-dark"
-          url={url}
-          localTeam={localTeam}
-          visitTeam={visitTeam}
-          handleUrl={handleUrl}
-          title={title}
-          powered={powered}
-          Lenguaje={Lenguaje}
-          handleLenguaje={handleLenguaje}
-        >
+        <>
           <h1 className="match-title">
             {`${matchFor.localTeam.team_name} ${matchFor.localTeam.season_name} vs ${matchFor.visitTeam.team_name} ${matchFor.visitTeam.season_name}`}
           </h1>
@@ -126,24 +95,14 @@ export default function Match({
             </Link>
           </div>
           <Confetti style={{ width: "auto", height: "auto" }} />
-        </Layout>
+        </>
       );
     }
   } else {
     return (
-      <Layout
-        classBody="body-dark"
-        classTitle="title-dark"
-        classIcons="social-icons-dark"
-        title={title}
-        powered={powered}
-        Lenguaje={Lenguaje}
-        handleLenguaje={handleLenguaje}
-      >
-        <div style={{ textAlign: "center", paddingTop: 200 }}>
-          <LoadCircle />
-        </div>
-      </Layout>
+      <div style={{ textAlign: "center", paddingTop: 200 }}>
+        <LoadCircle />
+      </div>
     );
   }
 }

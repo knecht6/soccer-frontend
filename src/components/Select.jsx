@@ -2,7 +2,6 @@ import React, { useEffect, useState, createRef } from "react";
 import "../assets/css/select.css";
 import "../assets/css/grid.css";
 import "../assets/css/font-awesome.min.css";
-import Layout from "./Layout";
 import { Link } from "react-router-dom";
 import ListLeagues from "./ListLeagues";
 import League from "./League";
@@ -41,15 +40,7 @@ const arrayLogos = [
   },
 ];
 
-export default function Select({
-  url,
-  handleUrl,
-  words,
-  title,
-  powered,
-  Lenguaje,
-  handleLenguaje,
-}) {
+export default function Select({ handleUrl, words, Lenguaje, setMode }) {
   const [leagues, setLeagues] = useState([]);
   const [localTeam, setLocalTeam] = useState(null);
   const [visitTeam, setVisitTeam] = useState(null);
@@ -60,7 +51,6 @@ export default function Select({
     indice: -1,
   });
   const playButton = createRef();
-  console.log(classHover);
   const handleClassHover = (opc, indice) => {
     if (opc) {
       setClassHover({ class: "list-teams list-teams-hovered", indice });
@@ -164,6 +154,7 @@ export default function Select({
   };
   useEffect(() => {
     handleUrl(window.location.href, null, null);
+    setMode("light");
     setLoading(true);
     fetch(`${process.env.REACT_APP_API_URL}/api/list/league`)
       .then((res) => res.json())
@@ -183,151 +174,119 @@ export default function Select({
       .catch((error) => {
         setError(error);
       });
-  }, [handleUrl]);
+  }, [handleUrl, setMode]);
   if (loading) {
     return (
-      <Layout
-        classBody="body-light"
-        classTitle="title-light"
-        classIcons="social-icons-light"
-        title={title}
-        powered={powered}
-        Lenguaje={Lenguaje}
-        handleLenguaje={handleLenguaje}
-      >
-        <div style={{ textAlign: "center", paddingTop: 200 }}>
-          <LoadCircle />
-        </div>
-      </Layout>
+      <div style={{ textAlign: "center", paddingTop: 200 }}>
+        <LoadCircle />
+      </div>
     );
   } else {
     if (error) {
       return (
-        <Layout
-          classBody="body-light"
-          classTitle="title-light"
-          classIcons="social-icons-light"
-          title={title}
-          powered={powered}
-          Lenguaje={Lenguaje}
-          handleLenguaje={handleLenguaje}
-        >
-          <main style={{ paddingTop: 100 }}>
-            <h1>A error to ocurred</h1>
-          </main>
-        </Layout>
+        <main style={{ paddingTop: 100 }}>
+          <h1>A error to ocurred</h1>
+        </main>
       );
     } else {
       return (
-        <Layout
-          classBody="body-light"
-          classTitle="title-light"
-          classIcons="social-icons-light"
-          url={url}
-          handleUrl={handleUrl}
-          title={title}
-          powered={powered}
-          Lenguaje={Lenguaje}
-          handleLenguaje={handleLenguaje}
-        >
-          <main style={{ paddingTop: 100 }}>
-            <ListLeagues>
-              {leagues.map((league) => (
-                <League
-                  key={league.id}
-                  id={league.id}
-                  src={arrayLogos.find((logo) => league.id === logo.id).src}
-                  name={league.name}
-                  onHover={handleLeague}
-                  Leagues={leagues}
-                  handleClassHover={handleClassHover}
+        <main style={{ paddingTop: 100 }}>
+          <ListLeagues>
+            {leagues.map((league) => (
+              <League
+                key={league.id}
+                id={league.id}
+                src={arrayLogos.find((logo) => league.id === logo.id).src}
+                name={league.name}
+                onHover={handleLeague}
+                Leagues={leagues}
+                handleClassHover={handleClassHover}
+              >
+                <ListTeams
+                  classHover={
+                    league.id === classHover.indice
+                      ? classHover.class
+                      : "list-teams"
+                  }
                 >
-                  <ListTeams
-                    classHover={
-                      league.id === classHover.indice
-                        ? classHover.class
-                        : "list-teams"
-                    }
-                  >
-                    {league.teams ? (
-                      league.teams.map((team) => (
-                        <Team
-                          key={team.id}
-                          id={team.id}
-                          leagueId={league.id}
-                          name={team.team_name}
-                          src={team.img_team}
-                          handleTeam={handleSeasons}
-                        >
-                          <ListYears>
-                            {team.seasons ? (
-                              team.seasons.map((season, index) => (
-                                <Year
-                                  leagueId={league.id}
-                                  key={index}
-                                  name={season.season_name}
-                                  team={team}
-                                  handleTeam={handleTeam}
-                                />
-                              ))
-                            ) : (
-                              <LoadCircle />
-                            )}
-                          </ListYears>
-                        </Team>
-                      ))
-                    ) : (
-                      <LoadCircle />
-                    )}
-                  </ListTeams>
-                </League>
-              ))}
-            </ListLeagues>
-            <div className="container">
-              <div id="selected-teams" className="row">
-                <div className="col-4">
-                  <TeamSelected
-                    team={localTeam}
-                    label={words.localLegend.name}
-                    seasonLabel={words.localLegend.season}
-                    reset={resetLocal}
-                  />
-                </div>
-                <div className="col-4">
-                  <Link
-                    ref={playButton}
-                    className="btn-lets-play"
-                    style={{ textDecoration: "none" }}
-                    onClick={validate}
-                    to={
-                      localTeam && visitTeam
-                        ? `/${Lenguaje}/${encodeURIComponent(
-                            localTeam.team.team_name
-                          )}/${encodeURIComponent(
-                            localTeam.season.replace("/", " ")
-                          )}-vs-/${encodeURIComponent(
-                            visitTeam.team.team_name
-                          )}/${encodeURIComponent(
-                            visitTeam.season.replace("/", " ")
-                          )}`
-                        : `/${Lenguaje}`
-                    }
-                  >
-                    {words.playButton}
-                  </Link>
-                </div>
-                <div className="col-4">
-                  <TeamSelected
-                    team={visitTeam}
-                    label={words.visitLegend.name}
-                    seasonLabel={words.visitLegend.season}
-                    reset={resetVisit}
-                  />
-                </div>
+                  {league.teams ? (
+                    league.teams.map((team, teamIndex) => (
+                      <Team
+                        key={teamIndex}
+                        id={team.id}
+                        leagueId={league.id}
+                        name={team.team_name}
+                        src={team.img_team}
+                        handleTeam={handleSeasons}
+                      >
+                        <ListYears>
+                          {team.seasons ? (
+                            team.seasons.map((season, index) => (
+                              <Year
+                                leagueId={league.id}
+                                key={index}
+                                name={season.season_name}
+                                team={team}
+                                handleTeam={handleTeam}
+                              />
+                            ))
+                          ) : (
+                            <LoadCircle />
+                          )}
+                        </ListYears>
+                      </Team>
+                    ))
+                  ) : (
+                    <LoadCircle />
+                  )}
+                </ListTeams>
+              </League>
+            ))}
+          </ListLeagues>
+          <div className="container">
+            <div id="selected-teams" className="row">
+              <div className="col-4">
+                <TeamSelected
+                  team={localTeam}
+                  label={words.localLegend.name}
+                  seasonLabel={words.localLegend.season}
+                  reset={resetLocal}
+                />
+              </div>
+              <div className="col-4">
+                <Link
+                  ref={playButton}
+                  className="btn-lets-play"
+                  style={{ textDecoration: "none" }}
+                  onClick={validate}
+                  to={
+                    localTeam && visitTeam
+                      ? `/${Lenguaje}/${encodeURIComponent(
+                          localTeam.team.team_name
+                        )}/${encodeURIComponent(
+                          localTeam.season.replace("/", " ")
+                        )}-vs-/${encodeURIComponent(
+                          visitTeam.team.team_name
+                        )}/${encodeURIComponent(
+                          visitTeam.season.replace("/", " ")
+                        )}`
+                      : `/${Lenguaje}`
+                  }
+                >
+                  {words.playButton}
+                </Link>
+              </div>
+              <div className="col-4">
+                <TeamSelected
+                  team={visitTeam}
+                  label={words.visitLegend.name}
+                  seasonLabel={words.visitLegend.season}
+                  reset={resetVisit}
+                />
               </div>
             </div>
-          </main>
-        </Layout>
+          </div>
+        </main>
       );
     }
   }
