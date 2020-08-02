@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Chart } from "chart.js";
 
-export default function DoughnutChart(props) {
+export default function DoughnutChart({ matchFor, duration }) {
   useEffect(() => {
     var ctx = document.querySelector("#graph").getContext("2d");
     var gradientStrokeLocal = ctx.createLinearGradient(500, 0, 100, 0);
@@ -17,12 +17,15 @@ export default function DoughnutChart(props) {
     new Chart(ctx, {
       type: "doughnut",
       data: {
-        labels: ["Local Team", "Visit Team"],
+        labels: [matchFor.visitTeam.team_name, matchFor.localTeam.team_name],
         datasets: [
           {
             backgroundColor: [gradientStrokeVisit, gradientStrokeLocal],
             borderColor: "hsla(0,0%,0%,0)",
-            data: [60, 40],
+            data: [
+              matchFor.visitTeam.percentage,
+              matchFor.localTeam.percentage,
+            ],
           },
         ],
       },
@@ -31,7 +34,7 @@ export default function DoughnutChart(props) {
           display: false,
         },
         animation: {
-          duration: props.duration,
+          duration: duration,
         },
       },
     });

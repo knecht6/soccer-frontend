@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createRef } from "react";
 import "../assets/css/select.css";
 import "../assets/css/grid.css";
 import "../assets/css/font-awesome.min.css";
@@ -41,14 +41,35 @@ const arrayLogos = [
   },
 ];
 
-export default function Select() {
+export default function Select({
+  url,
+  handleUrl,
+  words,
+  title,
+  powered,
+  Lenguaje,
+  handleLenguaje,
+}) {
   const [leagues, setLeagues] = useState([]);
-  const [seasons, setSeasons] = useState([]);
   const [localTeam, setLocalTeam] = useState(null);
   const [visitTeam, setVisitTeam] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const handleTeam = (team, season) => {
+  const [classHover, setClassHover] = useState({
+    class: "list-teams",
+    indice: -1,
+  });
+  const playButton = createRef();
+  console.log(classHover);
+  const handleClassHover = (opc, indice) => {
+    if (opc) {
+      setClassHover({ class: "list-teams list-teams-hovered", indice });
+    } else {
+      setClassHover({ class: "list-teams", indice });
+    }
+  };
+  const handleTeam = (team, season, leagueId) => {
+    handleClassHover(false, leagueId);
     if (localTeam === null) {
       setLocalTeam({ team, season });
     } else if (visitTeam === null) {
@@ -64,9 +85,11 @@ export default function Select() {
   const validate = (e) => {
     if (!(localTeam && visitTeam)) {
       e.preventDefault();
+      alert("Please select a correct match");
     }
   };
-  const handleLeague = (e, leagueId, name) => {
+  const handleLeague = (leagueId, name) => {
+    handleClassHover(true, leagueId);
     let league = leagues.find((league) => league.id === leagueId);
     if (!league.teams) {
       fetch(
@@ -98,50 +121,83 @@ export default function Select() {
         });
     }
   };
+  const handleSeasons = (leagueId, name) => {
+    let league = leagues.find((element) => element.id === leagueId);
+    if (league) {
+      let team = league.teams.find((element) => element.team_name === name);
+      if (!team.seasons) {
+        fetch(
+          `${
+            process.env.REACT_APP_API_URL
+          }/api/list/seasonsteam/${encodeURIComponent(name)}`
+        )
+          .then((res) => res.json())
+          .then(
+            (res) => {
+              const newLeague = leagues.map((element) => {
+                if (element.id === league.id) {
+                  let newTeams = element.teams.map((team) => {
+                    if (team.team_name === name) {
+                      team.seasons = res;
+                      return team;
+                    } else {
+                      return team;
+                    }
+                  });
+                  element.teams = newTeams;
+                  return element;
+                } else {
+                  return element;
+                }
+              });
+              setLeagues(newLeague);
+            },
+            (error) => {
+              setError(error);
+            }
+          )
+          .catch((error) => {
+            setError(error);
+          });
+      }
+    }
+  };
   useEffect(() => {
-    (() => {
-      setLoading(true);
-      fetch(`${process.env.REACT_APP_API_URL}/api/list/league`)
-        .then((res) => res.json())
-        .then(
-          (res) => {
-            setLeagues(res);
-            setLoading(false);
-          },
-          (error) => {
-            setError(error);
-          }
-        )
-        .catch((error) => {
+    handleUrl(window.location.href, null, null);
+    setLoading(true);
+    fetch(`${process.env.REACT_APP_API_URL}/api/list/league`)
+      .then((res) => res.json())
+      .then(
+        (res) => {
+          const LeaguesWRF = res.map((league) => {
+            league.refer = createRef();
+            return league;
+          });
+          setLeagues(LeaguesWRF);
+          setLoading(false);
+        },
+        (error) => {
           setError(error);
-        });
-    })();
-    (() => {
-      fetch(`${process.env.REACT_APP_API_URL}/api/list/season`)
-        .then((res) => res.json())
-        .then(
-          (res) => {
-            setSeasons(res);
-          },
-          (error) => {
-            setError(error);
-          }
-        )
-        .catch((error) => {
-          setError(error);
-        });
-    })();
-  }, []);
+        }
+      )
+      .catch((error) => {
+        setError(error);
+      });
+  }, [handleUrl]);
   if (loading) {
     return (
       <Layout
         classBody="body-light"
-        classTitle="title"
+        classTitle="title-light"
         classIcons="social-icons-light"
+        title={title}
+        powered={powered}
+        Lenguaje={Lenguaje}
+        handleLenguaje={handleLenguaje}
       >
-        <main style={{ paddingTop: 100 }}>
+        <div style={{ textAlign: "center", paddingTop: 200 }}>
           <LoadCircle />
-        </main>
+        </div>
       </Layout>
     );
   } else {
@@ -149,8 +205,12 @@ export default function Select() {
       return (
         <Layout
           classBody="body-light"
-          classTitle="title"
+          classTitle="title-light"
           classIcons="social-icons-light"
+          title={title}
+          powered={powered}
+          Lenguaje={Lenguaje}
+          handleLenguaje={handleLenguaje}
         >
           <main style={{ paddingTop: 100 }}>
             <h1>A error to ocurred</h1>
@@ -161,8 +221,14 @@ export default function Select() {
       return (
         <Layout
           classBody="body-light"
-          classTitle="title"
+          classTitle="title-light"
           classIcons="social-icons-light"
+          url={url}
+          handleUrl={handleUrl}
+          title={title}
+          powered={powered}
+          Lenguaje={Lenguaje}
+          handleLenguaje={handleLenguaje}
         >
           <main style={{ paddingTop: 100 }}>
             <ListLeagues>
@@ -173,33 +239,47 @@ export default function Select() {
                   src={arrayLogos.find((logo) => league.id === logo.id).src}
                   name={league.name}
                   onHover={handleLeague}
+                  Leagues={leagues}
+                  handleClassHover={handleClassHover}
                 >
-                  {league.teams ? (
-                    <ListTeams>
-                      {league.teams.map((team) => (
+                  <ListTeams
+                    classHover={
+                      league.id === classHover.indice
+                        ? classHover.class
+                        : "list-teams"
+                    }
+                  >
+                    {league.teams ? (
+                      league.teams.map((team) => (
                         <Team
                           key={team.id}
+                          id={team.id}
+                          leagueId={league.id}
                           name={team.team_name}
                           src={team.img_team}
+                          handleTeam={handleSeasons}
                         >
                           <ListYears>
-                            {seasons.map((season, index) => (
-                              <Year
-                                key={index}
-                                name={season.name}
-                                team={team}
-                                handleTeam={handleTeam}
-                              />
-                            ))}
+                            {team.seasons ? (
+                              team.seasons.map((season, index) => (
+                                <Year
+                                  leagueId={league.id}
+                                  key={index}
+                                  name={season.season_name}
+                                  team={team}
+                                  handleTeam={handleTeam}
+                                />
+                              ))
+                            ) : (
+                              <LoadCircle />
+                            )}
                           </ListYears>
                         </Team>
-                      ))}
-                    </ListTeams>
-                  ) : (
-                    <ListTeams>
+                      ))
+                    ) : (
                       <LoadCircle />
-                    </ListTeams>
-                  )}
+                    )}
+                  </ListTeams>
                 </League>
               ))}
             </ListLeagues>
@@ -208,34 +288,39 @@ export default function Select() {
                 <div className="col-4">
                   <TeamSelected
                     team={localTeam}
-                    label="Local Team"
+                    label={words.localLegend.name}
+                    seasonLabel={words.localLegend.season}
                     reset={resetLocal}
                   />
                 </div>
                 <div className="col-4">
                   <Link
+                    ref={playButton}
                     className="btn-lets-play"
                     style={{ textDecoration: "none" }}
                     onClick={validate}
                     to={
                       localTeam && visitTeam
-                        ? `/${encodeURIComponent(
+                        ? `/${Lenguaje}/${encodeURIComponent(
                             localTeam.team.team_name
                           )}/${encodeURIComponent(
-                            localTeam.season
+                            localTeam.season.replace("/", " ")
                           )}-vs-/${encodeURIComponent(
                             visitTeam.team.team_name
-                          )}/${encodeURIComponent(visitTeam.season)}`
-                        : "/"
+                          )}/${encodeURIComponent(
+                            visitTeam.season.replace("/", " ")
+                          )}`
+                        : `/${Lenguaje}`
                     }
                   >
-                    Let's play
+                    {words.playButton}
                   </Link>
                 </div>
                 <div className="col-4">
                   <TeamSelected
                     team={visitTeam}
-                    label="Visit Team"
+                    label={words.visitLegend.name}
+                    seasonLabel={words.visitLegend.season}
                     reset={resetVisit}
                   />
                 </div>

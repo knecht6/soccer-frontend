@@ -76,7 +76,7 @@ h1 span {
   width: 100%;
   text-align: center;
 }
-.white,
+.title-dark,
 header h1 {
   color: white;
 }
@@ -89,28 +89,28 @@ header {
   width: 100%;
   z-index: 5;
 }
-.social-icons {
+.social-icons-dark {
   display: flex;
   justify-content: flex-end;
   padding-right: 30px;
 }
-.social-icons::after {
+.social-icons-dark::after {
   clear: both;
 }
-.social-icons ul {
+.social-icons-dark ul {
     list-style: none;
   }
-.social-icons li {
+.social-icons-dark li {
   margin: 0;
   float: left;
 }
-.social-icons a {
+.social-icons-dark a {
   color: white;
   padding: 10px 20px;
   background-color: #00dc9d33;
   transition: background-color 0.2s;
 }
-.social-icons a:hover {
+.social-icons-dark a:hover {
   background-color: #00dc9ebd;
 }
 

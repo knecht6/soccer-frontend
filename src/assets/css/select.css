@@ -10,7 +10,7 @@
   src: url("../fonts/BebasNeue.otf");
 }
 
-.title {
+.title-light {
   font-family: "Bebas Neue";
   font-size: 25px;
   font-weight: bold;
@@ -112,7 +112,11 @@
   width: 60%;
 }
 
-.card-item:hover .list-teams {
+.list-teams-reset {
+  height: 0;
+}
+
+.list-teams-hovered {
   height: 300px;
 }
 

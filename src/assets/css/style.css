@@ -172,12 +172,3 @@ footer {
     font-family: "Bebas Neue";
 	src: url("../fonts/BebasNeue.otf")
 }
-
-h1 {
-    font-family: "Bebas Neue";
-	font-size: 1.5em;
-    background-clip: text;
-	-webkit-background-clip: text;
-	color: transparent;
-    background-image: linear-gradient(to right, #0b1a40, #3154fb, #4bda9b, #00dc9d);
-}

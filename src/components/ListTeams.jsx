@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function ListTeams({ children }) {
+export default function ListTeams({ children, classHover }) {
   return (
-    <div className="list-teams">
+    <div className={classHover}>
       <ul>{children}</ul>
     </div>
   );
