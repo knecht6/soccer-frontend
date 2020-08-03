@@ -40,9 +40,11 @@ export default function Match({ handleUrl, words, Lenguaje, changeMode }) {
         setIsLoaded(true);
       });
   }, [localName, visitName, localSeason, visitSeason]);
-  if (matchFor) {
-    handleUrl(window.location.href, matchFor.localTeam, matchFor.visitTeam);
-  }
+  useEffect(() => {
+    if (matchFor) {
+      handleUrl(window.location.href, matchFor.localTeam, matchFor.visitTeam);
+    }
+  }, [handleUrl, matchFor]);
   if (isLoaded) {
     if (error) {
       return (

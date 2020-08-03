@@ -43,6 +43,7 @@ export default function Header({
     hashtags.push("Soccer_Analysis");
     hashtags.push("SoccerPrediction");
   }
+  console.log(window.location);
   return (
     <header>
       <div className="nav-holder">
@@ -68,7 +69,7 @@ export default function Header({
                 hashtags={hashtags}
               >
                 <Link to="#">
-                  <i className="fa fa-instagram" aria-hidden="true"></i>
+                  <i className="fa fa-twitter" aria-hidden="true"></i>
                 </Link>
               </TwitterShareButton>
             </li>

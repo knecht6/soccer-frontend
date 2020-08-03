@@ -10,7 +10,7 @@ import {
 import Home from "./components/Home";
 import Select from "./components/Select";
 import Match from "./components/Match";
-import { en, es } from "./utils/Languages";
+import { Lenguajes } from "./utils/Languages";
 import { createBrowserHistory } from "history";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -37,7 +37,6 @@ function App() {
   const changeMode = (mode) => {
     setMode(mode);
   };
-  let lenguajeUi = null;
   const handleLenguaje = (len) => {
     var newPath = window.location.pathname;
     if (len === "es") {
@@ -53,21 +52,16 @@ function App() {
     setLocalTeam(localTeam);
     setVisitTeam(visitTeam);
   };
-  if (lenguaje === "es") {
-    lenguajeUi = es;
-  } else {
-    lenguajeUi = en;
-  }
   return (
-    <Router >
-      <div className={classes[mode].body} >
+    <Router>
+      <div className={classes[mode].body}>
         <Header
           classTitle={classes[mode].title}
           classIcons={classes[mode].icons}
           url={url}
           localTeam={localTeam}
           visitTeam={visitTeam}
-          title={lenguajeUi.title}
+          title={Lenguajes[lenguaje].title}
           Lenguaje={lenguaje}
           handleLenguaje={handleLenguaje}
         />
@@ -77,15 +71,9 @@ function App() {
             path="/es/:localName/:localSeason-vs-/:visitName/:visitSeason"
           >
             <Match
-              url={url}
-              localTeam={localTeam}
-              visitTeam={visitTeam}
               handleUrl={handleUrl}
-              title={lenguajeUi.title}
-              words={lenguajeUi.match}
-              powered={lenguajeUi.powered}
+              words={Lenguajes[lenguaje].match}
               Lenguaje={lenguaje}
-              handleLenguaje={handleLenguaje}
               changeMode={changeMode}
             />
           </Route>
@@ -95,59 +83,42 @@ function App() {
           >
             <Match
               handleUrl={handleUrl}
-              title={lenguajeUi.title}
-              words={lenguajeUi.match}
-              powered={lenguajeUi.powered}
+              words={Lenguajes[lenguaje].match}
               Lenguaje={lenguaje}
-              handleLenguaje={handleLenguaje}
               changeMode={changeMode}
             />
           </Route>
           <Route exact path="/es/select">
             <Select
-              url={url}
               handleUrl={handleUrl}
-              title={lenguajeUi.title}
-              words={lenguajeUi.select}
-              powered={lenguajeUi.powered}
+              words={Lenguajes[lenguaje].select}
               Lenguaje={lenguaje}
-              handleLenguaje={handleLenguaje}
               setMode={setMode}
             />
           </Route>
           <Route exact path="/en/select">
             <Select
-              url={url}
               handleUrl={handleUrl}
-              title={lenguajeUi.title}
-              words={lenguajeUi.select}
-              powered={lenguajeUi.powered}
+              words={Lenguajes[lenguaje].select}
               Lenguaje={lenguaje}
-              handleLenguaje={handleLenguaje}
               setMode={setMode}
             />
           </Route>
           <Route exact path="/es">
             <Home
-              url={url}
               handleUrl={handleUrl}
-              title={lenguajeUi.title}
-              words={lenguajeUi.home}
-              powered={lenguajeUi.powered}
+              words={Lenguajes[lenguaje].home}
+              title={Lenguajes[lenguaje].title}
               Lenguaje={lenguaje}
-              handleLenguaje={handleLenguaje}
               changeMode={changeMode}
             />
           </Route>
           <Route exact path="/en">
             <Home
-              url={url}
               handleUrl={handleUrl}
-              title={lenguajeUi.title}
-              words={lenguajeUi.home}
-              powered={lenguajeUi.powered}
+              words={Lenguajes[lenguaje].home}
+              title={Lenguajes[lenguaje].title}
               Lenguaje={lenguaje}
-              handleLenguaje={handleLenguaje}
               changeMode={changeMode}
             />
           </Route>
@@ -155,7 +126,7 @@ function App() {
             {lenguaje === "es" ? <Redirect to="/es" /> : <Redirect to="/en" />}
           </Route>
         </Switch>
-        <Footer powered={lenguajeUi.powered} />
+        <Footer powered={Lenguajes[lenguaje].powered} />
       </div>
     </Router>
   );
