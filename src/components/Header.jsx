@@ -14,8 +14,9 @@ export default function Header({
   visitTeam,
   title,
   Lenguaje,
-  handleLenguaje,
+  currentPath,
 }) {
+  console.log(currentPath);
   let quote = "";
   let titleShare = "";
   let via = "";
@@ -43,7 +44,6 @@ export default function Header({
     hashtags.push("Soccer_Analysis");
     hashtags.push("SoccerPrediction");
   }
-  console.log(window.location);
   return (
     <header>
       <div className="nav-holder">
@@ -81,18 +81,17 @@ export default function Header({
               </WhatsappShareButton>
             </li>
             <li>
-              <span
-                style={{ color: "white", marginLeft: 15, cursor: "pointer" }}
-                onClick={() => {
-                  if (Lenguaje === "es") {
-                    handleLenguaje("en");
-                  } else {
-                    handleLenguaje("es");
-                  }
+              <Link
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  marginLeft: 15,
+                  cursor: "pointer",
                 }}
+                to={currentPath}
               >
                 {Lenguaje === "es" ? "en" : "es"}
-              </span>
+              </Link>
             </li>
           </ul>
         </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState, createRef } from "react";
 import "../assets/css/select.css";
 import "../assets/css/grid.css";
 import "../assets/css/font-awesome.min.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ListLeagues from "./ListLeagues";
 import League from "./League";
 import ListTeams from "./ListTeams";
@@ -40,7 +40,14 @@ const arrayLogos = [
   },
 ];
 
-export default function Select({ handleUrl, words, Lenguaje, setMode }) {
+export default function Select({
+  handleUrl,
+  words,
+  Lenguaje,
+  setMode,
+  handleLenguajeReceived,
+}) {
+  const { lenguaje } = useParams();
   const [leagues, setLeagues] = useState([]);
   const [localTeam, setLocalTeam] = useState(null);
   const [visitTeam, setVisitTeam] = useState(null);
@@ -152,6 +159,9 @@ export default function Select({ handleUrl, words, Lenguaje, setMode }) {
       }
     }
   };
+  useEffect(() => {
+    handleLenguajeReceived(lenguaje);
+  }, [handleLenguajeReceived, lenguaje]);
   useEffect(() => {
     handleUrl(window.location.href, null, null);
     setMode("light");

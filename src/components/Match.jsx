@@ -8,11 +8,26 @@ import MatchTeams from "../utils/MatchTeams";
 import LoadCircle from "./LoadCircle";
 import Confetti from "react-confetti";
 
-export default function Match({ handleUrl, words, Lenguaje, changeMode }) {
-  const { localName, localSeason, visitName, visitSeason } = useParams();
+export default function Match({
+  handleUrl,
+  words,
+  Lenguaje,
+  changeMode,
+  handleLenguajeReceived,
+}) {
+  const {
+    lenguaje,
+    localName,
+    localSeason,
+    visitName,
+    visitSeason,
+  } = useParams();
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [matchFor, setMatchFor] = useState(null);
+  useEffect(() => {
+    handleLenguajeReceived(lenguaje);
+  }, [handleLenguajeReceived, lenguaje]);
   useEffect(() => {
     changeMode("dark");
   }, [changeMode]);

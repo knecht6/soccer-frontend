@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "../assets/css/font-awesome.min.css";
 import "../assets/css/style.css";
 import "../assets/css/dark.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function Home({
   handleUrl,
@@ -10,7 +10,12 @@ export default function Home({
   title,
   Lenguaje,
   changeMode,
+  handleLenguajeReceived,
 }) {
+  const { lenguaje } = useParams();
+  useEffect(() => {
+    handleLenguajeReceived(lenguaje);
+  }, [handleLenguajeReceived, lenguaje]);
   useEffect(() => {
     handleUrl(window.location.href, null, null);
     changeMode("dark");
