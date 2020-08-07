@@ -5,5 +5,5 @@ export default function Odometer({ value }) {
   useEffect(() => {
     if (counter < value) setTimeout(() => setCounter(counter + 1), 15);
   }, [counter, value]);
-  return <div className="odometer">{counter}</div>;
+  return <div>{counter}</div>;
 }

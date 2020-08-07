@@ -1,0 +1,132 @@
+.donut-container {
+  font-family: "Bebas Neue";
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  color: white;
+  font-size: 60px;
+}
+
+.container {
+  margin-bottom: 50px;
+}
+
+#graph-container {
+  width: 100%;
+  margin: auto;
+  position: relative;
+}
+
+#graph {
+  width: 100%;
+}
+
+.percentage-left,
+.percentage-right {
+  width: 20%;
+  display: flex;
+  position: absolute;
+}
+
+.percentage-left {
+  left: 7%;
+  align-self: flex-start;
+  text-align: right;
+}
+
+.percentage-right {
+  right: 7%;
+  align-self: flex-end;
+  text-align: left;
+}
+
+.percentage-left img,
+.percentage-right img {
+  width: 50%;
+  float: left;
+}
+
+.percentage-left div,
+.percentage-right div {
+  font-size: .4em;
+  width: 30%;
+  float: left;
+  align-self: center;
+}
+
+div.percentage {
+  width: 20%;
+  float: left;
+  font-size: .3em;
+}
+
+.odometer {
+  font-size: 1em;
+}
+@media (min-width: 500px) {
+
+  #graph-container {
+    width: 60%;
+  }
+
+  .percentage-left,
+  .percentage-right {
+    width: 15%;
+  }
+
+  .percentage-left {
+    left: 20%;
+  }
+
+  .percentage-right {
+    right: 20%;
+  }
+
+  .percentage-left div,
+  .percentage-right div {
+    font-size: .5em;
+  }
+
+  div.percentage {
+    font-size: 40px;
+  }
+
+  .odometer {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 600px) {
+
+  #graph-container {
+    width: 60%;
+  }
+
+  .percentage-left,
+  .percentage-right {
+    width: 15%;
+  }
+
+  .percentage-left {
+    left: 20%;
+  }
+
+  .percentage-right {
+    right: 20%;
+  }
+
+  .percentage-left div,
+  .percentage-right div {
+    font-size: 1em;
+  }
+
+  div.percentage {
+    font-size: 40px;
+  }
+
+  .odometer {
+    font-size: 40px;
+  }
+}

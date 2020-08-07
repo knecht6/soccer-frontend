@@ -47,8 +47,13 @@ export default function Header({
   return (
     <header>
       <div className="nav-holder">
-        <div className="menu-tittle">
-          <Link to={`/${Lenguaje}`}>
+        <div className="menu-title">
+          <Link
+            to={`/${Lenguaje}`}
+            style={{
+              textDecoration: "none",
+            }}
+          >
             <h1 className={classTitle}>{`${title[0]} ${title[1]}`}</h1>
           </Link>
         </div>
@@ -80,20 +85,24 @@ export default function Header({
                 </Link>
               </WhatsappShareButton>
             </li>
-            <li>
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "white",
-                  marginLeft: 15,
-                  cursor: "pointer",
-                }}
-                to={currentPath}
-              >
-                {Lenguaje === "es" ? "en" : "es"}
-              </Link>
-            </li>
           </ul>
+          <div className="btn-dropdown btn-dropdown-blue">
+            <Link to="#">{Lenguaje}</Link>
+            <div>
+              <Link
+                to={Lenguaje === "en" ? "#" : currentPath}
+                className={Lenguaje === "en" ? "active" : ""}
+              >
+                English
+              </Link>
+              <Link
+                to={Lenguaje === "es" ? "#" : currentPath}
+                className={Lenguaje === "es" ? "active" : ""}
+              >
+                Español
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </header>

@@ -1,6 +1,7 @@
 .body-dark {
   background-image: url("../images/background_img1.png");
   background-size: cover;
+  background-repeat: repeat-y;
   height: 100vh;
 }
 
@@ -67,6 +68,7 @@ h1 span {
   position: absolute;
   height: 100%;
   width: 100%;
+  top: 0;
 }
 .middle {
   display: table-cell;
@@ -85,36 +87,54 @@ header h1 {
   font-size: 1.7em;
 }
 header {
-  position: absolute;
+  position: relative;
   width: 100%;
   z-index: 5;
+  top: 0;
 }
 .social-icons-dark {
   display: flex;
-  justify-content: flex-end;
-  padding-right: 30px;
+  justify-content: center;
+  padding-left: .6em;
 }
 .social-icons-dark::after {
   clear: both;
 }
 .social-icons-dark ul {
-    list-style: none;
-  }
+  list-style: none;
+}
 .social-icons-dark li {
   margin: 0;
   float: left;
 }
 .social-icons-dark a {
+  display: block;
   color: white;
-  padding: 10px 20px;
+  padding: 10px 15px;
   background-color: #00dc9d33;
   transition: background-color 0.2s;
 }
 .social-icons-dark a:hover {
   background-color: #00dc9ebd;
 }
+/* dropdown blue */
 
-@media (min-width: 450px) {
+.btn-dropdown-blue {
+  border:1px solid #00dc9e71;
+  color: white;
+  background-color: #0b1a40;
+}
+.btn-dropdown-blue div {
+  background-color: #0b1a40;
+  border:1px solid #00dc9e71;
+}
+.btn-dropdown-blue a {
+  color: white;
+}
+.btn-dropdown-blue div a:hover {
+  background-color: #00dc9d77;
+}
+@media (min-width: 600px) {
   h1.gradient {
     font-size: 4em;
     margin-bottom: 0.4em;
@@ -122,6 +142,9 @@ header {
   .btn-play {
     font-size: 2em;
     padding: 0.2em 2em;
+  }
+  .social-icons-dark {
+    padding-right: 2em;
   }
   .inner {
     width: 50%;

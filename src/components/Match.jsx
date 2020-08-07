@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/dark.css";
+import "../assets/css/style.css";
+import "../assets/css/grid.css";
 import "../assets/css/match.css";
+import "../assets/css/donutchart.css";
 import { Link, useParams } from "react-router-dom";
 import DoughnutChart from "./DoughnutChart";
 import Odometer from "./Odometer";
@@ -69,50 +72,55 @@ export default function Match({
       );
     } else {
       return (
-        <>
-          <h1 className="match-title">
-            {`${matchFor.localTeam.team_name} ${matchFor.localTeam.season_name} vs ${matchFor.visitTeam.team_name} ${matchFor.visitTeam.season_name}`}
-          </h1>
-          <h2 className="match-subtitle">
-            {matchFor.winner
-              ? `${matchFor.winner.team_name} ${words.result.win}`
-              : words.result.tie}
-          </h2>
-          <div className="donut-container">
-            <div className="percentage-left">
-              <img
-                src={matchFor.localTeam.img_team}
-                alt={matchFor.localTeam.team_name}
-              />
-              <Odometer value={matchFor.localTeam.percentage} />
-              <span className="percentage">%</span>
-            </div>
-            <div>
-              <DoughnutChart
-                matchFor={matchFor}
-                duration={
-                  matchFor.localTeam.percentage > matchFor.visitTeam.percentage
-                    ? matchFor.localTeam.percentage * 30
-                    : matchFor.visitTeam.percentage * 30
-                }
-              />
-            </div>
-            <div className="percentage-right">
-              <Odometer value={matchFor.visitTeam.percentage} />
-              <span className="percentage">%</span>
-              <img
-                src={matchFor.visitTeam.img_team}
-                alt={matchFor.visitTeam.team_name}
-              />
+        <main>
+          <div className="container">
+            <h1 className="match-title">
+              {`${matchFor.localTeam.team_name} ${matchFor.localTeam.season_name} vs ${matchFor.visitTeam.team_name} ${matchFor.visitTeam.season_name}`}
+            </h1>
+            <div className="donut-container">
+              <div className="percentage-left">
+                <img
+                  src={matchFor.localTeam.img_team}
+                  alt={matchFor.localTeam.team_name}
+                />
+                <Odometer value={matchFor.localTeam.percentage} />
+                <span className="percentage">%</span>
+              </div>
+              <div id="graph-container">
+                <h2 className="match-subtitle">
+                  {matchFor.winner
+                    ? `${matchFor.winner.team_name} ${words.result.win}`
+                    : words.result.tie}
+                </h2>
+                <DoughnutChart
+                  matchFor={matchFor}
+                  duration={
+                    matchFor.localTeam.percentage >
+                    matchFor.visitTeam.percentage
+                      ? matchFor.localTeam.percentage * 30
+                      : matchFor.visitTeam.percentage * 30
+                  }
+                />
+              </div>
+              <div className="percentage-right">
+                <Odometer value={matchFor.visitTeam.percentage} />
+                <span className="percentage">%</span>
+                <img
+                  src={matchFor.visitTeam.img_team}
+                  alt={matchFor.visitTeam.team_name}
+                />
+              </div>
             </div>
           </div>
-          <div style={{ textAlign: "center" }}>
-            <Link to={`/${Lenguaje}/select`} className="btn-play-again">
-              {words.playButton[0]} <span>{words.playButton[1]}</span>
-            </Link>
+          <div className="container">
+            <div className="col-4 center">
+              <Link to={`/${Lenguaje}/select`} className="btn-play-again">
+                {words.playButton[0]} <span>{words.playButton[1]}</span>
+              </Link>
+            </div>
           </div>
           <Confetti style={{ width: "auto", height: "auto" }} />
-        </>
+        </main>
       );
     }
   } else {

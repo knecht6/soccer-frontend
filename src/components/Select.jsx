@@ -200,7 +200,7 @@ export default function Select({
       );
     } else {
       return (
-        <main style={{ paddingTop: 100 }}>
+        <main>
           <ListLeagues>
             {leagues.map((league) => (
               <League
