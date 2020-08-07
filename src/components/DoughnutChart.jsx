@@ -39,5 +39,5 @@ export default function DoughnutChart({ matchFor, duration }) {
       },
     });
   });
-  return <canvas id="graph" width="400" height="400"></canvas>;
+  return <canvas id="graph" ></canvas>;
 }

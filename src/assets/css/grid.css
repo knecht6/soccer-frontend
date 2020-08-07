@@ -6,14 +6,12 @@
   position: relative;
   z-index: 1;
 }
-
+.center {
+  margin:auto;
+}
 .row {
   display: flex;
   justify-content: center;
-}
-
-.col-4 {
-  width: 50%;
 }
 /*
 This is the let's play button container
@@ -23,7 +21,7 @@ This is the let's play button container
   width: 80%;
   top:160px;
 }
-@media (min-width:450px) {
+@media (min-width:600px) {
   #button-container {
       position: static;
       width: 33.3333333333333333%;

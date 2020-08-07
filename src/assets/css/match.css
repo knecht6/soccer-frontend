@@ -1,6 +1,29 @@
+.match-title {
+  text-align: center;
+  color: white;
+  font-size: 1.5em;
+  letter-spacing: .03em;
+  font-weight: bold;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.match-subtitle {
+  text-align: center;
+  color: white;
+  font-size: .3em;
+  letter-spacing: .08em;
+  margin-bottom: 1em;
+  /*
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  */
+}
+
 .btn-play-again {
   font-family: "Bebas neue";
   font-size: 1.8em;
+  text-align: center;
   color: white;
   border: 0;
   width: 70%;
@@ -45,27 +68,23 @@
 }
 
 .btn-play-again:hover::before {
-  content: "";
   left: 0;
   top: 0;
-  position: absolute;
   border-right-width: 0;
   border-bottom-width: 0;
   border-top-width: 5px;
   border-left-width: 5px;
   border-style: solid;
   border-image-source: linear-gradient(#3154fb, #4bda9b);
-  border-image-slice: 1 1 0 1;
+  border-image-slice: 1 0 0 1;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
 }
 
 .btn-play-again:hover::after {
-  content: "";
   right: 0;
   bottom: 0;
-  position: absolute;
   width: 100%;
   height: 100%;
   border-right-width: 5px;
@@ -78,71 +97,15 @@
   box-sizing: border-box;
 }
 
-/*
-.btn-play-again:hover::after {
-    content: '';
-    left: 30%;
-    position: absolute;
-    height: 5px;
-    background-image: linear-gradient(to right, #00dc9e80, #00dc9eaa, #00dc9ec0, #00dc9ecc, #00dc9ec0, #00dc9eaa, #00dc9e80);
-}
-*/
-
-.donut-container {
-  font-family: "Bebas Neue";
-  position: relative;
-  display: flex;
-  max-width: 400px;
-  height: auto;
-  margin: auto;
-  margin-bottom: 30px;
-  color: white;
-  font-size: 60px;
-}
-.percentage-left {
-  display: flex;
-  position: absolute;
-  left: -40%;
-}
-.percentage-left img {
-  max-width: 75px;
-  margin-right: 10px;
-}
-.percentage-right {
-  display: flex;
-  position: absolute;
-  bottom: 0;
-  right: -40%;
-}
-.percentage-right img {
-  max-width: 75px;
-  margin-left: 10px;
-}
-.percentage {
-  font-size: 40px;
-  margin: auto;
-}
-
-@media (min-width: 450px) {
+@media (min-width: 600px) {
+  .match-title {
+    font-size: 1.9em;
+    letter-spacing: normal;
+  }
   .btn-play-again {
+    text-align: center;
     font-size: 3em;
-    width: 40%;
+    width: 90%;
     padding: 0.2em 0;
   }
-}
-
-.match-title {
-  text-align: center;
-  color: white;
-  font-size: 30px;
-  font-weight: bold;
-  padding-top: 60px;
-  padding-bottom: 10px;
-}
-
-.match-subtitle {
-  text-align: center;
-  color: white;
-  font-size: 20px;
-  padding-bottom: 10px;
 }

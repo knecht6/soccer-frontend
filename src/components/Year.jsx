@@ -1,11 +1,11 @@
 import React from "react";
 
-export default function Year({ name, team, handleTeam }) {
+export default function Year({ name, team, handleTeam, leagueId }) {
   return (
     <li
       className="item-year"
-      onClick={(e) => {
-        handleTeam(team, name);
+      onClick={() => {
+        handleTeam(team, name, leagueId);
       }}
     >
       {name}

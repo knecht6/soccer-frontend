@@ -13,7 +13,10 @@ export default function Header({
   localTeam,
   visitTeam,
   title,
+  Lenguaje,
+  currentPath,
 }) {
+  console.log(currentPath);
   let quote = "";
   let titleShare = "";
   let via = "";
@@ -44,8 +47,13 @@ export default function Header({
   return (
     <header>
       <div className="nav-holder">
-        <div className="menu-tittle">
-          <Link to="/">
+        <div className="menu-title">
+          <Link
+            to={`/${Lenguaje}`}
+            style={{
+              textDecoration: "none",
+            }}
+          >
             <h1 className={classTitle}>{`${title[0]} ${title[1]}`}</h1>
           </Link>
         </div>
@@ -66,7 +74,7 @@ export default function Header({
                 hashtags={hashtags}
               >
                 <Link to="#">
-                  <i className="fa fa-instagram" aria-hidden="true"></i>
+                  <i className="fa fa-twitter" aria-hidden="true"></i>
                 </Link>
               </TwitterShareButton>
             </li>
@@ -78,6 +86,23 @@ export default function Header({
               </WhatsappShareButton>
             </li>
           </ul>
+          <div className="btn-dropdown btn-dropdown-blue">
+            <Link to="#">{Lenguaje}</Link>
+            <div>
+              <Link
+                to={Lenguaje === "en" ? "#" : currentPath}
+                className={Lenguaje === "en" ? "active" : ""}
+              >
+                English
+              </Link>
+              <Link
+                to={Lenguaje === "es" ? "#" : currentPath}
+                className={Lenguaje === "es" ? "active" : ""}
+              >
+                Español
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </header>

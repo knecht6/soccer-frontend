@@ -5,12 +5,7 @@
   height: 100vh;
 }
 
-@font-face {
-  font-family: "Bebas Neue";
-  src: url("../fonts/BebasNeue.otf");
-}
-
-.title {
+.title-light {
   font-family: "Bebas Neue";
   font-size: 25px;
   font-weight: bold;
@@ -21,8 +16,7 @@
 
 .social-icons-light {
   display: flex;
-  justify-content: flex-end;
-  padding-right: 30px;
+  justify-content: center;
 }
 .social-icons-light ul {
   list-style: none;
@@ -42,9 +36,10 @@
 }
 .social-icons-light a {
   color: white;
-  padding: 10px 20px;
+  padding: 10px 15px;
   background-color: #00dc9ebd;
   transition: background-color 0.2s;
+  display: block;
 }
 .social-icons-light a:hover {
   background-color: #00dc9d33;
@@ -112,10 +107,9 @@
   width: 60%;
 }
 
-.card-item:hover .list-teams {
+.list-teams-hovered {
   height: 300px;
 }
-
 .list-teams ul::-webkit-scrollbar {
   display: none;
 }
@@ -301,7 +295,10 @@
   border-radius: 50%;
   font-family: Arial, Helvetica, sans-serif;
 }
-@media (min-width: 450px) {
+@media (min-width: 600px) {
+  .social-icons-light {
+    padding-right: 2em;
+  }
   .card-item {
     width: 150px;
     position: relative;
@@ -310,6 +307,7 @@
   .list-teams {
     width: 450px;
     background-color: transparent;
+    left: -60%;
   }
 
   .list-teams ul {

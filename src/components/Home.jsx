@@ -2,45 +2,46 @@ import React, { useEffect } from "react";
 import "../assets/css/font-awesome.min.css";
 import "../assets/css/style.css";
 import "../assets/css/dark.css";
-import Layout from "./Layout";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-export default function Home({ url, handleUrl, words, title, powered }) {
+export default function Home({
+  handleUrl,
+  words,
+  title,
+  Lenguaje,
+  changeMode,
+  handleLenguajeReceived,
+}) {
+  const { lenguaje } = useParams();
+  useEffect(() => {
+    handleLenguajeReceived(lenguaje);
+  }, [handleLenguajeReceived, lenguaje]);
   useEffect(() => {
     handleUrl(window.location.href, null, null);
-  });
+    changeMode("dark");
+  }, [handleUrl, changeMode]);
   return (
-    <Layout
-      classBody="body-dark"
-      classTitle="white"
-      classIcons="social-icons"
-      url={url}
-      handleUrl={handleUrl}
-      title={title}
-      powered={powered}
-    >
-      <div className="outer">
-        <div className="middle">
-          <div className="inner">
-            <main>
-              <div>
-                <h1 className="gradient">
-                  <span>{title[0]}</span> {` ${title[1]}`}
-                </h1>
-              </div>
-              <div>
-                <Link
-                  to="/select"
-                  className="btn-play"
-                  style={{ textDecoration: "none" }}
-                >
-                  {words.playButton}
-                </Link>
-              </div>
-            </main>
-          </div>
+    <div className="outer">
+      <div className="middle">
+        <div className="inner">
+          <main>
+            <div>
+              <h1 className="gradient">
+                <span>{title[0]}</span> {` ${title[1]}`}
+              </h1>
+            </div>
+            <div>
+              <Link
+                to={`${Lenguaje}/select`}
+                className="btn-play"
+                style={{ textDecoration: "none" }}
+              >
+                {words.playButton}
+              </Link>
+            </div>
+          </main>
         </div>
       </div>
-    </Layout>
+    </div>
   );
 }

@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createRef } from "react";
 import "../assets/css/select.css";
 import "../assets/css/grid.css";
 import "../assets/css/font-awesome.min.css";
-import Layout from "./Layout";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ListLeagues from "./ListLeagues";
 import League from "./League";
 import ListTeams from "./ListTeams";
@@ -41,13 +40,33 @@ const arrayLogos = [
   },
 ];
 
-export default function Select({ url, handleUrl, words, title, powered }) {
+export default function Select({
+  handleUrl,
+  words,
+  Lenguaje,
+  setMode,
+  handleLenguajeReceived,
+}) {
+  const { lenguaje } = useParams();
   const [leagues, setLeagues] = useState([]);
   const [localTeam, setLocalTeam] = useState(null);
   const [visitTeam, setVisitTeam] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const handleTeam = (team, season) => {
+  const [classHover, setClassHover] = useState({
+    class: "list-teams",
+    indice: -1,
+  });
+  const playButton = createRef();
+  const handleClassHover = (opc, indice) => {
+    if (opc) {
+      setClassHover({ class: "list-teams list-teams-hovered", indice });
+    } else {
+      setClassHover({ class: "list-teams", indice });
+    }
+  };
+  const handleTeam = (team, season, leagueId) => {
+    handleClassHover(false, leagueId);
     if (localTeam === null) {
       setLocalTeam({ team, season });
     } else if (visitTeam === null) {
@@ -66,7 +85,8 @@ export default function Select({ url, handleUrl, words, title, powered }) {
       alert("Please select a correct match");
     }
   };
-  const handleLeague = (e, leagueId, name) => {
+  const handleLeague = (leagueId, name) => {
+    handleClassHover(true, leagueId);
     let league = leagues.find((league) => league.id === leagueId);
     if (!league.teams) {
       fetch(
@@ -140,13 +160,21 @@ export default function Select({ url, handleUrl, words, title, powered }) {
     }
   };
   useEffect(() => {
+    handleLenguajeReceived(lenguaje);
+  }, [handleLenguajeReceived, lenguaje]);
+  useEffect(() => {
     handleUrl(window.location.href, null, null);
+    setMode("light");
     setLoading(true);
     fetch(`${process.env.REACT_APP_API_URL}/api/list/league`)
       .then((res) => res.json())
       .then(
         (res) => {
-          setLeagues(res);
+          const LeaguesWRF = res.map((league) => {
+            league.refer = createRef();
+            return league;
+          });
+          setLeagues(LeaguesWRF);
           setLoading(false);
         },
         (error) => {
@@ -156,135 +184,119 @@ export default function Select({ url, handleUrl, words, title, powered }) {
       .catch((error) => {
         setError(error);
       });
-  }, [handleUrl]);
+  }, [handleUrl, setMode]);
   if (loading) {
     return (
-      <Layout
-        classBody="body-light"
-        classTitle="title"
-        classIcons="social-icons-light"
-        title={title}
-        powered={powered}
-      >
-        <main style={{ paddingTop: 100 }}>
-          <LoadCircle />
-        </main>
-      </Layout>
+      <div style={{ textAlign: "center", paddingTop: 200 }}>
+        <LoadCircle />
+      </div>
     );
   } else {
     if (error) {
       return (
-        <Layout
-          classBody="body-light"
-          classTitle="title"
-          classIcons="social-icons-light"
-          title={title}
-          powered={powered}
-        >
-          <main style={{ paddingTop: 100 }}>
-            <h1>A error to ocurred</h1>
-          </main>
-        </Layout>
+        <main style={{ paddingTop: 100 }}>
+          <h1>A error to ocurred</h1>
+        </main>
       );
     } else {
       return (
-        <Layout
-          classBody="body-light"
-          classTitle="title"
-          classIcons="social-icons-light"
-          url={url}
-          handleUrl={handleUrl}
-          title={title}
-          powered={powered}
-        >
-          <main style={{ paddingTop: 100 }}>
-            <ListLeagues>
-              {leagues.map((league) => (
-                <League
-                  key={league.id}
-                  id={league.id}
-                  src={arrayLogos.find((logo) => league.id === logo.id).src}
-                  name={league.name}
-                  onHover={handleLeague}
+        <main>
+          <ListLeagues>
+            {leagues.map((league) => (
+              <League
+                key={league.id}
+                id={league.id}
+                src={arrayLogos.find((logo) => league.id === logo.id).src}
+                name={league.name}
+                onHover={handleLeague}
+                Leagues={leagues}
+                handleClassHover={handleClassHover}
+              >
+                <ListTeams
+                  classHover={
+                    league.id === classHover.indice
+                      ? classHover.class
+                      : "list-teams"
+                  }
                 >
                   {league.teams ? (
-                    <ListTeams>
-                      {league.teams.map((team) => (
-                        <Team
-                          key={team.id}
-                          id={team.id}
-                          leagueId={league.id}
-                          name={team.team_name}
-                          src={team.img_team}
-                          handleTeam={handleSeasons}
-                        >
-                          <ListYears>
-                            {team.seasons ? (
-                              team.seasons.map((season, index) => (
-                                <Year
-                                  key={index}
-                                  name={season.season_name}
-                                  team={team}
-                                  handleTeam={handleTeam}
-                                />
-                              ))
-                            ) : (
-                              <LoadCircle />
-                            )}
-                          </ListYears>
-                        </Team>
-                      ))}
-                    </ListTeams>
+                    league.teams.map((team, teamIndex) => (
+                      <Team
+                        key={teamIndex}
+                        id={team.id}
+                        leagueId={league.id}
+                        name={team.team_name}
+                        src={team.img_team}
+                        handleTeam={handleSeasons}
+                      >
+                        <ListYears>
+                          {team.seasons ? (
+                            team.seasons.map((season, index) => (
+                              <Year
+                                leagueId={league.id}
+                                key={index}
+                                name={season.season_name}
+                                team={team}
+                                handleTeam={handleTeam}
+                              />
+                            ))
+                          ) : (
+                            <LoadCircle />
+                          )}
+                        </ListYears>
+                      </Team>
+                    ))
                   ) : (
-                    <ListTeams>
-                      <LoadCircle />
-                    </ListTeams>
+                    <LoadCircle />
                   )}
-                </League>
-              ))}
-            </ListLeagues>
-            <div className="container">
-              <div id="selected-teams" className="row">
-                <div className="col-4">
-                  <TeamSelected
-                    team={localTeam}
-                    label={words.localLegend.name}
-                    seasonLabel={words.localLegend.season}
-                    reset={resetLocal}
-                  />
-                </div>
-                <div className="col-4">
-                  <Link
-                    className="btn-lets-play"
-                    style={{ textDecoration: "none" }}
-                    onClick={validate}
-                    to={
-                      localTeam && visitTeam
-                        ? `/${encodeURIComponent(
-                            localTeam.team.team_name
-                          )}/${encodeURIComponent(
-                            localTeam.season
-                          )}-vs-/${encodeURIComponent(
-                            visitTeam.team.team_name
-                          )}/${encodeURIComponent(visitTeam.season)}`
-                        : "/"
-                    }
-                  >
-                    {words.playButton}
-                  </Link>
-                </div>
-                <div className="col-4">
-                  <TeamSelected
-                    team={visitTeam}
-                    label={words.visitLegend.name}
-                    seasonLabel={words.visitLegend.season}
-                    reset={resetVisit}
-                  />
-                </div>
+                </ListTeams>
+              </League>
+            ))}
+          </ListLeagues>
+          <div className="container">
+            <div id="selected-teams" className="row">
+              <div className="col-4">
+                <TeamSelected
+                  team={localTeam}
+                  label={words.localLegend.name}
+                  seasonLabel={words.localLegend.season}
+                  reset={resetLocal}
+                />
+              </div>
+              <div className="col-4">
+                <Link
+                  ref={playButton}
+                  className="btn-lets-play"
+                  style={{ textDecoration: "none" }}
+                  onClick={validate}
+                  to={
+                    localTeam && visitTeam
+                      ? `/${Lenguaje}/${encodeURIComponent(
+                          localTeam.team.team_name
+                        )}/${encodeURIComponent(
+                          localTeam.season.replace("/", " ")
+                        )}-vs-/${encodeURIComponent(
+                          visitTeam.team.team_name
+                        )}/${encodeURIComponent(
+                          visitTeam.season.replace("/", " ")
+                        )}`
+                      : `/${Lenguaje}`
+                  }
+                >
+                  {words.playButton}
+                </Link>
+              </div>
+              <div className="col-4">
+                <TeamSelected
+                  team={visitTeam}
+                  label={words.visitLegend.name}
+                  seasonLabel={words.visitLegend.season}
+                  reset={resetVisit}
+                />
               </div>
             </div>
-          </main>
-        </Layout>
+          </div>
+        </main>
       );
     }
   }

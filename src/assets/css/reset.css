@@ -18,7 +18,10 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
-
+@font-face {
+	font-family: "Bebas Neue";
+	src: url("../fonts/BebasNeue.otf");
+}
 /* HTML5 display-role reset for older browsers */
 
 article, aside, details, figcaption, figure, 
