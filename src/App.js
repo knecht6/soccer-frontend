@@ -28,12 +28,14 @@ function App() {
     dark: {
       body: "body-dark",
       title: "title-dark",
-      icons: "social-icons-dark",
+      icons: "social-icons social-icons-dark",
+      dropdown: 'btn-dropdown-blue'
     },
     light: {
       body: "body-light",
       title: "title-light",
-      icons: "social-icons-light",
+      icons: "social-icons social-icons-light",
+      dropdown: 'btn-dropdown-green'
     },
   };
   const handleLenguajeReceived = (lenguaje) => {
@@ -77,6 +79,7 @@ function App() {
         <Header
           classTitle={classes[mode].title}
           classIcons={classes[mode].icons}
+          classDropdown={classes[mode].dropdown}
           url={url}
           localTeam={localTeam}
           visitTeam={visitTeam}

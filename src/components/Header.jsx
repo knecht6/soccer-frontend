@@ -9,6 +9,7 @@ import {
 export default function Header({
   classTitle,
   classIcons,
+  classDropdown,
   url,
   localTeam,
   visitTeam,
@@ -86,7 +87,7 @@ export default function Header({
               </WhatsappShareButton>
             </li>
           </ul>
-          <div className="btn-dropdown btn-dropdown-blue">
+          <div className={"btn-dropdown "+classDropdown}>
             <Link to="#">{Lenguaje}</Link>
             <div>
               <Link

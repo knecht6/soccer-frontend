@@ -71,12 +71,18 @@ export default function Match({
         </div>
       );
     } else {
+      document.body.className='body-dark';
       return (
         <main>
           <div className="container">
             <h1 className="match-title">
               {`${matchFor.localTeam.team_name} ${matchFor.localTeam.season_name} vs ${matchFor.visitTeam.team_name} ${matchFor.visitTeam.season_name}`}
             </h1>
+            <h2 className="match-subtitle">
+                  {matchFor.winner
+                    ? `${matchFor.winner.team_name} ${words.result.win}`
+                    : words.result.tie}
+                </h2>
             <div className="donut-container">
               <div className="percentage-left">
                 <img
@@ -84,14 +90,10 @@ export default function Match({
                   alt={matchFor.localTeam.team_name}
                 />
                 <Odometer value={matchFor.localTeam.percentage} />
-                <span className="percentage">%</span>
+                <div className="percentage">%</div>
               </div>
               <div id="graph-container">
-                <h2 className="match-subtitle">
-                  {matchFor.winner
-                    ? `${matchFor.winner.team_name} ${words.result.win}`
-                    : words.result.tie}
-                </h2>
+
                 <DoughnutChart
                   matchFor={matchFor}
                   duration={
@@ -104,7 +106,7 @@ export default function Match({
               </div>
               <div className="percentage-right">
                 <Odometer value={matchFor.visitTeam.percentage} />
-                <span className="percentage">%</span>
+                <div className="percentage">%</div>
                 <img
                   src={matchFor.visitTeam.img_team}
                   alt={matchFor.visitTeam.team_name}

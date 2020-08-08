@@ -1,128 +1,186 @@
-/* Footer */
-
-footer {
-  width: 100%;
-bottom: 0;
-position: fixed;
-}
-
-.footer-space {
-  display: block;
-  width: 50%;
-background: #333;
-}
-
-.footer-space h3 {
-padding-top: 15px;
-padding-right: 10px;
-font-weight: bold;
-text-align: end;
-}
-
-.footer-space img {
-width: 136px;
-height: 35px;
-}
-
-.footer-container {
-  display: flex;
-  justify-content: center;
-  font-size: 16px;
-  color: #999;
-}
-
 /* title & Social Icons */
 
 .nav-holder {
-display: flex;
-flex-direction: column;
-padding-top: 30px;
-width: 100%;
+	display: flex;
+	flex-direction: column;
+	padding-top: 30px;
+	width: 100%;
 }
 
 .menu-title {
-display: flex;
-justify-content: center;
-margin-bottom: .5em;
+	display: flex;
+	justify-content: center;
+	margin-bottom: .5em;
 }
+
 .menu-title a {
-text-decoration: none;
+	text-decoration: none;
 }
 
 
 
 .btn-dropdown {
-padding: 0;
-position: relative;
-font-family: 'Bebas Neue';
-font-size: 1.1em;
-letter-spacing: .06em;
-display: inline-block;
+	padding: 0;
+	position: relative;
+	font-family: 'Bebas Neue';
+	font-size: 1.1em;
+	letter-spacing: .06em;
+	display: inline-block;
 }
 
 .btn-dropdown::after {
-content: '';
-position: absolute;
-right: 0;
-top: .8em;
-width: 0;
-height: 0;
-border: .5em solid transparent;
-border-color: #fff transparent transparent transparent;
+	content: '';
+	position: absolute;
+	right: .4em;
+	top: .8em;
+	width: 0;
+	height: 0;
+	border: .5em solid transparent;
+	border-color: #fff transparent transparent transparent;
 }
 
 .btn-dropdown div {
-height: 0;
-overflow: hidden;
-position: absolute;
-right: 0;
-width: 0;
-z-index: 3;
+	height: 0;
+	overflow: hidden;
+	position: absolute;
+	right: 0;
+	width: 0;
+	z-index: 3;
 }
+
 .btn-dropdown:hover div {
-height: auto;
-overflow: visible;
-min-width: 130px;
+	height: auto;
+	overflow: visible;
+	min-width: 130px;
 }
+
 .btn-dropdown a {
-display: block;
-padding: .5em 1em;
-text-decoration: none;
-position: relative;
-text-align: right;
+	display: block;
+	padding: .5em 1.5em .5em .4em;
+	text-decoration: none;
+	position: relative;
+	text-align: right;
 }
+
 .btn-dropdown a.active::before {
-content: '✔';
-border: 1px solid white;
-border-radius: 50%;
-position: absolute;
-left: .7em;
-top: .2em;
-padding:.3em;
+	content: '✔';
+	border: 1px solid white;
+	border-radius: 50%;
+	position: absolute;
+	left: .7em;
+	top: .2em;
+	padding: .3em;
+}
+
+/* dropdown blue */
+
+.btn-dropdown-blue {
+	border: 1px solid #00dc9e71;
+	color: white;
+	background-color: #0b1a40;
+}
+
+.btn-dropdown-blue div {
+	background-color: #0b1a40;
+	border: 1px solid #00dc9e71;
+}
+
+.btn-dropdown-blue a {
+	color: white;
+}
+
+.btn-dropdown-blue div a:hover {
+	background-color: #00dc9d77;
 }
 
 
+.social-icons {
+	display: flex;
+	justify-content: center;
+	padding-left: .6em;
+}
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Bebas Neue";
+.social-icons::after {
+	clear: both;
+}
+
+.social-icons ul {
+	list-style: none;
+}
+
+.social-icons li {
+	margin: 0;
+	float: left;
+}
+
+.social-icons>ul a {
+	display: block;
+	padding: 10px 15px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: "Bebas Neue";
 }
 
 h1 {
-  font-family: "Bebas Neue";
-font-size: 1.5em;
-  background-clip: text;
--webkit-background-clip: text;
-color: transparent;
-  background-image: linear-gradient(to right, #0b1a40, #3154fb, #4bda9b, #00dc9d);
+	font-family: "Bebas Neue";
+	font-size: 1.5em;
+	background-clip: text;
+	-webkit-background-clip: text;
+	color: transparent;
+	background-image: linear-gradient(to right, #0b1a40, #3154fb, #4bda9b, #00dc9d);
+}
+
+/* Footer */
+
+footer {
+	width: 100%;
+	bottom: 0;
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 3;
+}
+footer h1 {
+	font-size: 1.7em;
+	font-family: 'Bebas Neue';
+}
+footer img {
+	width: 130px;
+	height: auto;
+}
+.footer-dark {
+	background-color: #0b1a40;
+}
+.footer-dark h1 {
+	color:white;
+}
+
+.footer-light {
+	background-color: #aaa;
+}
+.footer-light h1 {
+	color:#0b7778;
 }
 
 @media (min-width: 600px) {
-.menu-title {
-  padding-left:2em;
-  margin-bottom: 0;
-}
-.nav-holder {
-  justify-content: space-between;
-  flex-direction: row;
-}
+	.menu-title {
+		padding-left: 2em;
+		margin-bottom: 0;
+	}
+
+	.nav-holder {
+		justify-content: space-between;
+		flex-direction: row;
+	}
+
+	.social-icons {
+		padding-right: 2em;
+	}
 }

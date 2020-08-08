@@ -14,36 +14,33 @@
   -webkit-text-fill-color: transparent;
 }
 
-.social-icons-light {
-  display: flex;
-  justify-content: center;
-}
-.social-icons-light ul {
-  list-style: none;
-}
-.social-icons-light li {
-  display: inline-block;
-  color: #0b1a40;
-  font-size: 18px;
-  margin: 0 7px;
-}
-.social-icons-light::after {
-  clear: both;
-}
-.social-icons-light li {
-  margin: 0;
-  float: left;
-}
-.social-icons-light a {
+.social-icons-light > ul a {
   color: white;
-  padding: 10px 15px;
-  background-color: #00dc9ebd;
+  background-color: #00da99;
   transition: background-color 0.2s;
-  display: block;
 }
-.social-icons-light a:hover {
+.social-icons-light > ul a:hover {
   background-color: #00dc9d33;
 }
+
+/* dropdown blue */
+
+.btn-dropdown-green {
+	border:1px solid #00dc9e71;
+	color: white;
+	background-color: #00da99;
+  }
+  .btn-dropdown-green div {
+	background-color: #0b7778;
+	border:1px solid #00dc9e71;
+  }
+  .btn-dropdown-green a {
+	color: white;
+  }
+  .btn-dropdown-green div a:hover {
+	background-color: #00dc9d77;
+  }
+
 
 .cards {
   justify-content: center;
@@ -107,6 +104,9 @@
   width: 60%;
 }
 
+.card-item:hover .list-teams {
+  height: 300px;
+}
 .list-teams-hovered {
   height: 300px;
 }
@@ -296,9 +296,6 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 @media (min-width: 600px) {
-  .social-icons-light {
-    padding-right: 2em;
-  }
   .card-item {
     width: 150px;
     position: relative;

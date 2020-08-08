@@ -1,32 +1,32 @@
 .container {
-  display: block;
-  width: 100%;
-  max-width: 1024px;
-  margin:auto;
-  position: relative;
-  z-index: 1;
+    display: block;
+    width: 100%;
+    max-width: 1024px;
+    margin:auto;
+    position: relative;
+    z-index: 1;
 }
 .center {
-  margin:auto;
+    margin:auto;
 }
 .row {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 /*
 This is the let's play button container
 */
 #button-container {
-  position: absolute;
-  width: 80%;
-  top:160px;
+    position: absolute;
+    width: 80%;
+    top:160px;
 }
 @media (min-width:600px) {
-  #button-container {
-      position: static;
-      width: 33.3333333333333333%;
-  }
-  .col-4 {
-      width: 33.3333333333333333%;
-  }
+    #button-container {
+        position: static;
+        width: 33.3333333333333333%;
+    }
+    .col-4 {
+        width: 33.3333333333333333%;
+    }
 }
