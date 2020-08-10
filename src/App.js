@@ -26,18 +26,16 @@ function App() {
   const [mode, setMode] = useState("dark");
   const classes = {
     dark: {
-      body: "body-dark",
       title: "title-dark",
       icons: "social-icons social-icons-dark",
-      dropdown: 'btn-dropdown-blue', 
-      footer: 'footer-dark'
+      dropdown: "btn-dropdown-blue",
+      footer: "footer-dark",
     },
     light: {
-      body: "body-light",
       title: "title-light",
       icons: "social-icons social-icons-light",
-      dropdown: 'btn-dropdown-green',
-      footer: 'footer-light'
+      dropdown: "btn-dropdown-green",
+      footer: "footer-light",
     },
   };
   const handleLenguajeReceived = (lenguaje) => {
@@ -77,60 +75,61 @@ function App() {
   }
   return (
     <Router>
-      <div className={classes[mode].body}>
-        <Header
-          classTitle={classes[mode].title}
-          classIcons={classes[mode].icons}
-          classDropdown={classes[mode].dropdown}
-          url={url}
-          localTeam={localTeam}
-          visitTeam={visitTeam}
-          title={Lenguajes[lenguajeForUi].title}
-          Lenguaje={lenguajeForUi}
-          currentPath={currentPath}
-        />
-        <Switch>
-          <Route
-            exact
-            path="/:lenguaje/:localName/:localSeason-vs-/:visitName/:visitSeason"
-          >
-            <Match
-              handleUrl={handleUrl}
-              words={Lenguajes[lenguajeForUi].match}
-              Lenguaje={lenguajeForUi}
-              changeMode={changeMode}
-              handleLenguajeReceived={handleLenguajeReceived}
-            />
-          </Route>
-          <Route exact path="/:lenguaje/select">
-            <Select
-              handleUrl={handleUrl}
-              words={Lenguajes[lenguajeForUi].select}
-              Lenguaje={lenguajeForUi}
-              setMode={setMode}
-              handleLenguajeReceived={handleLenguajeReceived}
-            />
-          </Route>
-          <Route exact path="/:lenguaje">
-            <Home
-              handleUrl={handleUrl}
-              words={Lenguajes[lenguajeForUi].home}
-              title={Lenguajes[lenguajeForUi].title}
-              Lenguaje={lenguajeForUi}
-              changeMode={changeMode}
-              handleLenguajeReceived={handleLenguajeReceived}
-            />
-          </Route>
-          <Route exact path="/">
-            {lenguajeForUi === "es" ? (
-              <Redirect to="/es" />
-            ) : (
-              <Redirect to="/en" />
-            )}
-          </Route>
-        </Switch>
-        <Footer powered={Lenguajes[lenguajeForUi].powered} footerClass={classes[mode].footer}/>
-      </div>
+      <Header
+        classTitle={classes[mode].title}
+        classIcons={classes[mode].icons}
+        classDropdown={classes[mode].dropdown}
+        url={url}
+        localTeam={localTeam}
+        visitTeam={visitTeam}
+        title={Lenguajes[lenguajeForUi].title}
+        Lenguaje={lenguajeForUi}
+        currentPath={currentPath}
+      />
+      <Switch>
+        <Route
+          exact
+          path="/:lenguaje/:localName/:localSeason-vs-/:visitName/:visitSeason"
+        >
+          <Match
+            handleUrl={handleUrl}
+            words={Lenguajes[lenguajeForUi].match}
+            Lenguaje={lenguajeForUi}
+            changeMode={changeMode}
+            handleLenguajeReceived={handleLenguajeReceived}
+          />
+        </Route>
+        <Route exact path="/:lenguaje/select">
+          <Select
+            handleUrl={handleUrl}
+            words={Lenguajes[lenguajeForUi].select}
+            Lenguaje={lenguajeForUi}
+            setMode={setMode}
+            handleLenguajeReceived={handleLenguajeReceived}
+          />
+        </Route>
+        <Route exact path="/:lenguaje">
+          <Home
+            handleUrl={handleUrl}
+            words={Lenguajes[lenguajeForUi].home}
+            title={Lenguajes[lenguajeForUi].title}
+            Lenguaje={lenguajeForUi}
+            changeMode={changeMode}
+            handleLenguajeReceived={handleLenguajeReceived}
+          />
+        </Route>
+        <Route exact path="/">
+          {lenguajeForUi === "es" ? (
+            <Redirect to="/es" />
+          ) : (
+            <Redirect to="/en" />
+          )}
+        </Route>
+      </Switch>
+      <Footer
+        powered={Lenguajes[lenguajeForUi].powered}
+        footerClass={classes[mode].footer}
+      />
     </Router>
   );
 }

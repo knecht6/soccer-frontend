@@ -185,6 +185,7 @@ export default function Select({
         setError(error);
       });
   }, [handleUrl, setMode]);
+  document.body.className = "body-light";
   if (loading) {
     return (
       <div style={{ textAlign: "center", paddingTop: 200 }}>

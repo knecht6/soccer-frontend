@@ -7,6 +7,7 @@
   margin-top: 1em;
   margin-bottom: 1em;
 }
+
 .match-subtitle {
   text-align: center;
   color: white;
@@ -97,12 +98,20 @@
   box-sizing: border-box;
 }
 
+#confeti {
+  z-index: 2;
+  position: absolute;
+  pointer-events: none;
+  inset: 0px;
+  top: 0;
+}
 
 @media (min-width: 600px) {
   .match-title {
     font-size: 1.9em;
     letter-spacing: normal;
   }
+
   .btn-play-again {
     text-align: center;
     font-size: 3em;

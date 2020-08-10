@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import useWindowSize from "react-use/lib/useWindowSize";
 import "../assets/css/dark.css";
 import "../assets/css/style.css";
 import "../assets/css/grid.css";
@@ -18,6 +19,7 @@ export default function Match({
   changeMode,
   handleLenguajeReceived,
 }) {
+  const { width, height } = useWindowSize();
   const {
     lenguaje,
     localName,
@@ -63,6 +65,7 @@ export default function Match({
       handleUrl(window.location.href, matchFor.localTeam, matchFor.visitTeam);
     }
   }, [handleUrl, matchFor]);
+  document.body.className = "body-dark";
   if (isLoaded) {
     if (error) {
       return (
@@ -71,7 +74,7 @@ export default function Match({
         </div>
       );
     } else {
-      document.body.className='body-dark';
+      document.body.className = "body-dark";
       return (
         <main>
           <div className="container">
@@ -79,10 +82,10 @@ export default function Match({
               {`${matchFor.localTeam.team_name} ${matchFor.localTeam.season_name} vs ${matchFor.visitTeam.team_name} ${matchFor.visitTeam.season_name}`}
             </h1>
             <h2 className="match-subtitle">
-                  {matchFor.winner
-                    ? `${matchFor.winner.team_name} ${words.result.win}`
-                    : words.result.tie}
-                </h2>
+              {matchFor.winner
+                ? `${matchFor.winner.team_name} ${words.result.win}`
+                : words.result.tie}
+            </h2>
             <div className="donut-container">
               <div className="percentage-left">
                 <img
@@ -93,7 +96,6 @@ export default function Match({
                 <div className="percentage">%</div>
               </div>
               <div id="graph-container">
-
                 <DoughnutChart
                   matchFor={matchFor}
                   duration={
@@ -121,7 +123,7 @@ export default function Match({
               </Link>
             </div>
           </div>
-          <Confetti width={1024} height={768} style={{margin:'auto'}}/>
+          <Confetti width={width} height={height} />
         </main>
       );
     }

@@ -1,7 +1,5 @@
 .body-dark {
   background-image: url("../images/background_img1.png");
-  background-size: cover;
-  background-repeat: repeat-y;
 }
 
 h1.gradient {
@@ -102,6 +100,10 @@ header {
 }
 
 @media (min-width: 600px) {
+  .body-dark {
+    background-size: cover;
+    background-repeat:no-repeat;
+  }
   h1.gradient {
     font-size: 4em;
     margin-bottom: 0.4em;
