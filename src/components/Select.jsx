@@ -255,7 +255,7 @@ export default function Select({
           </ListLeagues>
           <div className="container">
             <div id="selected-teams" className="row">
-              <div className="col-4">
+              <div className="col-sm-4 col-4">
                 <TeamSelected
                   team={localTeam}
                   label={words.localLegend.name}
@@ -263,7 +263,7 @@ export default function Select({
                   reset={resetLocal}
                 />
               </div>
-              <div className="col-4">
+              <div id='button-container' className="col-4">
                 <Link
                   ref={playButton}
                   className="btn-lets-play"
@@ -286,7 +286,7 @@ export default function Select({
                   {words.playButton}
                 </Link>
               </div>
-              <div className="col-4">
+              <div className="col-sm-4 col-4">
                 <TeamSelected
                   team={visitTeam}
                   label={words.visitLegend.name}

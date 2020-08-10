@@ -30,10 +30,10 @@ const Lenguajes = {
   es: {
     title: ["Predicciones", "Futbolísticas"],
     home: {
-      playButton: "Comencemos",
+      playButton: "Iniciar",
     },
     select: {
-      playButton: "A jugar",
+      playButton: "Jugar",
       localLegend: {
         name: "Equipo Local",
         season: "Temporada",
@@ -48,7 +48,7 @@ const Lenguajes = {
         win: "Ganador",
         tie: "Empate",
       },
-      playButton: ["Jugar", "Nuevamente"],
+      playButton: ["Jugar", "de nuevo"],
     },
     error: {
       notFound: "",

@@ -13,13 +13,16 @@
     display: flex;
     justify-content: center;
 }
+.col-sm-4 {
+    width: 50%;
+}
 /*
 This is the let's play button container
 */
 #button-container {
     position: absolute;
     width: 80%;
-    top:160px;
+    top:100px;
 }
 @media (min-width:600px) {
     #button-container {

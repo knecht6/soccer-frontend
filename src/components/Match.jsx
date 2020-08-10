@@ -121,7 +121,7 @@ export default function Match({
               </Link>
             </div>
           </div>
-          <Confetti style={{ width: "auto", height: "auto" }} />
+          <Confetti width={1024} height={768} style={{margin:'auto'}}/>
         </main>
       );
     }

@@ -29,13 +29,15 @@ function App() {
       body: "body-dark",
       title: "title-dark",
       icons: "social-icons social-icons-dark",
-      dropdown: 'btn-dropdown-blue'
+      dropdown: 'btn-dropdown-blue', 
+      footer: 'footer-dark'
     },
     light: {
       body: "body-light",
       title: "title-light",
       icons: "social-icons social-icons-light",
-      dropdown: 'btn-dropdown-green'
+      dropdown: 'btn-dropdown-green',
+      footer: 'footer-light'
     },
   };
   const handleLenguajeReceived = (lenguaje) => {
@@ -127,7 +129,7 @@ function App() {
             )}
           </Route>
         </Switch>
-        <Footer powered={Lenguajes[lenguajeForUi].powered} />
+        <Footer powered={Lenguajes[lenguajeForUi].powered} footerClass={classes[mode].footer}/>
       </div>
     </Router>
   );

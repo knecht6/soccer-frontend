@@ -1,8 +1,8 @@
 import React from "react";
 import MediaQuery from "react-responsive";
 import DatabotLogo from "../assets/images/databot_logo-bk.png";
-const Footer = ({ powered }) => (
-  <footer className="footer footer-dark">
+const Footer = ({ powered, footerClass }) => (
+  <footer className={"footer "+footerClass}>
     <MediaQuery minWidth={772}>
     <h1>{powered}</h1>
       <a
