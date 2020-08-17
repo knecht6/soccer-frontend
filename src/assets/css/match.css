@@ -106,6 +106,29 @@
   top: 0;
 }
 
+#donations {
+  height: 2000px;
+}
+#donations img {
+  width: 100%;
+  height: auto;
+  opacity: .35;
+}
+#donations h2 {
+  color:white;
+  font-size: 2em;
+  text-align: center;
+}
+#donations p {
+  font-family: 'Bebas Neue';
+  font-size: 1em;
+  color:rgb(175, 175, 175);
+  margin-top:.5em;
+}
+#comments {
+
+}
+
 @media (min-width: 600px) {
   .match-title {
     font-size: 1.9em;

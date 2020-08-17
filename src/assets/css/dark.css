@@ -1,8 +1,11 @@
 .body-dark {
   background-image: url("../images/background_img1.png");
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat:no-repeat;
 }
 
-h1.gradient {
+.gradient {
   font-family: "Bebas Neue";
   font-size: 2em;
   background-clip: text;
@@ -100,10 +103,7 @@ header {
 }
 
 @media (min-width: 600px) {
-  .body-dark {
-    background-size: cover;
-    background-repeat:no-repeat;
-  }
+
   h1.gradient {
     font-size: 4em;
     margin-bottom: 0.4em;

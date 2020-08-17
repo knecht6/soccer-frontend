@@ -14,32 +14,36 @@
   -webkit-text-fill-color: transparent;
 }
 
-.social-icons-light > ul a {
+.social-icons-light>ul a {
   color: white;
   background-color: #00da99;
   transition: background-color 0.2s;
 }
-.social-icons-light > ul a:hover {
+
+.social-icons-light>ul a:hover {
   background-color: #00dc9d33;
 }
 
 /* dropdown blue */
 
 .btn-dropdown-green {
-	border:1px solid #00dc9e71;
-	color: white;
-	background-color: #00da99;
-  }
-  .btn-dropdown-green div {
-	background-color: #0b7778;
-	border:1px solid #00dc9e71;
-  }
-  .btn-dropdown-green a {
-	color: white;
-  }
-  .btn-dropdown-green div a:hover {
-	background-color: #00dc9d77;
-  }
+  border: 1px solid #00dc9e71;
+  color: white;
+  background-color: #00da99;
+}
+
+.btn-dropdown-green div {
+  background-color: #0b7778;
+  border: 1px solid #00dc9e71;
+}
+
+.btn-dropdown-green a {
+  color: white;
+}
+
+.btn-dropdown-green div a:hover {
+  background-color: #00dc9d77;
+}
 
 
 .cards {
@@ -67,7 +71,6 @@
   content: "";
   position: absolute;
   bottom: 0;
-  left: 35%;
   height: 4px;
   width: 20%;
   background-color: #00c78a;
@@ -78,10 +81,13 @@
   position: absolute;
   color: #373737;
   height: 0;
+  left: 0;
+  right: 0;
   width: 100%;
+  max-width: 400px;
+  margin:auto;
   overflow: hidden;
   transition: height 0.5s;
-  left: 0;
   background-color: #e5e5e5;
 }
 
@@ -100,16 +106,18 @@
   box-shadow: 5px 10px #c4c1c19f;
 }
 
-.list-teams > ul {
+.list-teams>ul {
   width: 60%;
 }
 
 .card-item-hoverable:hover .list-teams {
   height: 300px;
 }
+
 .list-teams-hovered {
   height: 300px;
 }
+
 .list-teams ul::-webkit-scrollbar {
   display: none;
 }
@@ -118,7 +126,7 @@
   padding: 0 0.5em;
   font-size: 1.2em;
   cursor: default;
-  margin-bottom: 1px;
+  margin-bottom:6px;
   z-index: 2;
 }
 
@@ -131,7 +139,6 @@
 }
 
 .link {
-  z-index: 5;
   transition: 0.3s ease;
   color: #373737;
   display: flex;
@@ -158,14 +165,13 @@
   width: 20%;
   height: auto;
   display: block;
-  content: "";
   float: left;
 }
 
 .team-name {
   box-sizing: border-box;
   width: 80%;
-  padding: 0.6em;
+  padding: 0.3em;
   position: relative;
   float: left;
 }
@@ -255,7 +261,6 @@
 .image-lr {
   width: 75px;
   height: 75px;
-  content: "";
   display: block;
   margin: auto;
   opacity: 0;
@@ -265,16 +270,19 @@
 .image-lr[src] {
   opacity: 1;
 }
+
 .selected-team {
   position: relative;
   width: 90%;
 }
+
 .selected-team-name {
   font-family: "Bebas Neue";
   font-size: 1.3em;
   color: #0b7778;
   letter-spacing: 2px;
 }
+
 .btn-close {
   background-color: transparent;
   width: 0;
@@ -285,6 +293,7 @@
   position: absolute;
   cursor: pointer;
 }
+
 .btn-close::before {
   font-size: 1.5em;
   background-color: white;
@@ -295,19 +304,21 @@
   border-radius: 50%;
   font-family: Arial, Helvetica, sans-serif;
 }
+
 @media (min-width: 600px) {
   .card-item {
     width: 150px;
     position: relative;
+    margin:0 .8em;
   }
 
   .list-teams {
-    width: 450px;
+    width: 400px;
     background-color: transparent;
     left: -60%;
   }
 
-  .list-teams ul {
+  .list-teams > ul {
     width: 70%;
     max-height: 300px;
   }
@@ -315,7 +326,6 @@
   .item-team {
     padding: 0 1em;
     font-size: 1.5em;
-    margin-bottom: 1px;
   }
 
   .team-image {
@@ -342,12 +352,14 @@
   }
 
   .image-lr {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
   }
+
   .btn-lets-play {
     font-size: 1.5em;
   }
+
   .selected-team-name {
     font-size: 1.8em;
   }

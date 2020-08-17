@@ -148,6 +148,9 @@ footer {
 	z-index: 3;
 	padding: 1em 0;
 }
+footer h1, footer img {
+	margin-left: .5em;;
+}
 footer h1 {
 	font-size: 1.7em;
 	font-family: 'Bebas Neue';
