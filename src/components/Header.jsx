@@ -17,7 +17,6 @@ export default function Header({
   Lenguaje,
   currentPath,
 }) {
-  console.log(currentPath);
   let quote = "";
   let titleShare = "";
   let via = "";

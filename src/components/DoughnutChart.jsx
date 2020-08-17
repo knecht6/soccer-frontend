@@ -13,7 +13,6 @@ export default function DoughnutChart({ matchFor, duration }) {
     gradientStrokeVisit.addColorStop(0, "#0054ff");
     gradientStrokeVisit.addColorStop(0.3, "#3b3cf1");
     gradientStrokeVisit.addColorStop(0.7, "#6e47e5");
-    gradientStrokeVisit.addColorStop(1, "#914fdf");
     new Chart(ctx, {
       type: "doughnut",
       data: {
@@ -38,6 +37,12 @@ export default function DoughnutChart({ matchFor, duration }) {
         },
       },
     });
-  });
-  return <canvas id="graph" ></canvas>;
+  }, [
+    duration,
+    matchFor.localTeam.percentage,
+    matchFor.localTeam.team_name,
+    matchFor.visitTeam.percentage,
+    matchFor.visitTeam.team_name,
+  ]);
+  return <canvas id="graph"></canvas>;
 }
