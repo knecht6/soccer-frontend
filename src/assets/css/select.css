@@ -66,7 +66,9 @@
 .card-item.active {
   background-color: transparent;
 }
-
+.card-item:hover {
+  background-color: #f1f1f1;
+}
 .card-item.active::after {
   content: "";
   position: absolute;
@@ -84,7 +86,7 @@
   left: 0;
   right: 0;
   width: 100%;
-  max-width: 400px;
+  max-width: 370px;
   margin:auto;
   overflow: hidden;
   transition: height 0.5s;
@@ -171,7 +173,7 @@
 .team-name {
   box-sizing: border-box;
   width: 80%;
-  padding: 0.3em;
+  padding: 0.3em 0.3em;
   position: relative;
   float: left;
 }
@@ -225,7 +227,7 @@
   border-radius: 5px;
   margin: 3px;
   display: block;
-  font-size: 1.2em;
+  font-size: 1em;
   cursor: pointer;
   color: white;
   font-weight: bold;
@@ -309,14 +311,36 @@
   .card-item {
     width: 150px;
     position: relative;
-    margin:0 .8em;
   }
 
   .list-teams {
     width: 400px;
+    max-width: unset;
     background-color: transparent;
-    left: -60%;
+    left: unset;
   }
+  /*
+  This isn't probablye the best way to fix the responsive version, but it's works! :)
+  This is the order you will see each list teams
+      .list-teams-left-1  => first in left side
+      .list-teams-left-2
+      .list-teams-middle
+      .list-teams-right-2
+      .list-teams-right-1 => last in right side
+  */
+  .list-teams-left-1 {
+    left: 0;
+  }
+  .list-teams-left-2, .list-teams-middle {
+    left: -40%;
+  }
+  .list-teams-right-2 {
+    right: -95%;
+  }
+  .list-teams-right-1{
+    right: 0%;
+  }
+
 
   .list-teams > ul {
     width: 70%;
@@ -362,5 +386,56 @@
 
   .selected-team-name {
     font-size: 1.8em;
+  }
+}
+@media (min-width: 900px) {
+  .list-teams {
+    width: 380px;
+  }
+  .list-teams-left-1, .list-teams-left-2 {
+    left: -40%;
+  }
+  .list-teams-middle {
+    left: -40%;
+  }
+  .list-teams-right-2 {
+    left: -40%;
+  }
+  .list-teams-right-1 {
+    right: -40%;
+  }
+}
+
+@media (min-width:1024px) {
+  .card-item {
+    margin:0 .8em;
+  }
+  .list-teams {
+    width: 400px;
+  }
+  .list-teams-left-1, .list-teams-left-2 {
+    left: -60%;
+  }
+  .list-teams-middle {
+    left: -40%;
+  }
+  .list-teams-right-2 {
+    right: -60%;
+  }
+  .list-teams-right-1 {
+    right: -60%;
+  }
+}
+
+@media (min-width:1220px) {
+  .list-teams-left-1, .list-teams-left-2 {
+    left: -60%;
+  }
+  .list-teams-middle {
+    left: -40%;
+  }
+
+  .list-teams-right-1, .list-teams-right-2 {
+    left: -46%;
   }
 }

@@ -20,22 +20,27 @@ import TeamSelected from "./TeamSelected";
 const arrayLogos = [
   {
     id: 1,
+    className: "list-teams-left-1",
     src: PremierLeague,
   },
   {
     id: 2,
+    className: "list-teams-left-2",
     src: SerieA,
   },
   {
     id: 3,
+    className: "list-teams-middle",
     src: LaLiga,
   },
   {
     id: 4,
+    className: "list-teams-right-2",
     src: Bundesliga,
   },
   {
     id: 5,
+    className: "list-teams-right-1",
     src: Ligue1,
   },
 ];
@@ -216,8 +221,14 @@ export default function Select({
                 <ListTeams
                   classHover={
                     league.id === classHover.indice
-                      ? classHover.class
-                      : "list-teams"
+                      ? `${classHover.class} ${
+                          arrayLogos.find((logo) => league.id === logo.id)
+                            .className
+                        }`
+                      : `list-teams ${
+                          arrayLogos.find((logo) => league.id === logo.id)
+                            .className
+                        }`
                   }
                 >
                   {league.teams ? (
@@ -264,7 +275,7 @@ export default function Select({
                   reset={resetLocal}
                 />
               </div>
-              <div id='button-container' className="col-4">
+              <div id="button-container" className="col-4">
                 <Link
                   ref={playButton}
                   className="btn-lets-play"
