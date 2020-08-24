@@ -9,8 +9,8 @@ import { Link, useParams } from "react-router-dom";
 import DoughnutChart from "./DoughnutChart";
 import Odometer from "./Odometer";
 import MatchTeams from "../utils/MatchTeams";
-import LoadCircle from "./LoadCircle";
 import Confetti from "react-confetti";
+import ProgressCircle from "./ProgressCircle";
 
 export default function Match({
   handleUrl,
@@ -30,6 +30,9 @@ export default function Match({
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [matchFor, setMatchFor] = useState(null);
+  const [progress, setProgress] = useState(0);
+  const [legend, setLegend] = useState("Retrieving data");
+  var increment = 10.0;
   useEffect(() => {
     handleLenguajeReceived(lenguaje);
   }, [handleLenguajeReceived, lenguaje]);
@@ -48,7 +51,10 @@ export default function Match({
           } else {
             setError(result);
           }
-          setIsLoaded(true);
+          setTimeout(() => {
+            setLegend("Calculating");
+            setIsLoaded(true);
+          }, 1000);
         },
         (error) => {
           setError(error);
@@ -59,14 +65,29 @@ export default function Match({
         setError(err);
         setIsLoaded(true);
       });
-  }, [localName, visitName, localSeason, visitSeason]);
+  }, [localName, visitName, localSeason, visitSeason, progress]);
   useEffect(() => {
     if (matchFor) {
       handleUrl(window.location.href, matchFor.localTeam, matchFor.visitTeam);
     }
   }, [handleUrl, matchFor]);
+  useEffect(() => {
+    if (progress < 100) {
+      if (isLoaded) {
+        setTimeout(() => setProgress(progress + increment), 100);
+      } else {
+        setTimeout(() => setProgress(progress + increment), 500);
+      }
+    }
+  }, [increment, isLoaded, progress]);
+  useEffect(() => {
+    if (isLoaded && progress < 100) {
+      let res = Math.ceil(progress / increment);
+      setProgress(res * increment);
+    }
+  }, [increment, isLoaded, progress]);
   document.body.className = "body-dark";
-  if (isLoaded) {
+  if (progress === 100) {
     if (error) {
       return (
         <div style={{ textAlign: "center", paddingTop: 200 }}>
@@ -129,8 +150,13 @@ export default function Match({
     }
   } else {
     return (
-      <div style={{ textAlign: "center", paddingTop: 200 }}>
-        <LoadCircle />
+      <div style={{ textAlign: "center", paddingTop: 150 }}>
+        <ProgressCircle
+          radius={100}
+          stroke={4}
+          progress={progress}
+          legend={legend}
+        />{" "}
       </div>
     );
   }

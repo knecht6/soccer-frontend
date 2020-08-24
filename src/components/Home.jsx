@@ -20,9 +20,7 @@ export default function Home({
     handleUrl(window.location.href, null, null);
     changeMode("dark");
   }, [handleUrl, changeMode]);
-
-  document.body.className='body-dark';
-
+  document.body.className = "body-dark";
   return (
     <div className="outer">
       <div className="middle">
