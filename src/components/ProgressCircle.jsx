@@ -21,7 +21,7 @@ export default function ProgressCircle(props) {
       <text
         x="50%"
         y="50%"
-        text-anchor="middle"
+        textAnchor="middle"
         color="white"
         dy=".3em"
         fontFamily="Bebas Neue"

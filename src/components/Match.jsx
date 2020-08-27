@@ -72,7 +72,7 @@ export default function Match({
     }
   }, [handleUrl, matchFor]);
   useEffect(() => {
-    if (progress < 100) {
+    if (progress < 130) {
       if (isLoaded) {
         setTimeout(() => setProgress(progress + increment), 100);
       } else {
@@ -81,13 +81,13 @@ export default function Match({
     }
   }, [increment, isLoaded, progress]);
   useEffect(() => {
-    if (isLoaded && progress < 100) {
+    if (isLoaded && progress < 130) {
       let res = Math.ceil(progress / increment);
       setProgress(res * increment);
     }
   }, [increment, isLoaded, progress]);
   document.body.className = "body-dark";
-  if (progress === 100) {
+  if (progress === 130 && matchFor) {
     if (error) {
       return (
         <div style={{ textAlign: "center", paddingTop: 200 }}>
@@ -144,7 +144,7 @@ export default function Match({
               </Link>
             </div>
           </div>
-          <Confetti width={width} height={height} />
+          <Confetti width={width - (width*0.02)} height={height} />
         </main>
       );
     }
@@ -154,7 +154,7 @@ export default function Match({
         <ProgressCircle
           radius={100}
           stroke={4}
-          progress={progress}
+          progress={progress >= 100 ? 100 : progress}
           legend={legend}
         />{" "}
       </div>
