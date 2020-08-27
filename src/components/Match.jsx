@@ -47,6 +47,8 @@ export default function Match({
       .then(
         (result) => {
           if (result.left && result.right) {
+            result.left.img_team = process.env.REACT_APP_IMAGES_PATH+'/'+result.left.img_team;
+            result.right.img_team = process.env.REACT_APP_IMAGES_PATH+'/'+result.right.img_team;
             setMatchFor(new MatchTeams(result.left, result.right));
           } else {
             setError(result);

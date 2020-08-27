@@ -102,6 +102,9 @@ export default function Select({
         .then((res) => res.json())
         .then(
           (res) => {
+            res.forEach(team=> {
+              team.img_team = process.env.REACT_APP_IMAGES_PATH+'/'+team.img_team;
+            });
             league.teams = res;
             if (league) {
               const newLeague = leagues.map((element) => {
@@ -265,7 +268,7 @@ export default function Select({
               </League>
             ))}
           </ListLeagues>
-          <div className="container">
+          <div className="container" style={{marginTop: '75px', marginBottom: '200px'}}>
             <div id="selected-teams" className="row">
               <div className="col-sm-4 col-4">
                 <TeamSelected
