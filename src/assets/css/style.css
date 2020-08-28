@@ -1,5 +1,8 @@
-/* title & Social Icons */
+body {
+	scroll-behavior: smooth;	
+}
 
+/* title & Social Icons */
 .nav-holder {
 	display: flex;
 	flex-direction: column;

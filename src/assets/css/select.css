@@ -13,7 +13,9 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
+/*
+social icon color
+*/
 .social-icons-light>ul a {
   color: white;
   background-color: #00da99;
@@ -24,7 +26,10 @@
   background-color: #00dc9d33;
 }
 
-/* dropdown blue */
+/* 
+  dropdown blue 
+  dropdown to switch language
+*/
 
 .btn-dropdown-green {
   border: 1px solid #00dc9e71;
@@ -44,21 +49,50 @@
 .btn-dropdown-green div a:hover {
   background-color: #00dc9d77;
 }
-
-
+/*
+leagues and their container
+*/
 .cards {
-  justify-content: center;
-  display: flex;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  top:0;
   z-index: 2;
+  position: absolute;
 }
 
 .card-item {
-  width: 80px;
+  width: 320px;
+  position: relative;
+  display: block;
+  transition:.2s;
+  opacity:1;
+  visibility: visible;
 }
-
+.league-invisible {
+  opacity:.3;
+  /*
+  visibility: hidden;
+  */
+}
+.league-effect {
+  position: absolute;
+  top:0;
+  z-index: 2;
+  width:100%;
+  max-width:320px; 
+}
+.league-effect .image {
+  max-width:100px;
+}
 .image {
+  display:block;
   width: 100%;
+  max-width:75px;
   height: auto;
   margin: auto;
 }
@@ -77,10 +111,11 @@
   width: 20%;
   background-color: #00c78a;
 }
-
+/* team list */
 .list-teams {
   font-family: "Bebas Neue";
   position: absolute;
+  z-index: 2;
   color: #373737;
   height: 0;
   left: 0;
@@ -110,10 +145,6 @@
 
 .list-teams>ul {
   width: 60%;
-}
-
-.card-item-hoverable:hover .list-teams {
-  height: 300px;
 }
 
 .list-teams-hovered {
@@ -195,7 +226,9 @@
   background-color: rgb(255, 255, 255);
   box-shadow: 7px 5px #c4c1c19f;
 }
-
+/* 
+  Season list
+*/
 .list-years {
   position: absolute;
   padding-left: 1%;
@@ -308,11 +341,25 @@
 }
 
 @media (min-width: 600px) {
-  .card-item {
-    width: 150px;
+  .cards {
     position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
   }
 
+  .card-item {
+    width: 100px;
+    position: relative;
+  }
+  .image {
+    max-width: 100%;
+  }
+  /* Hover on league, display team list */
+..card-item-hoverable:hover .list-teams {
+  height: 300px;
+}
   .list-teams {
     width: 400px;
     max-width: unset;
@@ -389,6 +436,9 @@
   }
 }
 @media (min-width: 900px) {
+  .card-item {
+    width: 150px;
+  }
   .list-teams {
     width: 380px;
   }

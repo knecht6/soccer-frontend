@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Literata:ital,wght@1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Literata:ital,wght@1,500&display=swap');
+
+main {
+  margin-bottom:5em;
+}
 .match-title {
   text-align: center;
   color: white;
@@ -71,6 +79,7 @@
 .btn-play-again:hover::before {
   left: 0;
   top: 0;
+  color: #4bda9b;
   border-right-width: 0;
   border-bottom-width: 0;
   border-top-width: 5px;
@@ -106,27 +115,168 @@
   top: 0;
 }
 
-#donations {
-  height: 2000px;
-}
-#donations img {
-  width: 100%;
-  height: auto;
-  opacity: .35;
-}
-#donations h2 {
-  color:white;
-  font-size: 2em;
-  text-align: center;
-}
-#donations p {
+.btn {
+  letter-spacing: 1px;
   font-family: 'Bebas Neue';
-  font-size: 1em;
-  color:rgb(175, 175, 175);
-  margin-top:.5em;
+  font-size:1em;
+  padding:.3em .8em;
+  text-decoration:none;
+  border-radius: .4em;
+  display: inline-block;
+  border: 0;
+  transition:.1s;
 }
-#comments {
+.btn-md {
+  font-size:1.7em;
+  padding:.5em 1.2em;
+}
+.btn-lightteal {
+  background:#00dc9d;
+  color:#0b1a40;
+}
+.btn-lightteal-o {
+  background:#00dc9d20;
+  color:white;
+}
+.btn-lightteal-o:hover {
+  background-color: #4bda9b;
+  color:#0b1a40
+}
+.btn-group {
+  margin:1em 0;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top:0;
+  width:100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-image: url('../images/background-img5.png');
+  background-size: cover;
+  background-repeat:no-repeat;
+  background-attachment: scroll;
+}
+.modal:target {
+  display: block;
+}
+.modal-content {
+  position: relative;
+  margin:auto;
+  padding:3em 0;
+  width:90%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name:animatetop;
+  animation-duration: 0.4s;
+}
 
+.modal-header h1, .modal-header h2 {
+  color:white;
+  font-size: 1.7em;
+  text-align: center;
+  display: inline-block;
+  padding:.2em 1.5em;
+  letter-spacing: 5px;
+}
+.bg-gradient {
+  background-image: linear-gradient( 
+    to right,
+    #00dc9d20,
+    #00dca0a0 40%,
+    #00dca0a0 50%,
+    #00dca0a0 66%, 
+    #00dc9d20 );
+}
+.modal-content p {
+/*
+  font-family: 'Roboto', sans-serif;
+*/
+/*
+  font-family: 'Roboto', serif;
+*/
+/*
+  font-family: 'Literata', serif;
+*/
+  font-family: 'Bebas Neue', sans-serif;
+  color:white;
+  margin-top:.5em;
+  line-height: 1.3;
+  font-size: 20px;
+  letter-spacing: 4px;
+  font-weight: 400;
+}
+.modal-content p {
+  margin-top:1em;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  text-align:center;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  padding: 2px 16px;
+}
+
+
+/* add animation */
+@-webkit-keyframes animatetop {
+  from {
+    top:500px;
+    opacity: 0;
+  }
+  to {
+    top:0;
+    opacity:1;
+  }
+}
+@keyframes animatetop {
+  from {
+    top:-300px;
+    opacity: 0;
+  }
+  to {
+    top:0;
+    opacity:1;
+  }
+}
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  padding: 2px 16px;
+  color: white;
 }
 
 @media (min-width: 600px) {

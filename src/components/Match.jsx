@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { loadStripe } from '@stripe/stripe-js';
 import useWindowSize from "react-use/lib/useWindowSize";
 import "../assets/css/dark.css";
 import "../assets/css/style.css";
@@ -11,7 +12,8 @@ import Odometer from "./Odometer";
 import MatchTeams from "../utils/MatchTeams";
 import Confetti from "react-confetti";
 import ProgressCircle from "./ProgressCircle";
-
+import WantToKnowMore from './WantToKnowMore';
+import Donations from './Donations';
 export default function Match({
   handleUrl,
   words,
@@ -31,6 +33,7 @@ export default function Match({
   const [isLoaded, setIsLoaded] = useState(false);
   const [matchFor, setMatchFor] = useState(null);
   const [progress, setProgress] = useState(0);
+  const [stripePromise, setStripePromise] = useState(null);
   const [legend, setLegend] = useState("Retrieving data");
   var increment = 10.0;
   useEffect(() => {
@@ -88,6 +91,18 @@ export default function Match({
       setProgress(res * increment);
     }
   }, [increment, isLoaded, progress]);
+
+  //load stripe
+  useEffect(()=> {
+   fetch(process.env.REACT_APP_STRIPE_API_URL + '/stripe-key').then(res => res.json())
+      .then(res => {
+        let publishableKey = res.publishableKey;
+        // Make sure to call `loadStripe` outside of a component’s render to avoid
+        // recreating the `Stripe` object on every render.
+        const stripePromise = loadStripe(publishableKey);
+        setStripePromise(stripePromise);
+      });
+  });
   document.body.className = "body-dark";
   if (progress === 130 && matchFor) {
     if (error) {
@@ -147,6 +162,16 @@ export default function Match({
             </div>
           </div>
           <Confetti width={width - (width*0.02)} height={height} />
+          <div className="container">
+          <div className="btn-group">
+            <a class="btn btn-lightteal" href='#want-to-know-more'>Want to know
+              more?</a>
+            <a class="btn btn-lightteal" href='#donations'>Donate!</a>
+            
+          </div>
+        </div>
+          <WantToKnowMore style={{zIndex: 4}}/>
+          <Donations stripePromise={stripePromise} style={{zIndex: 4}}/>
         </main>
       );
     }
