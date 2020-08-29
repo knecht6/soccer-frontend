@@ -55,19 +55,15 @@ leagues and their container
 .cards {
   position: relative;
   display: flex;
-  align-items: center;
   justify-content: center;
-  flex-direction: column;
-  flex-wrap: wrap;
+  flex-direction: row;
   width: 100%;
   top:0;
   z-index: 2;
-  position: absolute;
 }
 
 .card-item {
   width: 320px;
-  position: relative;
   display: block;
   transition:.2s;
   opacity:1;
@@ -102,6 +98,10 @@ leagues and their container
 }
 .card-item:hover {
   background-color: #f1f1f1;
+}
+  /* Hover on league, display team list */
+.card-item-hoverable:hover .list-teams {
+    height: 300px;
 }
 .card-item.active::after {
   content: "";
@@ -356,10 +356,7 @@ leagues and their container
   .image {
     max-width: 100%;
   }
-  /* Hover on league, display team list */
-.card-item-hoverable:hover .list-teams {
-  height: 300px;
-}
+
   .list-teams {
     width: 400px;
     max-width: unset;
