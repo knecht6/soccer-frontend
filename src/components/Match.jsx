@@ -102,7 +102,7 @@ export default function Match({
         const stripePromise = loadStripe(publishableKey);
         setStripePromise(stripePromise);
       });
-  });
+  }, []);
   document.body.className = "body-dark";
   if (progress === 130 && matchFor) {
     if (error) {
