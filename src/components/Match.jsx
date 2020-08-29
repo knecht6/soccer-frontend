@@ -200,15 +200,19 @@ export default function Match({
           <div className="container">
             <div className="btn-group">
               <a className="btn btn-lightteal" href="#want-to-know-more">
-                Want to know more?
+                {words.wantToKnowMore.title}
               </a>
               <a className="btn btn-lightteal" href="#donations">
-                Donate!
+                {words.donation.title}
               </a>
             </div>
           </div>
-          <WantToKnowMore style={{ zIndex: 4 }} legend={words.wantToKnowMore} />
-          <Donations stripePromise={stripePromise} style={{ zIndex: 4 }} />
+          <WantToKnowMore style={{ zIndex: 4 }} words={words.wantToKnowMore} />
+          <Donations
+            stripePromise={stripePromise}
+            style={{ zIndex: 4 }}
+            words={words.donation}
+          />
         </main>
       );
     }

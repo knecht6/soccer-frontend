@@ -1,12 +1,19 @@
 import React from "react";
-import MediaQuery from "react-responsive";
+import { useMediaQuery } from "react-responsive";
 //import { CheckoutForm } from './CheckoutForm';
-import { Elements, CardElement, ElementsConsumer, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js';
+import {
+  Elements,
+  CardElement,
+  ElementsConsumer,
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement,
+} from "@stripe/react-stripe-js";
 
 //const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
 class StripeComponent extends React.Component {
   render() {
-    console.log('stripe promise: ', this.props.stripePromise);
+    console.log("stripe promise: ", this.props.stripePromise);
     return (
       <Elements stripe={this.props.stripePromise} options={ELEMENTS_OPTIONS}>
         <InjectedCheckoutForm cant={this.props.cant} />
@@ -26,40 +33,40 @@ const InjectedCheckoutForm = ({ cant }) => (
 const ELEMENTS_OPTIONS = {
   fonts: [
     {
-      cssSrc: 'https://fonts.googleapis.com/css?family=Roboto',
+      cssSrc: "https://fonts.googleapis.com/css?family=Roboto",
     },
   ],
 };
 
-const CardField = ({ onChange }) => (
-  <div className="FormRow">
-    <MediaQuery minWidth={416}>
-      <CardElement options={CARD_OPTIONS} onChange={onChange} />
-    </MediaQuery>
-    <MediaQuery maxWidth={415}>
-      <label>
-        Card number
-          <CardNumberElement
-          options={CARD_OPTIONS}
-          
-        />
-      </label>
-      <label>
-        Expiration date
-          <CardExpiryElement
-          options={CARD_OPTIONS}
-        
-        />
-      </label>
-      <label>
-        CVC
-          <CardCvcElement
-          options={CARD_OPTIONS}
-        />
-      </label>
-    </MediaQuery>
-  </div>
-);
+const CardField = ({ onChange }) => {
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-device-width: 416px)",
+  });
+  if (isDesktopOrLaptop) {
+    return (
+      <div className="FormRow">
+        <CardElement options={CARD_OPTIONS} onChange={onChange} />
+      </div>
+    );
+  } else {
+    return (
+      <div className="FormRow">
+        <label>
+          Card number
+          <CardNumberElement options={CARD_OPTIONS} />
+        </label>
+        <label>
+          Expiration date
+          <CardExpiryElement options={CARD_OPTIONS} />
+        </label>
+        <label>
+          CVC
+          <CardCvcElement options={CARD_OPTIONS} />
+        </label>
+      </div>
+    );
+  }
+};
 
 const Field = ({
   label,
@@ -71,26 +78,28 @@ const Field = ({
   value,
   onChange,
 }) => (
-    <div className="FormRow">
-      <label htmlFor={id} className="FormRowLabel">
-        {label}
-      </label>
-      <input
-        className="FormRowInput"
-        id={id}
-        type={type}
-        placeholder={placeholder}
-        required={required}
-        autoComplete={autoComplete}
-        value={value}
-        onChange={onChange}
-      />
-    </div>
-  );
+  <div className="FormRow">
+    <label htmlFor={id} className="FormRowLabel">
+      {label}
+    </label>
+    <input
+      className="FormRowInput"
+      id={id}
+      type={type}
+      placeholder={placeholder}
+      required={required}
+      autoComplete={autoComplete}
+      value={value}
+      onChange={onChange}
+    />
+  </div>
+);
 
 const SubmitButton = ({ processing, error, children, disabled }) => (
   <button
-    className={`stripe-button SubmitButton ${error ? "SubmitButton--error" : ""}`}
+    className={`stripe-button SubmitButton ${
+      error ? "SubmitButton--error" : ""
+    }`}
     type="submit"
     disabled={processing || disabled}
   >
@@ -119,9 +128,9 @@ const DEFAULT_STATE = {
   cardComplete: false,
   processing: false,
   paymentMethod: null,
-  email: '',
-  currency: 'usd',
-  result : null
+  email: "",
+  currency: "usd",
+  result: null,
 };
 class CheckoutForm extends React.Component {
   constructor(props) {
@@ -140,18 +149,18 @@ class CheckoutForm extends React.Component {
       return;
     }
     if (error) {
-      elements.getElement('card').focus();
+      elements.getElement("card").focus();
       return;
     }
     if (cardComplete) {
       this.setState({ processing: true });
     }
     const payload = await stripe.createPaymentMethod({
-      type: 'card',
+      type: "card",
       card: elements.getElement(CardElement),
       billing_details: {
-        email
-      }
+        email,
+      },
     });
 
     if (payload.error) {
@@ -160,25 +169,27 @@ class CheckoutForm extends React.Component {
       var data = {
         amount: this.props.cant * 100,
         paymentMethodId: payload.paymentMethod.id,
-        currency: this.state.currency, 
-        sitename: 'SOCCER'
+        currency: this.state.currency,
+        sitename: "SOCCER",
       };
-      fetch(process.env.REACT_APP_STRIPE_API_URL + '/pay', {
-        method: 'POST',
+      fetch(process.env.REACT_APP_STRIPE_API_URL + "/pay", {
+        method: "POST",
         body: JSON.stringify(data),
         headers: {
-          'Content-Type': 'application/json'
-        }
-      }).then(res => res.json())
-        .then(res => {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
           this.setState({ processing: false });
-          if (res.status === 'succeeded') {
+          if (res.status === "succeeded") {
             this.setState({
-              thanks: "Thank you very much for your donation. We really appreciate your contribution and will be in touch as we continue to update the tool."
+              thanks:
+                "Thank you very much for your donation. We really appreciate your contribution and will be in touch as we continue to update the tool.",
             });
-          }else {
+          } else {
             this.setState({
-              result : res
+              result: res,
             });
           }
         });
@@ -194,20 +205,24 @@ class CheckoutForm extends React.Component {
     const { stripe } = this.props;
     if (this.state.thanks) {
       return <SuccessAlerts>{this.state.thanks}</SuccessAlerts>;
-    } else if(this.state.result){
-      if(this.state.result.error){
+    } else if (this.state.result) {
+      if (this.state.result.error) {
         return <ErrorAlerts>{this.state.result.error}</ErrorAlerts>;
       } else {
-      return (
-      <WarningAlerts>
-        Requires Source Action
-        {this.state.result.clientSecret}
-      </WarningAlerts>
-      );
+        return (
+          <WarningAlerts>
+            Requires Source Action
+            {this.state.result.clientSecret}
+          </WarningAlerts>
+        );
       }
     } else {
       return (
-        <form className="Form" onSubmit={this.handleSubmit} style={{ marginBottom: "15px" }}>
+        <form
+          className="Form"
+          onSubmit={this.handleSubmit}
+          style={{ marginBottom: "15px" }}
+        >
           <fieldset className="FormGroup">
             <Field
               label="Email"
@@ -231,9 +246,13 @@ class CheckoutForm extends React.Component {
               }}
             />
           </fieldset>
-          <div style={{ textAlign: 'center' }}>
+          <div style={{ textAlign: "center" }}>
             {error && <ErrorMessage>{error.message}</ErrorMessage>}
-            <SubmitButton processing={processing} error={error} disabled={!stripe}>
+            <SubmitButton
+              processing={processing}
+              error={error}
+              disabled={!stripe}
+            >
               Donate ${this.props.cant}
             </SubmitButton>
           </div>
@@ -243,18 +262,16 @@ class CheckoutForm extends React.Component {
   }
 }
 const CARD_OPTIONS = {
-  iconStyle: 'solid',
+  iconStyle: "solid",
   style: {
     invalid: {
-      iconColor: '#FFC7EE',
-      color: '#FFC7EE',
+      iconColor: "#FFC7EE",
+      color: "#FFC7EE",
     },
   },
 };
 
-
-function SuccessAlerts({children}) {
-  
+function SuccessAlerts({ children }) {
   return (
     <div>
       <div severity="success">
@@ -265,8 +282,7 @@ function SuccessAlerts({children}) {
   );
 }
 
-function WarningAlerts({children}) {
-  
+function WarningAlerts({ children }) {
   return (
     <div>
       <div severity="warning">
@@ -277,15 +293,13 @@ function WarningAlerts({children}) {
   );
 }
 
-function ErrorAlerts({children}) {
-  
+function ErrorAlerts({ children }) {
   return (
     <div>
       <div>
-      <span>Error</span>
+        <span>Error</span>
         {children}
       </div>
-      
     </div>
   );
 }
