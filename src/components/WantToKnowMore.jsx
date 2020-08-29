@@ -5,14 +5,14 @@ export default function WantToKnowMore(props) {
   return (
     <Modal id="want-to-know-more" {...props}>
       <ModalHeader>
-        <h2 className="bg-gradient">Want to Know More?</h2>
+  <h2 className="bg-gradient">{props.words.title}</h2>
       </ModalHeader>
       <ModalBody>
-        <p>{props.legend}</p>
+        <p>{props.words.legend}</p>
       </ModalBody>
       <ModalFooter>
         <a className="close" href={urlPath}>
-          Close
+          {props.words.closeButton}
         </a>
       </ModalFooter>
     </Modal>
