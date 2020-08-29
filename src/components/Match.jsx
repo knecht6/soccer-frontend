@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { loadStripe } from '@stripe/stripe-js';
+import { loadStripe } from "@stripe/stripe-js";
 import useWindowSize from "react-use/lib/useWindowSize";
+import * as Vibrant from "node-vibrant";
 import "../assets/css/dark.css";
 import "../assets/css/style.css";
 import "../assets/css/grid.css";
@@ -12,8 +13,8 @@ import Odometer from "./Odometer";
 import MatchTeams from "../utils/MatchTeams";
 import Confetti from "react-confetti";
 import ProgressCircle from "./ProgressCircle";
-import WantToKnowMore from './WantToKnowMore';
-import Donations from './Donations';
+import WantToKnowMore from "./WantToKnowMore";
+import Donations from "./Donations";
 export default function Match({
   handleUrl,
   words,
@@ -35,6 +36,22 @@ export default function Match({
   const [progress, setProgress] = useState(0);
   const [stripePromise, setStripePromise] = useState(null);
   const [legend, setLegend] = useState("Retrieving data");
+  const [localColor, setLocalColor] = useState({
+    Vibrant: {
+      hex: "#77C747",
+      r: 119,
+      g: 199,
+      b: 71,
+    },
+  });
+  const [visitColor, setVisitColor] = useState({
+    Vibrant: {
+      hex: "#F6E61F",
+      r: 246,
+      g: 230,
+      b: 31,
+    },
+  });
   var increment = 10.0;
   useEffect(() => {
     handleLenguajeReceived(lenguaje);
@@ -50,8 +67,16 @@ export default function Match({
       .then(
         (result) => {
           if (result.left && result.right) {
-            result.left.img_team = process.env.REACT_APP_IMAGES_PATH+'/'+result.left.img_team;
-            result.right.img_team = process.env.REACT_APP_IMAGES_PATH+'/'+result.right.img_team;
+            result.left.img_team =
+              process.env.REACT_APP_IMAGES_PATH + "/" + result.left.img_team;
+            result.right.img_team =
+              process.env.REACT_APP_IMAGES_PATH + "/" + result.right.img_team;
+            Vibrant.from(result.left.img_team)
+              .getPalette()
+              .then((palette) => setLocalColor(palette));
+            Vibrant.from(result.right.img_team)
+              .getPalette()
+              .then((palette) => setVisitColor(palette));
             setMatchFor(new MatchTeams(result.left, result.right));
           } else {
             setError(result);
@@ -93,9 +118,10 @@ export default function Match({
   }, [increment, isLoaded, progress]);
 
   //load stripe
-  useEffect(()=> {
-   fetch(process.env.REACT_APP_STRIPE_API_URL + '/stripe-key').then(res => res.json())
-      .then(res => {
+  useEffect(() => {
+    fetch(process.env.REACT_APP_STRIPE_API_URL + "/stripe-key")
+      .then((res) => res.json())
+      .then((res) => {
         let publishableKey = res.publishableKey;
         // Make sure to call `loadStripe` outside of a component’s render to avoid
         // recreating the `Stripe` object on every render.
@@ -135,6 +161,8 @@ export default function Match({
               </div>
               <div id="graph-container">
                 <DoughnutChart
+                  localColor={localColor}
+                  visitColor={visitColor}
                   matchFor={matchFor}
                   duration={
                     matchFor.localTeam.percentage >
@@ -161,17 +189,26 @@ export default function Match({
               </Link>
             </div>
           </div>
-          <Confetti width={width - (width*0.02)} height={height} />
+          <Confetti
+            width={width - width * 0.02}
+            height={height}
+            colors={[visitColor.Vibrant.hex, localColor.Vibrant.hex]}
+            recycle={false}
+            numberOfPieces={1000}
+            tweenDuration={90000}
+          />
           <div className="container">
-          <div className="btn-group">
-            <a class="btn btn-lightteal" href='#want-to-know-more'>Want to know
-              more?</a>
-            <a class="btn btn-lightteal" href='#donations'>Donate!</a>
-            
+            <div className="btn-group">
+              <a className="btn btn-lightteal" href="#want-to-know-more">
+                Want to know more?
+              </a>
+              <a className="btn btn-lightteal" href="#donations">
+                Donate!
+              </a>
+            </div>
           </div>
-        </div>
-          <WantToKnowMore style={{zIndex: 4}}/>
-          <Donations stripePromise={stripePromise} style={{zIndex: 4}}/>
+          <WantToKnowMore style={{ zIndex: 4 }} legend={words.wantToKnowMore} />
+          <Donations stripePromise={stripePromise} style={{ zIndex: 4 }} />
         </main>
       );
     }

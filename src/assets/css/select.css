@@ -357,7 +357,7 @@ leagues and their container
     max-width: 100%;
   }
   /* Hover on league, display team list */
-..card-item-hoverable:hover .list-teams {
+.card-item-hoverable:hover .list-teams {
   height: 300px;
 }
   .list-teams {

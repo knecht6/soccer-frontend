@@ -6,7 +6,6 @@
   width: 100%;
   height: auto;
   color: white;
-  font-size: 60px;
 }
 
 .container {
@@ -40,7 +39,7 @@
 .percentage-right {
   right: 7%;
   align-self: flex-end;
-  text-align: left;
+  text-align: right;
 }
 
 .percentage-left img,
@@ -51,7 +50,7 @@
 
 .percentage-left div,
 .percentage-right div {
-  font-size: .4em;
+  font-size: 1.3em;
   width: 30%;
   float: left;
   align-self: center;
@@ -60,7 +59,6 @@
 div.percentage {
   width: 20%;
   float: left;
-  font-size: .3em;
 }
 
 .odometer {
@@ -100,6 +98,21 @@ div.percentage {
   }
 }
 */
+@media (min-width: 500px) {
+  
+  .percentage-left {
+    left: 10%;
+  }
+
+  .percentage-right {
+    right: 10%;
+  }
+  .percentage-left div,
+  .percentage-right div {
+    font-size: 1.7em;
+  }
+}
+
 @media (min-width: 600px) {
 
   #graph-container {
@@ -112,6 +125,33 @@ div.percentage {
   }
 
   .percentage-left {
+    left: 16%;
+  }
+
+  .percentage-right {
+    right: 16%;
+  }
+
+  .percentage-left div,
+  .percentage-right div {
+    font-size: 2.1em;
+  }
+}
+@media (min-width: 720px) {
+  .percentage-left div,
+  .percentage-right div {
+    font-size: 2.5em;
+  }
+  .percentage-left {
+    left: 18%;
+  }
+
+  .percentage-right {
+    right: 18%;
+  }
+}
+@media (min-width: 920px) {
+  .percentage-left {
     left: 20%;
   }
 
@@ -121,14 +161,6 @@ div.percentage {
 
   .percentage-left div,
   .percentage-right div {
-    font-size: 1em;
-  }
-
-  div.percentage {
-    font-size: 40px;
-  }
-
-  .odometer {
-    font-size: 40px;
+    font-size: 2.9em;
   }
 }
