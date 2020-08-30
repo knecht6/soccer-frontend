@@ -1,7 +1,9 @@
 body {
 	scroll-behavior: smooth;	
 }
-
+.t-center {
+	text-align:center;
+}
 /* title & Social Icons */
 .nav-holder {
 	display: flex;

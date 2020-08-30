@@ -264,6 +264,9 @@ class CheckoutForm extends React.Component {
 const CARD_OPTIONS = {
   iconStyle: "solid",
   style: {
+    base: {
+      color:'white'
+    },
     invalid: {
       iconColor: "#FFC7EE",
       color: "#FFC7EE",
@@ -274,7 +277,7 @@ const CARD_OPTIONS = {
 function SuccessAlerts({ children }) {
   return (
     <div>
-      <div severity="success">
+      <div className="success">
         <div>Success</div>
         {children}
       </div>
@@ -285,7 +288,7 @@ function SuccessAlerts({ children }) {
 function WarningAlerts({ children }) {
   return (
     <div>
-      <div severity="warning">
+      <div ckassName="warning">
         <span>Warning</span>
         {children}
       </div>
@@ -296,7 +299,7 @@ function WarningAlerts({ children }) {
 function ErrorAlerts({ children }) {
   return (
     <div>
-      <div>
+      <div className='error'>
         <span>Error</span>
         {children}
       </div>
