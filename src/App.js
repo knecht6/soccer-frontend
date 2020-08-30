@@ -69,9 +69,11 @@ function App() {
   if (lenguajeForUi === "es") {
     let path = window.location.pathname;
     currentPath = path.replace("/es", "/en");
+    document.documentElement.lang = "es";
   } else {
     let path = window.location.pathname;
     currentPath = path.replace("/en", "/es");
+    document.documentElement.lang = "en";
   }
   return (
     <Router>
@@ -122,8 +124,8 @@ function App() {
           {lenguajeForUi === "es" ? (
             <Redirect to="/es" />
           ) : (
-            <Redirect to="/en" />
-          )}
+              <Redirect to="/en" />
+            )}
         </Route>
       </Switch>
       <Footer

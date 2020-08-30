@@ -54,8 +54,10 @@ export default function Match({
   });
   var increment = 10.0;
   useEffect(() => {
-    handleLenguajeReceived(lenguaje);
-  }, [handleLenguajeReceived, lenguaje]);
+    if (lenguaje !== Lenguaje) {
+      handleLenguajeReceived(lenguaje);
+    }
+  }, [Lenguaje, handleLenguajeReceived, lenguaje]);
   useEffect(() => {
     changeMode("dark");
   }, [changeMode]);
@@ -78,13 +80,14 @@ export default function Match({
               .getPalette()
               .then((palette) => setVisitColor(palette));
             setMatchFor(new MatchTeams(result.left, result.right));
+            setTimeout(() => {
+              setLegend("Calculating");
+              setIsLoaded(true);
+            }, 1000);
           } else {
             setError(result);
-          }
-          setTimeout(() => {
-            setLegend("Calculating");
             setIsLoaded(true);
-          }, 1000);
+          }
         },
         (error) => {
           setError(error);
@@ -95,7 +98,7 @@ export default function Match({
         setError(err);
         setIsLoaded(true);
       });
-  }, [localName, visitName, localSeason, visitSeason, progress]);
+  }, [localName, localSeason, visitName, visitSeason]);
   useEffect(() => {
     if (matchFor) {
       handleUrl(window.location.href, matchFor.localTeam, matchFor.visitTeam);
@@ -139,6 +142,7 @@ export default function Match({
       );
     } else {
       document.body.className = "body-dark";
+      document.title = `${matchFor.localTeam.team_name} ${matchFor.localTeam.season_name} vs ${matchFor.visitTeam.team_name} ${matchFor.visitTeam.season_name}`;
       return (
         <main>
           <div className="container">
@@ -161,8 +165,16 @@ export default function Match({
               </div>
               <div id="graph-container">
                 <DoughnutChart
-                  localColor={localColor}
-                  visitColor={visitColor}
+                  localColor={
+                    localColor.LightVibrant
+                      ? localColor.LightVibrant.hex
+                      : localColor.Vibrant.hex
+                  }
+                  visitColor={
+                    visitColor.LightVibrant
+                      ? visitColor.LightVibrant.hex
+                      : visitColor.Vibrant.hex
+                  }
                   matchFor={matchFor}
                   duration={
                     matchFor.localTeam.percentage >
@@ -224,7 +236,7 @@ export default function Match({
           stroke={4}
           progress={progress >= 100 ? 100 : progress}
           legend={legend}
-        />{" "}
+        />
       </div>
     );
   }

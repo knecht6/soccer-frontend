@@ -15,7 +15,7 @@ export default function DoughnutChart({
         labels: [matchFor.visitTeam.team_name, matchFor.localTeam.team_name],
         datasets: [
           {
-            backgroundColor: [visitColor.Vibrant.hex, localColor.Vibrant.hex],
+            backgroundColor: [visitColor, localColor],
             borderColor: "hsla(0,0%,0%,0)",
             data: [
               matchFor.visitTeam.percentage,
@@ -33,6 +33,14 @@ export default function DoughnutChart({
         },
       },
     });
-  }, [duration, localColor.Vibrant.hex, matchFor.localTeam.percentage, matchFor.localTeam.team_name, matchFor.visitTeam.percentage, matchFor.visitTeam.team_name, visitColor.Vibrant.hex]);
+  }, [
+    duration,
+    localColor,
+    matchFor.localTeam.percentage,
+    matchFor.localTeam.team_name,
+    matchFor.visitTeam.percentage,
+    matchFor.visitTeam.team_name,
+    visitColor,
+  ]);
   return <canvas id="graph"></canvas>;
 }
