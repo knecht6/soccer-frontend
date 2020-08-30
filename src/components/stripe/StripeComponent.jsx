@@ -108,7 +108,7 @@ const SubmitButton = ({ processing, error, children, disabled }) => (
 );
 
 const ErrorMessage = ({ children }) => (
-  <div className="ErrorMessage" role="alert">
+  <div className="alert danger" role="alert">
     <svg width="16" height="16" viewBox="0 0 17 17">
       <path
         fill="#FFF"
@@ -135,6 +135,7 @@ const DEFAULT_STATE = {
 class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
+    console.log('Cantidad: '+this.props.cant);
     this.state = DEFAULT_STATE;
   }
   handleSubmit = async (event) => {
@@ -277,7 +278,7 @@ const CARD_OPTIONS = {
 function SuccessAlerts({ children }) {
   return (
     <div>
-      <div className="success">
+      <div className="alert success">
         <div>Success</div>
         {children}
       </div>
@@ -288,7 +289,7 @@ function SuccessAlerts({ children }) {
 function WarningAlerts({ children }) {
   return (
     <div>
-      <div ckassName="warning">
+      <div ckassName="alert warning">
         <span>Warning</span>
         {children}
       </div>
@@ -299,7 +300,7 @@ function WarningAlerts({ children }) {
 function ErrorAlerts({ children }) {
   return (
     <div>
-      <div className='error'>
+      <div className='alert danger'>
         <span>Error</span>
         {children}
       </div>

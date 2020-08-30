@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "./Custom/Modal";
 import { Button, ButtonGroup } from "./Custom/Buttons";
 import { FormDialogDonate } from "./stripe/FormDialogDonate";
-const style = {
-  backgroundColor: "#4BDA9B",
-};
+
 export default function Donations(props) {
   const [mount, setMount] = useState(10);
   const urlPath = "#";
+  const quantityList = [5, 10, 20, 50];
   const handleMount = (mount) => {
     setMount(mount);
   };
+  console.log('mount: '+mount);
   return (
     <Modal id="donations" style={props.style}>
       <ModalHeader>
@@ -19,44 +19,18 @@ export default function Donations(props) {
       <ModalBody>
         <p>{props.words.legend}</p>
         <ButtonGroup>
-          <Button
-            type="btn-md btn-lightteal-o"
-            style={mount === 5 ? style : {}}
+          {quantityList.map(quantity=> {
+            return <Button key={quantity}
+            type={"btn-md btn-lightteal-o "+(mount === quantity? 'active': '')}
             onClick={() => {
-              handleMount(5);
+              handleMount(quantity);
             }}
           >
-            $ 5
-          </Button>
-          <Button
-            type="btn-md btn-lightteal-o"
-            style={mount === 10 ? style : {}}
-            onClick={() => {
-              handleMount(10);
-            }}
-          >
-            $ 10
-          </Button>
-          <Button
-            type="btn-md btn-lightteal-o"
-            style={mount === 20 ? style : {}}
-            onClick={() => {
-              handleMount(20);
-            }}
-          >
-            $ 20
-          </Button>
-          <Button
-            type="btn-md btn-lightteal-o"
-            style={mount === 50 ? style : {}}
-            onClick={() => {
-              handleMount(50);
-            }}
-          >
-            $ 50
-          </Button>
+            $ {quantity}
+          </Button>;
+          })}
         </ButtonGroup>
-        <FormDialogDonate mount={mount} stripePromise={props.stripePromise} />
+        <FormDialogDonate cant={mount} stripePromise={props.stripePromise} />
       </ModalBody>
       <ModalFooter>
         <a className="close" href={urlPath}>

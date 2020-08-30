@@ -79,6 +79,7 @@ export default function Match({
             Vibrant.from(result.right.img_team)
               .getPalette()
               .then((palette) => setVisitColor(palette));
+            
             setMatchFor(new MatchTeams(result.left, result.right));
             setTimeout(() => {
               setLegend("Calculating");

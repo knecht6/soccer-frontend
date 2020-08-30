@@ -129,6 +129,7 @@ main {
 .btn-md {
   font-size:1.7em;
   padding:.5em 1.2em;
+  padding:.4em .6em;
 }
 .btn-lightteal {
   background:#00dc9d;
@@ -286,7 +287,27 @@ main {
   padding: 2px 16px;
   color: white;
 }
-
+.alert {
+  padding: 20px;
+  color: white;
+  margin-bottom: 15px;
+  font-family: 'Bebas Neue';
+  font-size: 1.4em;
+  letter-spacing: 0.05em;
+  word-spacing: 0.05em;
+}
+.alert.danger {
+  background-color: #f44336; /* Red */
+}
+.alert.success {
+  background-color:#4CAF50;
+}
+.alert.info {
+  background-color:#2196F3;
+}
+.alert.warning {
+  background-color:#ff9800;
+}
 @media (min-width: 600px) {
   .modal-content {
     margin-top:50px;
