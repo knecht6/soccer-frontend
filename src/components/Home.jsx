@@ -21,6 +21,7 @@ export default function Home({
     changeMode("dark");
   }, [handleUrl, changeMode]);
   document.body.className = "body-dark";
+  document.title = "Soccer Predictions - Home";
   return (
     <div className="outer">
       <div className="middle">

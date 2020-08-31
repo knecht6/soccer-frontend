@@ -13,7 +13,6 @@ import {
 //const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
 class StripeComponent extends React.Component {
   render() {
-    console.log("stripe promise: ", this.props.stripePromise);
     return (
       <Elements stripe={this.props.stripePromise} options={ELEMENTS_OPTIONS}>
         <InjectedCheckoutForm cant={this.props.cant} />
@@ -135,7 +134,6 @@ const DEFAULT_STATE = {
 class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
-    console.log('Cantidad: '+this.props.cant);
     this.state = DEFAULT_STATE;
   }
   handleSubmit = async (event) => {

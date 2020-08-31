@@ -15,6 +15,7 @@ import Confetti from "react-confetti";
 import ProgressCircle from "./ProgressCircle";
 import WantToKnowMore from "./WantToKnowMore";
 import Donations from "./Donations";
+
 export default function Match({
   handleUrl,
   words,
@@ -52,7 +53,6 @@ export default function Match({
       b: 31,
     },
   });
-  var increment = 10.0;
   useEffect(() => {
     if (lenguaje !== Lenguaje) {
       handleLenguajeReceived(lenguaje);
@@ -79,12 +79,8 @@ export default function Match({
             Vibrant.from(result.right.img_team)
               .getPalette()
               .then((palette) => setVisitColor(palette));
-            
             setMatchFor(new MatchTeams(result.left, result.right));
-            setTimeout(() => {
-              setLegend("Calculating");
-              setIsLoaded(true);
-            }, 1000);
+            setIsLoaded(true);
           } else {
             setError(result);
             setIsLoaded(true);
@@ -106,21 +102,15 @@ export default function Match({
     }
   }, [handleUrl, matchFor]);
   useEffect(() => {
-    if (progress < 130) {
-      if (isLoaded) {
-        setTimeout(() => setProgress(progress + increment), 100);
-      } else {
-        setTimeout(() => setProgress(progress + increment), 500);
+    if (progress < 120) {
+      if (progress === 50) {
+        setLegend("Calculating");
       }
+      setTimeout(() => {
+        setProgress(progress + 10);
+      }, 400);
     }
-  }, [increment, isLoaded, progress]);
-  useEffect(() => {
-    if (isLoaded && progress < 130) {
-      let res = Math.ceil(progress / increment);
-      setProgress(res * increment);
-    }
-  }, [increment, isLoaded, progress]);
-
+  }, [isLoaded, progress]);
   //load stripe
   useEffect(() => {
     fetch(process.env.REACT_APP_STRIPE_API_URL + "/stripe-key")
@@ -134,7 +124,7 @@ export default function Match({
       });
   }, []);
   document.body.className = "body-dark";
-  if (progress === 130 && matchFor) {
+  if (progress === 120 && matchFor) {
     if (error) {
       return (
         <div style={{ textAlign: "center", paddingTop: 200 }}>
@@ -167,13 +157,13 @@ export default function Match({
               <div id="graph-container">
                 <DoughnutChart
                   localColor={
-                    localColor.LightVibrant
-                      ? localColor.LightVibrant.hex
+                    localColor.Vibrant
+                      ? localColor.Vibrant.hex
                       : localColor.Vibrant.hex
                   }
                   visitColor={
-                    visitColor.LightVibrant
-                      ? visitColor.LightVibrant.hex
+                    visitColor.Vibrant
+                      ? visitColor.Vibrant.hex
                       : visitColor.Vibrant.hex
                   }
                   matchFor={matchFor}
@@ -207,8 +197,8 @@ export default function Match({
             height={height}
             colors={[visitColor.Vibrant.hex, localColor.Vibrant.hex]}
             recycle={false}
-            numberOfPieces={1000}
-            tweenDuration={90000}
+            numberOfPieces={2000}
+            tweenDuration={190000}
           />
           <div className="container">
             <div className="btn-group">

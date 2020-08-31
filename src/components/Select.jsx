@@ -102,8 +102,9 @@ export default function Select({
         .then((res) => res.json())
         .then(
           (res) => {
-            res.forEach(team=> {
-              team.img_team = process.env.REACT_APP_IMAGES_PATH+'/'+team.img_team;
+            res.forEach((team) => {
+              team.img_team =
+                process.env.REACT_APP_IMAGES_PATH + "/" + team.img_team;
             });
             league.teams = res;
             if (league) {
@@ -194,6 +195,7 @@ export default function Select({
       });
   }, [handleUrl, setMode]);
   document.body.className = "body-light";
+  document.title = "Soccer Predictions - Selection Teams";
   if (loading) {
     return (
       <div style={{ textAlign: "center", paddingTop: 200 }}>
@@ -268,7 +270,10 @@ export default function Select({
               </League>
             ))}
           </ListLeagues>
-          <div className="container" style={{marginTop: '75px', marginBottom: '200px'}}>
+          <div
+            className="container"
+            style={{ marginTop: "75px", marginBottom: "200px" }}
+          >
             <div id="selected-teams" className="row">
               <div className="col-sm-4 col-4">
                 <TeamSelected
