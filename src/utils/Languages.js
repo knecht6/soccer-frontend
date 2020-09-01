@@ -35,7 +35,12 @@ const Lenguajes = {
           `For instance - we'd love to add a round robin component so you can grab multiple teams and play them through a season series. We'd love to include individual player data and allow you to pit your favorite kids against one another for the ultimate position ranking list. We'd love to keep honing the current scoring algorithm and make this tool even more accurate with additional data and insight....and most of all we'd love to keep this page free of ads. We think there is something special about a a data visualization that isn't encumbered by banners screaming at you to buy those shoes that have been following you around the internet for the last ten months.`,
           `All of that to say, even a small $5 donation today will enable us to continue the conversation about how the we can make this project great. If you’ve had fun, please consider making a donation – and sharing the site with all your friends.          `,
         ],
-        closeButton: "Close"
+        closeButton: "Close",
+        formDialogs: {
+          title: "Join us today.",
+          button: "Donate",
+          thanks: "Thank you very much for your donation. We really appreciate your contribution and will be in touch as we continue to update the tool."
+        }
       }
     },
     error: {
@@ -79,7 +84,12 @@ const Lenguajes = {
           `Por ejemplo, nos encantaría agregar un componente de todos contra todos para que pueda elegir varios equipos y jugarlos a lo largo de una serie de temporada. Nos encantaría incluir datos de jugadores individuales y permitirle enfrentar a sus hijos favoritos entre sí para obtener la lista de clasificación de posición definitiva. Nos encantaría seguir perfeccionando el algoritmo de puntuación actual y hacer que esta herramienta sea aún más precisa con información, datos adicionales y sobre todo, nos encantaría mantener esta página libre de anuncios. Creemos que hay algo especial en una visualización de datos que no se vea obstaculizada por pancartas que le gritan que compre esos zapatos que lo han estado siguiendo por Internet durante los últimos diez meses.`,
           `Todo eso para decir, incluso una pequeña donación de $ 5 hoy nos permitirá continuar la conversación sobre cómo podemos hacer que este proyecto sea grandioso. Si se ha divertido, considere hacer una donación y compartir el sitio con todos sus amigos.`,
         ],
-        closeButton: "Cerrar"
+        closeButton: "Cerrar",
+        formDialogs: {
+          title: "Únete a nosotros hoy",
+          button: "Donar",
+          thanks: "Muchas gracias por tu donación. Realmente apreciamos tu contribución y nos pondremos en contacto con contigo mientras seguimos actualizando la herramienta."
+        }
       }
     },
     error: {

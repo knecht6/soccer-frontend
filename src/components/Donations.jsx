@@ -37,7 +37,11 @@ export default function Donations(props) {
             );
           })}
         </ButtonGroup>
-        <FormDialogDonate cant={mount} stripePromise={props.stripePromise} />
+        <FormDialogDonate
+          cant={mount}
+          stripePromise={props.stripePromise}
+          formDialogs={props.words.formDialogs}
+        />
       </ModalBody>
       <ModalFooter>
         <a className="close" href={urlPath}>

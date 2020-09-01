@@ -15,16 +15,24 @@ class StripeComponent extends React.Component {
   render() {
     return (
       <Elements stripe={this.props.stripePromise} options={ELEMENTS_OPTIONS}>
-        <InjectedCheckoutForm cant={this.props.cant} />
+        <InjectedCheckoutForm
+          cant={this.props.cant}
+          formDialogs={this.props.formDialogs}
+        />
       </Elements>
     );
   }
 }
 
-const InjectedCheckoutForm = ({ cant }) => (
+const InjectedCheckoutForm = ({ cant, formDialogs }) => (
   <ElementsConsumer>
     {({ stripe, elements }) => (
-      <CheckoutForm cant={cant} stripe={stripe} elements={elements} />
+      <CheckoutForm
+        cant={cant}
+        stripe={stripe}
+        elements={elements}
+        formDialogs={formDialogs}
+      />
     )}
   </ElementsConsumer>
 );
@@ -183,8 +191,7 @@ class CheckoutForm extends React.Component {
           this.setState({ processing: false });
           if (res.status === "succeeded") {
             this.setState({
-              thanks:
-                "Thank you very much for your donation. We really appreciate your contribution and will be in touch as we continue to update the tool.",
+              thanks: this.props.formDialogs.thanks,
             });
           } else {
             this.setState({
@@ -252,7 +259,7 @@ class CheckoutForm extends React.Component {
               error={error}
               disabled={!stripe}
             >
-              Donate ${this.props.cant}
+              {this.props.formDialogs.button} ${this.props.cant}
             </SubmitButton>
           </div>
         </form>
@@ -264,7 +271,7 @@ const CARD_OPTIONS = {
   iconStyle: "solid",
   style: {
     base: {
-      color:'white'
+      color: "white",
     },
     invalid: {
       iconColor: "#FFC7EE",
@@ -298,7 +305,7 @@ function WarningAlerts({ children }) {
 function ErrorAlerts({ children }) {
   return (
     <div>
-      <div className='alert danger'>
+      <div className="alert danger">
         <span>Error</span>
         {children}
       </div>
