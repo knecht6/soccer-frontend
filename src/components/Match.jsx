@@ -36,7 +36,7 @@ export default function Match({
   const [matchFor, setMatchFor] = useState(null);
   const [progress, setProgress] = useState(0);
   const [stripePromise, setStripePromise] = useState(null);
-  const [legend, setLegend] = useState("Retrieving data");
+  const [legend, setLegend] = useState(words.progresscircle.retriving);
   const [localColor, setLocalColor] = useState({
     Vibrant: {
       hex: "#77C747",
@@ -53,6 +53,9 @@ export default function Match({
       b: 31,
     },
   });
+  useEffect(() => {
+    setLegend(words.progresscircle.retriving);
+  }, [words.progresscircle.retriving]);
   useEffect(() => {
     if (lenguaje !== Lenguaje) {
       handleLenguajeReceived(lenguaje);
@@ -104,13 +107,13 @@ export default function Match({
   useEffect(() => {
     if (progress < 120) {
       if (progress === 50) {
-        setLegend("Calculating");
+        setLegend(words.progresscircle.calulating);
       }
       setTimeout(() => {
         setProgress(progress + 10);
       }, 400);
     }
-  }, [isLoaded, progress]);
+  }, [isLoaded, progress, words.progresscircle.calulating]);
   //load stripe
   useEffect(() => {
     fetch(process.env.REACT_APP_STRIPE_API_URL + "/stripe-key")
@@ -223,7 +226,7 @@ export default function Match({
     return (
       <div style={{ textAlign: "center", paddingTop: 150 }}>
         <ProgressCircle
-          radius={100}
+          radius={125}
           stroke={4}
           progress={progress >= 100 ? 100 : progress}
           legend={legend}
