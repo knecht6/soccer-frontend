@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import useWindowSize from "react-use/lib/useWindowSize";
 import * as Vibrant from "node-vibrant";
@@ -15,6 +15,7 @@ import Confetti from "react-confetti";
 import ProgressCircle from "./ProgressCircle";
 import WantToKnowMore from "./WantToKnowMore";
 import Donations from "./Donations";
+import useInterval from './Custom/useInterval';
 
 export default function Match({
   handleUrl,
@@ -34,6 +35,7 @@ export default function Match({
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [matchFor, setMatchFor] = useState(null);
+  const [time, setTime] = useState(100);
   const [progress, setProgress] = useState(0);
   const [stripePromise, setStripePromise] = useState(null);
   const [legend, setLegend] = useState("Retrieving data");
@@ -101,16 +103,22 @@ export default function Match({
       handleUrl(window.location.href, matchFor.localTeam, matchFor.visitTeam);
     }
   }, [handleUrl, matchFor]);
-  useEffect(() => {
-    if (progress < 120) {
-      if (progress === 50) {
-        setLegend("Calculating");
+
+  useInterval(() => {
+    if (isLoaded && !error) {
+      setLegend('Calculating');
+      if (progress >= 120) {
+        setTime(null)
+        console.log('progress ends');
+      } else {
+        setTime(50);
+        setProgress(progress + 5);
       }
-      setTimeout(() => {
-        setProgress(progress + 10);
-      }, 400);
+    } else {
+      setProgress(progress + 5);
     }
-  }, [isLoaded, progress]);
+  }, time);
+
   //load stripe
   useEffect(() => {
     fetch(process.env.REACT_APP_STRIPE_API_URL + "/stripe-key")
@@ -132,6 +140,7 @@ export default function Match({
         </div>
       );
     } else {
+      console.log('colors: ', visitColor.Vibrant.hex, localColor.Vibrant.hex);
       document.body.className = "body-dark";
       document.title = `${matchFor.localTeam.team_name} ${matchFor.localTeam.season_name} vs ${matchFor.visitTeam.team_name} ${matchFor.visitTeam.season_name}`;
       return (
@@ -169,7 +178,7 @@ export default function Match({
                   matchFor={matchFor}
                   duration={
                     matchFor.localTeam.percentage >
-                    matchFor.visitTeam.percentage
+                      matchFor.visitTeam.percentage
                       ? matchFor.localTeam.percentage * 30
                       : matchFor.visitTeam.percentage * 30
                   }
