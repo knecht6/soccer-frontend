@@ -41,6 +41,10 @@ const Lenguajes = {
           button: "Donate",
           thanks: "Thank you very much for your donation. We really appreciate your contribution and will be in touch as we continue to update the tool."
         }
+      },
+      progresscircle: {
+        calulating: "Calculating",
+        retriving: "Retrieving data"
       }
     },
     error: {
@@ -90,6 +94,10 @@ const Lenguajes = {
           button: "Donar",
           thanks: "Muchas gracias por tu donación. Realmente apreciamos tu contribución y nos pondremos en contacto con contigo mientras seguimos actualizando la herramienta."
         }
+      },
+      progresscircle: {
+        calulating: "Calculando",
+        retriving: "Recuperando datos"
       }
     },
     error: {
